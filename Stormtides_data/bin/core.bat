@@ -2183,7 +2183,7 @@ echo %linevar%
 echo What would you like to do?
 echo [0m
 echo [%s1%] Main Weapon[0m
-echo [%s2%] Spellbook [[31mComing Soon[0m][0m
+echo [%s2%] Tidelink [[31mComing Soon[0m][0m
 echo [%s3%] Back[0m
 echo.
 echo %linevar%
@@ -2256,15 +2256,15 @@ if "%errorlevel%"=="2" set /a select+=1
 if "%errorlevel%"=="3" goto mainmenu
 if "%errorlevel%"=="4" goto checkitemsINV
 if "%errorlevel%"=="5" (
-if "%select%"=="1" set spell_select=magic_missile&goto atk_spell
-if "%select%"=="2" set spell_select=fiery_missiles&goto atk_spell
-if "%select%"=="3" set spell_select=spirit_wave&goto atk_spell
-if "%select%"=="4" set spell_select=holly_spike&goto atk_spell
-if "%select%"=="5" set spell_select=lunar_rush&goto atk_spell
-if "%select%"=="6" set spell_select=carnage_curse&goto atk_spell
-if "%select%"=="7" set spell_select=pyromania&goto atk_spell
-if "%select%"=="8" set spell_select=solar_rpture&goto atk_spell
-if "%select%"=="9" set spell_select=purity_of_energy&goto atk_spell
+if "%select%"=="1" set /a spell_select=magic_missile&goto atk_spell
+if "%select%"=="2" set /a spell_select=fiery_missiles&goto atk_spell
+if "%select%"=="3" set /a spell_select=spirit_wave&goto atk_spell
+if "%select%"=="4" set /a spell_select=holly_spike&goto atk_spell
+if "%select%"=="5" set /a spell_select=lunar_rush&goto atk_spell
+if "%select%"=="6" set /a spell_select=carnage_curse&goto atk_spell
+if "%select%"=="7" set /a spell_select=pyromania&goto atk_spell
+if "%select%"=="8" set /a spell_select=solar_rpture&goto atk_spell
+if "%select%"=="9" set /a spell_select=purity_of_energy&goto atk_spell
 if "%select%"=="10" goto fs1
 )
 goto spell_choose
@@ -6587,7 +6587,7 @@ echo You Curently Have %gold% Gold.
 echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
-echo [%s1%] Lunar Rush[0m
+echo [%s1%] Spirt Heal Spell Recipe -  [0m
 echo [%s2%] Carnage Curse[0m
 echo [%s3%] Pyromania[0m
 echo [%s4%] Solar Ruptureh[0m
