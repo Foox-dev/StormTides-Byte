@@ -3,6 +3,8 @@ color 0f
 title StormTides Batch - Luancher
 mode con cols=48 lines=35
 setlocal enabledelayedexpansion
+START LICENSE.txt
+start wmplayer "music.mp3"
 
 < Stormtides_data\lib\boot.config (
 set /p null=

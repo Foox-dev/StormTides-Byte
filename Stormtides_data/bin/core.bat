@@ -2332,7 +2332,6 @@ if %swordtype% EQU Necrosis set /a damage=%random%*450/32767+1
 if %artifacttype% EQU Storm set /a damage=%damage%+%random%*100/32767+1
 if %damage% GTR %health% set /a damage=%health%
 
-
 :playeratk
 if %swordtype% EQU Necrosis set /a hp=%hp%+%random%*250/32767+1
 cls
@@ -2344,7 +2343,6 @@ echo %linevar%
 echo.
 echo You attack the %npctype%!
 echo.
-ping localhost -n 2 >nul
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -2353,7 +2351,7 @@ echo It now has %health%.[31mHP[0m left.
 echo.
 echo %linevar%
 echo +%atkxp% EXP.
-pause>nul
+pause >nul
 if %health% LEQ 0 goto dropitem
 if %levell% LSS 225 (
 if %playerxp% GTR %origxp% goto levelup
@@ -2362,51 +2360,6 @@ goto fs3
 goto fs3
 
 :attacknpc
-if %armortype% EQU Cardbord set /a dr=%random%*2/32767+1
-if %armortype% EQU Creative set /a dr=%random%*5/32767+1
-if %armortype% EQU Steel set /a dr=%random%*10/32767+1
-if %armortype% EQU Cosmic set /a dr=%random%*15/32767+1
-if %armortype% EQU Furr set /a dr=%random%*20/32767+1
-if %armortype% EQU Titanium set /a dr=%random%*25/32767+1
-if %skindA% EQU ^Set set /a dr=%random%*28/32767+1
-if %armortype% EQU Armor set /a dr=%random%*32/32767+1
-
-if %armortype% EQU Cardbord set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Creative set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Steel set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Cosmic set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Furr set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Titanium set /a dmgnpc=%dmgnpc%-%dr%
-if %skindA% EQU ^Set set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Armor set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Storm set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% LEQ 0 set /a dmgnpc=0
-if %dmgnpc% LEQ 0 set dmgnpc=69
-
-
-if %armortype% EQU Cardbord set /a dr=%random%*2/32767+1
-if %armortype% EQU Hide set /a dr=%random%*5/32767+1
-if %armortype% EQU Steel set /a dr=%random%*10/32767+1
-if %armortype% EQU Scale set /a dr=%random%*15/32767+1
-if %armortype% EQU Furr set /a dr=%random%*20/32767+1
-if %armortype% EQU Titanium set /a dr=%random%*25/32767+1
-if %skindA% EQU Tungsten set /a dr=%random%*28/32767+1
-if %armortype% EQU Platinum set /a dr=%random%*32/32767+1
-
-if %armortype% EQU Cardbord set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Hide set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Steel set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Scale set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Furr set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Titanium set /a dmgnpc=%dmgnpc%-%dr%
-if %skindA% EQU Tungsten set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Platinum set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% EQU Storm set /a dmgnpc=%dmgnpc%-%dr%
-if %armortype% LEQ 0 set /a dmgnpc=0
-if %dmgnpc% LEQ 0 set dmgnpc=69
-
-
-
 :fs3
 set destination=fs3
 if %npctype% EQU Rat set /a dmgnpc=%random%*23/32767+1
@@ -2430,6 +2383,12 @@ if %npcstat% EQU Strong set /a dmgnpc=%damage%+50
 if %npcstat% EQU [31mINVERTED[0m set /a dmgnpc=20000
 if %npctype% EQU Dungeon-Duck set npcstat=[31mINVERTED[0m
 
+if %armortype% EQU Steel set /a dmgnpc=%dmgnpc%-8
+if %armortype% EQU Titanium set /a  dmgnpc=%dmgnpc%-25
+if %armortype% EQU Platinum set /a  dmgnpc=%dmgnpc%-100
+
+if %dmgnpc% LSS 0 set dmgnpc=0
+
 cls
 mode con cols=48 lines=35
 echo %linevar%
@@ -2438,7 +2397,6 @@ echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The %npcstat% %npctype% attacks you...
-ping localhost -n 2 >nul
 echo And %npcstat% %npctype% deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -3018,7 +2976,7 @@ echo %linevar2%
 echo.
 echo %armorcount%/8 Collected
 echo.
-if %armor1% GTR 0 echo [[90mX[0m] Cardbord Armor
+if %armor1% GTR 0 echo [[90mX[0m] Leather Tunic
 if %armor1% EQU 0 echo [[90m-[0m] ???
 if %armor2% GTR 0 echo [[90mX[0m] Hide Armor
 if %armor2% EQU 0 echo [[90m-[0m] ???
@@ -3140,14 +3098,12 @@ echo.
 echo %linevar%
 echo [%s5%] Back[0m
 if "%msplash%"=="y" echo.
-choice /c:wsmiad /n /m ""
+choice /c:wsad /n /m ""
 set msplash=n
 if "%errorlevel%"=="1" set /a select-=1
 if "%errorlevel%"=="2" set /a select+=1
-if "%errorlevel%"=="3" goto mainmenu
-if "%errorlevel%"=="4" goto checkitemsINV
-if "%errorlevel%"=="5" set select=1&goto %backdest%
-if "%errorlevel%"=="6" (
+if "%errorlevel%"=="3" set select=1&goto %backdest%
+if "%errorlevel%"=="4" (
 if "%select%"=="1" goto quickselect1
 if "%select%"=="2" goto quickselect2
 if "%select%"=="3" goto quickselect3
@@ -3204,7 +3160,7 @@ echo.
 if %weapon1% GTR 0 echo Shadow Striker: %weapon1%
 if %weapon2% GTR 0 echo Necrosis: %weapon2%
 echo.
-if %armor1% GTR 0 echo Cardbord Armor: %armor1%
+if %armor1% GTR 0 echo Leather Tunic: %armor1%
 if %armor2% GTR 0 echo Hide Armor: %armor2%
 if %armor3% GTR 0 echo Steel Armor: %armor3%
 if %armor4% GTR 0 echo Scale Set: %armor4%
@@ -4217,7 +4173,7 @@ echo You currentlyly have a %armortype% %skindA% equipped.
 echo %linevar%
 echo Select a sword to equip.
 echo [0m
-if %armor1% GTR 0 echo [%s1%] Cardbord Armor: %armor1%[0m
+if %armor1% GTR 0 echo [%s1%] Leather Tunic: %armor1%[0m
 if %armor1% EQU 0 echo [%s1%] ???: %armor1%[0m
 if %armor2% GTR 0 echo [%s2%] Hide Armor: %armor2%[0m
 if %armor2% EQU 0 echo [%s2%] ???: %armor2%[0m
@@ -4256,6 +4212,8 @@ if "%select%"=="8" if %armor8% GTR 0 set select=1&goto inspect8A
 if "%select%"=="9" set select=1&goto checkitems
 )
 goto armorselect
+
+// MARK: WORK
 :inspect1A
 cls
 if %select% gtr 2 set select=1
@@ -4267,8 +4225,9 @@ echo %linevar2%
 echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
-echo Cardbord Armor ^| Bought Item
-echo Class: Warrior
+echo Leather Tunic ^| Bought Item
+echo Type: Light Armor
+echo Class: Newbie
 echo Level Required: 1+
 echo.
 echo Special Features: None
@@ -4301,6 +4260,7 @@ echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
 echo Hide Armor ^| Bought Item
+echo Type: Light Armor
 echo Class: Archer
 echo Level Required: 1+
 echo.
@@ -4334,10 +4294,12 @@ echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
 echo Steel Armor ^| Bought Item
+echo Type: Heavy Armor
 echo Class: Warrior
 echo Level Required: 2+
 echo.
-echo Special Features: None
+echo Special Features: 
+echo - Tough: -8 Npc Damage Reduction
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -4367,11 +4329,13 @@ echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
 echo Scale Set ^| Bought Item
-echo Class: Warrior
+echo Type: Normal
+echo Class: Mage
 echo Level Required: 5+
 echo.
 echo Special Features: None
-echo Bonus Stats: None
+echo Bonus Stats:
+echo - Enchanted: +5 Point Damage Addition
 echo Duribility: Infinite
 echo.
 echo %linevar%
@@ -4400,6 +4364,7 @@ echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
 echo Fur Suit ^| Bought Item
+echo Type: Heavy Armor
 echo Class: ???
 echo Level Required: 10+
 echo.
@@ -4433,10 +4398,13 @@ echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
 echo Titanium Armor ^| Bought Item
+echo Type: Heavy Armor
 echo Class: Warrior
 echo Level Required: 20+
 echo.
-echo Special Features: None
+echo Special Features:
+echo - Tough: -25 Npc Damage Reduction
+echo - Slowness: -5 Point Damage Reduction
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -4466,10 +4434,13 @@ echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
 echo Tungsten Armor ^| Bought Item
+echo Type: Heavy Armor
 echo Class: Warrior
 echo Level Required: 25+
 echo.
-echo Special Features: None
+echo Special Features:
+echo - Tough: -50 Npc Damage Reduction
+echo - Slowness: -10 Point Damage Reduction
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -4500,10 +4471,13 @@ echo [34mStorm[36mTides[0m  ^| Armor
 echo %linevar2%
 echo.
 echo Platinum Armor ^| Bought Item
+echo Type: Heavy Armor
 echo Class: Warrior
 echo Level Required: 35+
 echo.
-echo Special Features: None
+echo Special Features:
+echo - Tough: -100 Npc Damage Reduction
+echo - Slowness: -50 Point Damage Reduction
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -4526,8 +4500,8 @@ goto inspect8A
 set destination=equips1A
 if %armor1% EQU 0 goto noarmorA
 if %armortype% EQU Cardbord goto alreadyequipA
-set armortype=Cardbord
-set skindA=Armor
+set armortype=Leather
+set skindA=Tunic
 set aan=a
 goto confirmequipA
 
@@ -4690,13 +4664,14 @@ echo [%s4%] Raid Health Elixer: %raidpot%[0m
 echo.
 echo %linevar%
 echo [%s5%] Back[0m
-echo Please choose a potion to use.
 echo.
 if "%msplash%"=="y" echo.
-choice /c:ad /n /m ""
+choice /c:wsad /n /m ""
 set msplash=n
-if "%errorlevel%"=="1" set select=1&goto %backdest%
-if "%errorlevel%"=="2" (
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" set select=1&goto %backdest%
+if "%errorlevel%"=="4" (
 if "%select%"=="1" set select=1&goto heal1-2
 if "%select%"=="2" set select=1&goto heal2-2
 if "%select%"=="3" set select=1&goto heal3-2
@@ -5383,7 +5358,7 @@ echo You Curently Have %gold% gold.
 echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
-echo [%s1%] Cardbord Armor - 45 gold ^| [[90mLv.1+[0m][0m
+echo [%s1%] Leather Tunic - 45 gold ^| [[90mLv.1+[0m][0m
 echo [%s2%] Hide Armor - 135 gold ^| [[90mLv.1+[0m][0m
 echo [%s3%] Steel Armor - 380 gold ^| [[90mLv.2+[0m][0m
 echo [%s4%] Scale Set - 830 gold ^| [[90mLv.5+[0m][0m
@@ -6225,6 +6200,13 @@ if %swordtype% EQU Shadow set /a damage=%random%*375/32767+1
 if %swordtype% EQU Necrosis set /a damage=%random%*450/32767+1
 if %artifacttype% EQU Storm set /a damage=%damage%+100
 if %damage% GTR %health% set /a damage=%health%
+
+if %armortype% EQU Scale set /a  damage=%damage%+5
+if %armortype% EQU Titanium set /a  damage=%damage%-5
+if %armortype% EQU Tungsten set /a  damage=%damage%-10
+if %armortype% EQU Platinum set /a  damage=%damage%-50
+
+if %damage% LSS 0 set /a damage=0
 cls
 mode con cols=48 lines=35
 echo %linevar%
@@ -6234,7 +6216,6 @@ echo %linevar%
 echo.
 echo You attack the %npcstat% %npctype%!
 echo.
-ping localhost -n 2 >nul
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -6283,7 +6264,6 @@ echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The %npcstat% %npctype% attacks.
-ping localhost -n 2 >nul
 echo The %npcstat% %npctype% deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -8918,7 +8898,7 @@ echo.
 echo You currently have a %armortype% %skindA% equipped.
 echo Select a sword to equip, or return to battle.
 echo [0m
-if %armor1% GTR 0 echo [%s1%] Cardbord Armor: %armor1%[0m
+if %armor1% GTR 0 echo [%s1%] Leather Tunic: %armor1%[0m
 if %armor1% EQU 0 echo [%s1%] ???: %armor1%[0m
 if %armor2% GTR 0 echo [%s2%] Hide armor: %armor2%[0m
 if %armor2% EQU 0 echo [%s2%] ???: %armor2%[0m
@@ -8954,6 +8934,8 @@ if "%select%"=="8" if %armor8% GTR 0 set select=1&goto inspect8AINV
 if "%select%"=="9" set select=1&goto checkitemsIN
 )
 goto armorselectINV
+
+// MARK: WORK2
 :inspect1AINV
 cls
 if %select% gtr 2 set select=1
@@ -8965,8 +8947,9 @@ echo %linevar2%
 echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
-echo Cardbord Armor ^| Bought Item
-echo Class: Warrior
+echo Leather Tunic ^| Bought Item
+echo Type: Light Armor
+echo Class: Newbie
 echo Level Required: 1+
 echo.
 echo Special Features: None
@@ -8999,6 +8982,7 @@ echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
 echo Hide Armor ^| Bought Item
+echo Type: Light Armor
 echo Class: Archer
 echo Level Required: 1+
 echo.
@@ -9032,10 +9016,12 @@ echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
 echo Steel Armor ^| Bought Item
+echo Type: Heavy Armor
 echo Class: Warrior
 echo Level Required: 2+
 echo.
-echo Special Features: None
+echo Special Features: 
+echo - Tough: -8 Npc Damage Reduction
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -9065,11 +9051,13 @@ echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
 echo Scale Set ^| Bought Item
-echo Class: Warrior
+echo Type: Normal
+echo Class: Mage
 echo Level Required: 5+
 echo.
 echo Special Features: None
-echo Bonus Stats: None
+echo Bonus Stats:
+echo - Enchanted: +5 Point Damage Addition
 echo Duribility: Infinite
 echo.
 echo %linevar%
@@ -9098,6 +9086,7 @@ echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
 echo Fur Suit ^| Bought Item
+echo Type: Heavy Armor
 echo Class: ???
 echo Level Required: 10+
 echo.
@@ -9131,10 +9120,13 @@ echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
 echo Titanium Armor ^| Bought Item
+echo Type: Heavy Armor
 echo Class: Warrior
 echo Level Required: 20+
 echo.
-echo Special Features: None
+echo Special Features:
+echo - Tough: -50 Npc Damage Reduction
+echo - Slowness: -25 Point Damage Reduction
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -9164,10 +9156,13 @@ echo [34mStorm[36mTides[0m  ^|  Armor
 echo %linevar2%
 echo.
 echo Tungsten Armor ^| Bought Item
+echo Type: Heavy Armor
 echo Class: Warrior
 echo Level Required: 25+
 echo.
-echo Special Features: None
+echo Special Features:
+echo - Tough: -85 Npc Damage Reduction
+echo - Slowness: -50 Point Damage Reduction
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -9198,10 +9193,13 @@ echo [34mStorm[36mTides[0m  ^| Armor
 echo %linevar2%
 echo.
 echo Platinum Armor ^| Bought Item
+echo Type: Heavy Armor
 echo Class: Warrior
 echo Level Required: 35+
 echo.
-echo Special Features: None
+echo Special Features:
+echo - Tough: -100 Npc Damage Reduction
+echo - Slowness: -50 Point Damage Reduction
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -9973,6 +9971,11 @@ if %npcstat% EQU if %health% GTR 50 Weak set /a health=%health%-50
 if %npcstat% EQU Enraged set /a dmgnpc=%damage%+85
 if %npcstat% EQU Strong set /a dmgnpc=%damage%+50
 
+if %armortype% EQU Steel set /a dmgnpc=%dmgnpc%-8
+if %armortype% EQU Titanium set /a  dmgnpc=%dmgnpc%-25
+if %armortype% EQU Platinum set /a  dmgnpc=%dmgnpc%-100
+
+if %dmgnpc% LSS 0 set dmgnpc=0
 
 cls
 mode con cols=48 lines=35
@@ -10330,6 +10333,7 @@ if %swordtype% EQU Necrosis set /a damage=%random%*450/32767+1
 if %artifacttype% EQU Storm set /a damage=%damage%+%random%*100/32767+1
 if %npcstat% EQU Tough if not %damage% LEQ 85 set /a damage=%damage%-85
 if %damage% GTR %health% set /a damage=%health%
+
 cls
 mode con cols=48 lines=35
 echo %linevar%
@@ -10361,6 +10365,12 @@ set destination=fs3RAIDBOSS
 set /a dmgnpc=%random%*305/32767+1
 if %swordtype% EQU Necrosis set /a hp=%hp%+%random%*250/32767+1
 if %swordtype% EQU Necrosis set /a orighp=%orighp%+1
+
+if %armortype% EQU Steel set /a dmgnpc=%dmgnpc%-8
+if %armortype% EQU Titanium set /a  dmgnpc=%dmgnpc%-25
+if %armortype% EQU Platinum set /a  dmgnpc=%dmgnpc%-100
+
+if %dmgnpc% LSS 0 set dmgnpc=0
 cls
 mode con cols=48 lines=35
 echo %linevar%
@@ -10961,14 +10971,9 @@ if %swordtype% EQU Sharp set /a damage=%random%*310/32767+1
 if %swordtype% EQU Warriors set /a damage=%random%*325/32767+1
 if %swordtype% EQU Shadow set /a damage=%random%*375/32767+1
 if %swordtype% EQU Necrosis set /a damage=%random%*450/32767+1
-if %swordtype% EQU Runic set /a damage=%random%*300/32767+1
-if %swordtype% EQU Infernal set /a damage=%random%*300/32767+1
-if %swordtype% EQU Omega set /a damage=%random%*300/32767+1
-if %swordtype% EQU Chaotic set /a damage=%random%*300/32767+1
-if %swordtype% EQU Mythical set /a damage=%random%*450/32767+1
-if %swordtype% EQU Alydril set /a damage=%random%*600/32767+1
 if %artifacttype% EQU Storm set /a damage=%damage%+%random%*100/32767+1
 if %damage% GTR %health% set /a damage=%health%
+
 cls
 mode con cols=48 lines=35
 echo %linevar%
@@ -10978,7 +10983,6 @@ echo %linevar%
 echo.
 echo You attack the %npcstat% %npctype%!
 echo.
-ping localhost -n 2 >nul
 set /a atkxp=((%damage%/4)*%xpmul%+2)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -11020,6 +11024,12 @@ if %npcstat% EQU Strong set /a dmgnpc=%damage%+50
 if %npcstat% EQU [31mINVERTED[0m set /a dmgnpc=20000
 if %npctype% EQU Dungeon-Duck set npcstat=[31mINVERTED[0m
 
+if %armortype% EQU Steel set /a dmgnpc=%dmgnpc%-8
+if %armortype% EQU Titanium set /a  dmgnpc=%dmgnpc%-25
+if %armortype% EQU Platinum set /a  dmgnpc=%dmgnpc%-100
+
+if %dmgnpc% LSS 0 set dmgnpc=0
+
 cls
 mode con cols=48 lines=35
 echo %linevar%
@@ -11028,7 +11038,6 @@ echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The %npcstat% %npctype% attacks.
-ping localhost -n 2 >nul
 echo The %npcstat% %npctype% deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -11571,6 +11580,14 @@ if %swordtype% EQU Mythical set /a damage=%random%*450/32767+1
 if %swordtype% EQU Alydril set /a damage=%random%*600/32767+1
 if %artifacttype% EQU Storm set /a damage=%damage%+%random%*100/32767+1
 if %damage% GTR %health% set /a damage=%health%
+
+if %armortype% EQU Scale set /a  damage=%damage%+5
+if %armortype% EQU Titanium set /a  damage=%damage%-5
+if %armortype% EQU Tungsten set /a  damage=%damage%-10
+if %armortype% EQU Platinum set /a  damage=%damage%-50
+
+if %damage% LSS 0 set /a damage=0
+cls
 cls
 mode con cols=48 lines=35
 echo %linevar%
@@ -11618,7 +11635,6 @@ if %npcstat% EQU if %health% GTR 50 Weak set /a health=%health%-50
 if %npcstat% EQU Enraged set /a dmgnpc=%damage%+85
 if %npcstat% EQU Strong set /a dmgnpc=%damage%+50
 if %npcstat% EQU Tough set /a health=%health%+100
-
 
 cls
 mode con cols=48 lines=35
@@ -11910,6 +11926,8 @@ if %swordtype% EQU Mythical set /a damage=%random%*450/32767+1
 if %swordtype% EQU Alydril set /a damage=%random%*600/32767+1
 if %npcstat% EQU Tough if not %damage% LEQ 85 set /a damage=%damage%-85
 if %damage% GTR %health% set /a damage=%health%
+
+cls
 cls
 mode con cols=48 lines=35
 echo %linevar%
@@ -11940,7 +11958,11 @@ goto fs3RAIDBOSS-2
 :fs3RAIDBOSS-2
 set destination=fs3RAIDBOSS-2
 set /a dmgnpc=%random%*305/32767+1
+if %armortype% EQU Steel set /a dmgnpc=%dmgnpc%-8
+if %armortype% EQU Titanium set /a  dmgnpc=%dmgnpc%-25
+if %armortype% EQU Platinum set /a  dmgnpc=%dmgnpc%-100
 
+if %dmgnpc% LSS 0 set dmgnpc=0
 
 cls
 mode con cols=48 lines=35
