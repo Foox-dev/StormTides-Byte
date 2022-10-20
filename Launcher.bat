@@ -33,7 +33,7 @@
 ::978f952a14a936cc963da21a135fa983
 @echo off
 color 0f
-title StormTides Batch - Luancher
+title StormTides Byte - Luancher
 mode con cols=48 lines=35
 setlocal enabledelayedexpansion
 START LICENSE.txt
@@ -105,7 +105,7 @@ set /p code4=
 set /p code5=
 )
 set select=1
-set version=[90mv1.7: Beta[97m
+set version=[90mv1.0: Early Accses[97m
 net use Y: /delete
 set msplash=y
 set nsplash=y
@@ -349,16 +349,8 @@ echo %linevar2%
 echo [34mStorm[36mTides[0m  ^|  Bug Fixes
 echo %linevar2%
 echo.
-echo - Fixed a bug in the sand beach wander where 
-echo   the level up menu would goto crash.
-echo - Fixed a bug in the inventory armor select 
-echo   where you could not select back.
-echo - Fixed the enemy buff randomizer.
-echo - Fixed a bug in the Trade Market where
-echo   selling an item would put you in the
-echo   negatives.
-echo - Mostly fixed a bug that when an new item 
-echo   comes out it would not save properly.
+echo - Fixed a bug where the enemys health in 
+echo   certain wanders would stay at 10
 echo.
 echo %linevar%
 echo [%s1%] Back
@@ -381,23 +373,11 @@ echo %linevar2%
 echo [34mStorm[36mTides[0m  ^|  New Features
 echo %linevar2%
 echo.
-echo - Unit credit system has been implemented but
-echo   not functional.
-echo - Updated the launcher.
-echo - Added a select highlite.
-echo - Reworked the battle system.
-echo - Added the Quick Item battle option.
-echo - Added a feature where you can select an.
-echo   empty slot and create a new save.
-echo - Added a level lock to the weapons forge.
-echo - Added the weapon Necrosis.
-echo - Added a new "enemy" to all wanders.
-echo - Added a new enemy buff.
-echo - Added a "Repair Files" option in the
-echo   settings menu.
-echo - Added the Sorcerers Tower in the 
-echo   Krelbay town.
-echo - Added the inpect weapon/armor option.
+echo - Added three new towns
+echo - Added 2 new un-used weapons
+echo - Added the Blacksmith
+echo - Added the Temple
+echo - Added a new un-used area in the map
 echo.
 echo %linevar%
 echo [%s1%] Back
@@ -420,28 +400,10 @@ echo %linevar2%
 echo [34mStorm[36mTides[0m  ^|  Changes
 echo %linevar2%
 echo.
-echo - Renamed dungeons to wanders.
-echo - Renamed raids to dungeons.
-echo - Renamed Raid Chests to Dungeon Chests
-echo - Added the raid potion to the main heal menu.
-echo - removed mythic raids.
-echo - Changed the credits menu.
-echo - Chnaged the changelog menu.
-echo - Event Codes have been temporarily
-echo   disabled.
-echo - The play screen has been widened.
-echo - There is now three new types of Decor lines.
-echo - The lines are now fited to reach across the
-echo   screen.
-echo - The weapon and armor select menu has been 
-echo   updated.
-echo - The Dunegon/Raid menu has been updated.
-echo - Removed the "N/A" in the inventory upon the 
-echo   armor and artifact.
-echo - Optimized the trade market.
-echo - Removed the page number in the 
-echo   inventory.
-echo - Max level is now 225.
+echo - Revamped the map
+echo - Changed the first town
+echo - Changed the text on the weapon inspect
+echo   menu
 echo.
 echo %linevar%
 echo [%s1%] Back
