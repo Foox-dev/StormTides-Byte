@@ -1,3 +1,41 @@
+::[Bat To Exe Converter]
+::
+::fBE1pAF6MU+EWGLUohhgeUEFFESyEVb6b5YO7env5uSA4mglcYI=
+::fBE1pAF6MU+EWGLUohhgeUEFFESyEVb6b5MV5O317ueC+A0+Dt4Ka4rJyYiPLO8B43nAepU4239UjNgwPy96PjezazMHvWFQu3CMM8KPjAvgXkm15EI+J2Z7lWaDwi4jZbM=
+::fBE1pAF6MU+EWGLUohhgeUEFFESyEVb6b5MT+uX6+7DH8R9ddusrOJOb+buAM+8f7wWsQ58+33hWnYJs
+::fBE1pAF6MU+EWGLUohhgeUEFFESyEVb6b5QY7OH16KqVp14SQfA8fZyVlPrOD8tz
+::fBE1pAF6MU+EWGLUohhgeUEFFESyEVb6b4UO5+v+/PnHpEQTXfE3fYu7
+::YAwzoRdxOk+EWAnk
+::fBw5plQjdCyDJGyX8VAjFBpYQxaLAE+1EbsQ5+n//Na0tkIPWdY2fIrIl5iBJ+9TohStO58u2Ro=
+::YAwzuBVtJxjWCl3EqQJgSA==
+::ZR4luwNxJguZRRnk
+::Yhs/ulQjdF+5
+::cxAkpRVqdFKZSDk=
+::cBs/ulQjdF+5
+::ZR41oxFsdFKZSDk=
+::eBoioBt6dFKZSDk=
+::cRo6pxp7LAbNWATEpCI=
+::egkzugNsPRvcWATEpCI=
+::dAsiuh18IRvcCxnZtBJQ
+::cRYluBh/LU+EWAnk
+::YxY4rhs+aU+JeA==
+::cxY6rQJ7JhzQF1fEqQJQ
+::ZQ05rAF9IBncCkqN+0xwdVs0
+::ZQ05rAF9IAHYFVzEqQJQ
+::eg0/rx1wNQPfEVWB+kM9LVsJDGQ=
+::fBEirQZwNQPfEVWB+kM9LVsJDGQ=
+::cRolqwZ3JBvQF1fEqQJQ
+::dhA7uBVwLU+EWDk=
+::YQ03rBFzNR3SWATElA==
+::dhAmsQZ3MwfNWATElA==
+::ZQ0/vhVqMQ3MEVWAtB9wSA==
+::Zg8zqx1/OA3MEVWAtB9wSA==
+::dhA7pRFwIByZRRnk
+::Zh4grVQjdCyDJGyX8VAjFBpYQxaLAE+1BaAR7ebv/Na0lm9dcfo6RLzP1aaDNOkX71bbcZc510ZWkckwDxRKe0HlaxcxyQ==
+::YB416Ek+ZG8=
+::
+::
+::978f952a14a936cc963da21a135fa983
 @echo off
 mode con cols=48 lines=35
 setlocal enabledelayedexpansion
@@ -11,8 +49,8 @@ set s2=-
 set s3=-
 set s4=-
 // MARK: Starting Menu
-:startgame
 color 0f
+:startgame
 title StormTides Byte
 cls
 mode con cols=48 lines=35
@@ -42,8 +80,7 @@ if "%errorlevel%"=="3" (
 if "%select%"=="1" set select=1&goto login2
 if "%select%"=="2" set select=1&goto new
 if "%select%"=="3" set select=1&goto controls
-if "%select%"=="4" set select=1&goto update
-if "%select%"=="5" exit
+if "%select%"=="4" exit
 )
 goto startgame
 
@@ -92,6 +129,148 @@ goto controls
 echo No slots left...
 pause>nul
 goto startgame
+
+
+:edit
+cls
+mode con cols=48 lines=35
+if %select% gtr 6 set select=1
+if %select% lss 1 set select=6
+set s1=-
+set s2=-
+set s3=-
+set s4=-
+set s5=-
+set s6=-
+set s%select%=[90m@[97m
+echo Load Save[0m
+echo %linevar%
+if exist "%dir_path%\save1\save1.sav" < %dir_path%\save1\save1.sav (
+set /p username1=
+set /p password1=
+set /p levell=
+)
+if exist "%dir_path%\save1\save1.sav" echo [%s1%] 1  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save1\save1.sav" echo [%s1%] 1  [90mNew Save[0m[0m
+
+if exist "%dir_path%\save2\save2.sav" < %dir_path%\save2\save2.sav (
+set /p username1=
+set /p password1=
+set /p levell=
+)
+if exist "%dir_path%\save2\save2.sav" echo [%s2%] 2  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save2\save2.sav" echo [%s2%] 2  [90mNew Save[0m[0m
+
+if exist "%dir_path%\save3\save3.sav" < %dir_path%\save3\save3.sav (
+set /p username1=
+set /p password1=
+set /p levell=
+)
+if exist "%dir_path%\save3\save3.sav" echo [%s3%] 3  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save3\save3.sav" echo [%s3%] 3  [90mNew Save[0m[0m
+
+if exist "%dir_path%\save4\save4.sav" < %dir_path%\save4\save4.sav (
+set /p username1=
+set /p password1=
+set /p levell=
+)
+if exist "%dir_path%\save4\save4.sav" echo [%s4%] 4  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save4\save4.sav" echo [%s4%] 4  [90mNew Save[0m[0m
+
+if exist "%dir_path%\save5\save5.sav" < %dir_path%\save5\save5.sav (
+set /p username1=
+set /p password1=
+set /p levell=
+)
+if exist "%dir_path%\save5\save5.sav" echo [%s5%] 5  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save5\save5.sav" echo [%s5%] 5  [90mNew Save[0m[0m
+set sv=%select%
+echo %linevar%
+echo [%s6%] Back[0m
+if "%msplash%"=="y" echo.
+choice /c:wsd /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" (
+if "%select%"=="1" set select=1&goto editsv
+if "%select%"=="2" set select=2&goto editsv
+if "%select%"=="3" set select=3&goto editsv
+if "%select%"=="4" set select=4&goto editsv
+if "%select%"=="5" set select=5&goto editsv
+if "%select%"=="6" set select=1&goto startgame
+)
+goto edit
+
+:editsv
+set sv=%select%
+if exist "%dir_path%\save%sv%\save%sv%.sav" goto editsave
+if not exist "%dir_path%\save%sv%\save%sv%.sav" goto edit
+
+:editsave
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m@[97m
+echo Edit Save[0m
+echo %linevar%
+
+if exist "%dir_path%\save%sv%\save%sv%.sav" < %dir_path%\save%sv%\save%sv%.sav (
+set /p username1=
+set /p password1=
+set /p levell=
+)
+if exist "%dir_path%\save%sv%\save%sv%.sav" echo 1  %username1%: Level [90m%levell%[0m
+
+echo %linevar%
+echo [%s1%] Rename Save[0m
+echo [%s2%] Delete Save[0m
+echo [%s3%] Back[0m
+if "%msplash%"=="y" echo.
+choice /c:wsd /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" (
+if "%select%"=="1" set select=1&goto rename
+if "%select%"=="2" set select=1&goto del-confirm
+if "%select%"=="3" set select=2&goto edit
+)
+goto editsave
+
+:rename
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Rename Save
+echo %linevar%
+echo New Save Name:
+set /p sn=^> 
+if not defined sn (
+goto rename
+)
+
+(
+set /p username1=%sn%
+) > %dir_path%\save%sv%\save%sv%.sav
+
+echo Done! %nc% is now your save name
+echo [%s1%] Okay
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto mainmenu
+)
+goto rename
 
 
 :new
@@ -171,40 +350,40 @@ set /p username1=
 set /p password1=
 set /p levell=
 )
-if exist "%dir_path%\save1\save1.sav" echo [%s1%] Slot 1: %username1%, Level %levell%[0m
-if not exist "%dir_path%\save1\save1.sav" echo [%s1%] Slot 1: [0m
+if exist "%dir_path%\save1\save1.sav" echo [%s1%] 1  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save1\save1.sav" echo [%s1%] 1  [90mNew Save[0m[0m
 
 if exist "%dir_path%\save2\save2.sav" < %dir_path%\save2\save2.sav (
 set /p username1=
 set /p password1=
 set /p levell=
 )
-if exist "%dir_path%\save2\save2.sav" echo [%s2%] Slot 2: %username1%, Level %levell%[0m
-if not exist "%dir_path%\save2\save2.sav" echo [%s2%] Slot 2: [0m
+if exist "%dir_path%\save2\save2.sav" echo [%s2%] 2  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save2\save2.sav" echo [%s2%] 2  [90mNew Save[0m[0m
 
 if exist "%dir_path%\save3\save3.sav" < %dir_path%\save3\save3.sav (
 set /p username1=
 set /p password1=
 set /p levell=
 )
-if exist "%dir_path%\save3\save3.sav" echo [%s3%] Slot 3: %username1%, Level %levell%[0m
-if not exist "%dir_path%\save3\save3.sav" echo [%s3%] Slot 3: [0m
+if exist "%dir_path%\save3\save3.sav" echo [%s3%] 3  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save3\save3.sav" echo [%s3%] 3  [90mNew Save[0m[0m
 
 if exist "%dir_path%\save4\save4.sav" < %dir_path%\save4\save4.sav (
 set /p username1=
 set /p password1=
 set /p levell=
 )
-if exist "%dir_path%\save4\save4.sav" echo [%s4%] Slot 4: %username1%, Level %levell%[0m
-if not exist "%dir_path%\save4\save4.sav" echo [%s4%] Slot 4: [0m
+if exist "%dir_path%\save4\save4.sav" echo [%s4%] 4  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save4\save4.sav" echo [%s4%] 4  [90mNew Save[0m[0m
 
 if exist "%dir_path%\save5\save5.sav" < %dir_path%\save5\save5.sav (
 set /p username1=
 set /p password1=
 set /p levell=
 )
-if exist "%dir_path%\save5\save5.sav" echo [%s5%] Slot 5: %username1%, Level %levell%[0m
-if not exist "%dir_path%\save5\save5.sav" echo [%s5%] Slot 5: [0m
+if exist "%dir_path%\save5\save5.sav" echo [%s5%] 5  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save5\save5.sav" echo [%s5%] 5  [90mNew Save[0m[0m
 set sv=%select%
 echo %linevar%
 echo [%s6%] Back[0m
@@ -340,7 +519,7 @@ set /p weapon3=0
 set /p weapon4=0
 )
 < %dir_path%\save%sv%\settings.ini (
-set /p as=Offline
+set /p as=Online
 set /p color=0f
 )
 < %dir_path%\save%sv%\etx_player-cell.pak (
@@ -463,7 +642,7 @@ set spell8=0
 set spell9=0
 set spell10=0
 
-set as=Offline
+set as=Online
 goto SAVE_GAME_FILES2
 
 
@@ -769,8 +948,10 @@ echo ----------------------------------------------
 echo ==============================================
 echo ______________________________________________
 ) > %pak_path%\redr_window-client.pak
+
 )
 goto SAVE_GAME_FILES2
+
 
 // MARK: VARIABLE REPAIR
 :VARIABLE_REPAIR
@@ -865,7 +1046,7 @@ set /p weapon3=
 set /p weapon4=
 )
 < %dir_path%\save%sv%\settings.ini (
-set /p as=Offline
+set /p as=Online
 set /p color=0f
 )
 < %dir_path%\save%sv%\etx_player-cell.pak (
@@ -1174,7 +1355,7 @@ echo %linevar%
 echo StormTides Critical Faliure
 echo Imenent crash inbound
 echo %linevar%
-echo Current Version: v1.0.2 Beta
+echo Current Version: %version%
 echo Error code %errornum%
 echo.
 echo Please contact a StormTides Team
@@ -2672,6 +2853,7 @@ if "%select%"=="6" set select=1&goto MENU
 goto map1
 
 :dungeons
+title StormTides Byte - Dungeons
 set destination=map4
 set backdest=map1
 cls
@@ -2709,6 +2891,7 @@ if "%select%"=="3" set select=1&goto map1
 goto dungeons
 
 :raids
+title StormTides Byte - Raids
 set destination=map5
 set backdest=map1
 cls
@@ -2752,6 +2935,7 @@ goto raids
 
 
 :wanders
+title StormTides Byte - Wanders
 set destination=map2
 set backdest=map1
 cls
@@ -2792,6 +2976,7 @@ if "%select%"=="4" set select=1&goto map1
 goto wanders
 
 :towns
+title StormTides Byte - Towns
 set destination=map3
 set backdest=map1
 cls
@@ -4949,6 +5134,7 @@ goto howugh
 
 // MARK: Weapon Store
 :weaponstore1
+title StormTides Byte - Weapon Stand
 set destination=weaponstore1
 set backdest=MENU
 cls
@@ -5332,6 +5518,7 @@ if "%select%"=="1" set select=1&goto weaponstore1
 goto NOTHIGHENOUGHLEVELTOBUY
 
 :potionshop
+title StormTides Byte - Alchemy Stand
 set destination=potionshop
 set backdest=MENU
 cls
@@ -5474,6 +5661,7 @@ goto nogoldp
 
 // MARK: Armor Store
 :armorstore1
+title StormTides Byte - Armor Stand
 set destination=armorstore1
 set backdest=MENU
 cls
@@ -6661,7 +6849,7 @@ echo You Curently Have %gold% Gold.
 echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
-echo [%s1%] Kirin Tor Tower [31m[Coming Soon][0m
+echo [%s1%] Kirin Tor Tower [31m[Temp Remove][0m
 echo [%s2%] Runeic Crafter [31m[Coming Soon][0m
 echo.
 echo Weapon Store Pg.1
@@ -6758,6 +6946,7 @@ goto buyw1
 
 // MARK: Trade Market
 :tm
+title StormTides Byte - Trade Market
 set destination=tm
 set backdest=town1
 cls
@@ -7087,7 +7276,7 @@ echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
 echo [%s1%] Blacksmith[0m
-echo [%s2%] Tavern[31m[Coming Soon][0m
+echo [%s2%] Tavern[0m
 echo.
 echo %linevar%
 echo [%s3%] leave[0m
@@ -7221,7 +7410,7 @@ echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
 echo Select where you want to go
-echo [%s1%] The Bar[0m
+echo [%s1%] The Bar[31m[Coming Soon][0m
 echo [%s2%] Suspicious Door[0m
 echo.
 echo %linevar%
@@ -7235,8 +7424,8 @@ if "%errorlevel%"=="3" goto mainmenu
 if "%errorlevel%"=="4" goto checkitemsINV
 if "%errorlevel%"=="5" set select=1&goto %backdest%
 if "%errorlevel%"=="6" (
-if "%select%"=="1" if %gold% geq 450 set select=1&goto the-bar
-if "%select%"=="2" if %gold% geq 500 set select=1&goto strange-door
+if "%select%"=="1" goto tavern
+if "%select%"=="2" set select=1&goto strange-door
 if "%select%"=="3" set select=1&goto town2
 )
 goto tavern
@@ -7973,6 +8162,43 @@ if "%select%"=="4" set select=1&goto MENU
 )
 goto town4
 
+:map-merchant
+set destination=map-merchant
+set backdest=town4
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Map Merchant
+echo %linevar%
+echo You Curently Have %gold% Gold.
+echo [0m
+set s%select%=[90m#[0m[97m
+echo Materials
+echo Items coming soon!
+echo.
+echo %linevar%
+echo [%s3%] Back[0m
+if "%msplash%"=="y" echo.
+choice /c:wsmiad /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" set select=1&goto %backdest%
+if "%errorlevel%"=="6" (
+if "%select%"=="1" if %gold% geq 450 set select=1&goto buy-mat1
+if "%select%"=="2" if %gold% geq 500 set select=1&goto buy-mat2
+if "%select%"=="3" set select=1&goto town2
+)
+goto map-merchant
+
 
 // MARK: New Arcadia
 :s-town1
@@ -7993,7 +8219,7 @@ echo Welcome to [36mNew [34mArca[35mdia[0m
 echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
-echo Todo: Content
+echo Nothing to see here...
 echo.
 echo %linevar%
 echo [%s4%] leave[0m
@@ -8005,10 +8231,7 @@ if "%errorlevel%"=="2" set /a select+=1
 if "%errorlevel%"=="3" goto mainmenu
 if "%errorlevel%"=="4" goto checkitemsINV
 if "%errorlevel%"=="5" set select=1&goto %backdest%
-if "%errorlevel%"=="6" (
-if "%select%"=="1" set select=1&goto town4
-if "%select%"=="2" set select=1&goto town4
-if "%select%"=="3" set select=1&goto town4
+if "%errorlevel%"=="6" (-
 if "%select%"=="4" set select=1&goto MENU
 )
 goto s-town1
@@ -8676,6 +8899,7 @@ goto forest_choping
 
 // MARK: mainmenu
 :mainmenu
+title StormTides Byte - Main Menu
 set backdest=%destination%
 cls
 mode con cols=48 lines=35
@@ -8694,7 +8918,7 @@ echo What Would You Like To Do?
 echo [0m
 echo [%s1%] Settings[0m
 echo [%s2%] Save[0m
-echo [%s3%] Handbook[0m
+echo [%s3%] Handbook[31m[Coming Soon][0m
 echo [%s4%] Quit[0m
 echo [%s5%] Back[0m
 echo.

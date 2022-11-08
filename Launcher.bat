@@ -8,7 +8,7 @@
 ::cxAkpRVqdFKZSDk=
 ::cBs/ulQjdF+5
 ::ZR41oxFsdFKZSDk=
-::eBoioBt6dFKZSDk=
+::eBoioBt6dFKZSTk=
 ::cRo6pxp7LAbNWATEpCI=
 ::egkzugNsPRvcWATEpCI=
 ::dAsiuh18IRvcCxnZtBJQ
@@ -26,7 +26,7 @@
 ::ZQ0/vhVqMQ3MEVWAtB9wSA==
 ::Zg8zqx1/OA3MEVWAtB9wSA==
 ::dhA7pRFwIByZRRnk
-::Zh4grVQjdCyDJGyX8VAjFBpYQxaLAE+/Fb4I5/jH3P6IsEApXeY6a8/526CNKNw/61Dqdp4oxDRfgM5s
+::Zh4grVQjdCyDJGyX8VAjFBpYQxaLAE+1BaAR7ebv/Na0lm9dcfo6RKPaz7qNKOUBuAvhbZNN
 ::YB416Ek+ZG8=
 ::
 ::
@@ -36,8 +36,21 @@ color 0f
 title StormTides Byte - Luancher
 mode con cols=48 lines=35
 setlocal enabledelayedexpansion
-START LICENSE.txt
-start wmplayer "music.mp3"
+
+if not exist Stormtides_data\lib\boot.config (
+(
+echo [MAIN_CONFIG]
+echo [SAVE_FILE_LOCATION] : 
+echo C:\StormTides
+echo.
+echo [PACKAGES_FOLDER_LOCATION] : 
+echo Stormtides_data\bin\packages
+echo.
+echo [CORE_PROGRAM_LOCATION] :
+echo Stormtides_data\bin\core.bat
+) > Stormtides_data\lib\boot.config
+goto hth
+)
 
 < Stormtides_data\lib\boot.config (
 set /p null=
@@ -51,37 +64,14 @@ set /p null=
 set /p crf_path=
 )
 
-if not exist %dir_path%\packages\achv_window-save.pak (
-md %dir_path%
-md %dir_path%\packages
-(
-echo 0
-echo -
-echo -
-echo -
-echo -
-echo -
-echo -
-) >  %dir_path%\packages\achv_window-save.pak
-)
-
-if not exist %dir_path%\packages\arvc_window-client.pak (
-md %dir_path%
-md %dir_path%\packages
-(
-echo 0
-echo 0
-echo 0
-echo 0
-echo 0
-) >  %dir_path%\packages\arvc_window-client.pak
-)
-
 
 < Stormtides_data\bin\defaults.config (
 set /p null=
 set /p null=
 set /p autosave_default=
+set /p null=
+set /p null=
+set /p licence_default=
 )
 < %pak_path%\redr_window-client.pak (
 set /p linevar=
@@ -120,6 +110,8 @@ if %quickEditSetting%==0x1 (
   :: Open script in a new Command Prompt window
   start "" "%~dpnx0" %* && exit
 )
+
+if %licence_default% EQU True START LICENSE.txt
 
 :startgame
 color 0f
@@ -350,7 +342,14 @@ echo [34mStorm[36mTides[0m  ^|  Bug Fixes
 echo %linevar2%
 echo.
 echo - Fixed a bug where the enemys health in 
-echo   certain wanders would stay at 10
+echo   certain wanders would stay at 10 hp
+echo - Fixed a bug on sand beach where enemys
+echo   would steal items from your inventory
+echo - Fixed numerus bugs linked with the
+echo   dungeons
+echo - Fixed lots of bugs linked with the
+echo   inventory
+echo - Fixed a text mistake in the quick invntory
 echo.
 echo %linevar%
 echo [%s1%] Back
@@ -377,7 +376,15 @@ echo - Added three new towns
 echo - Added 2 new un-used weapons
 echo - Added the Blacksmith
 echo - Added the Temple
-echo - Added a new un-used area in the map
+echo - Added a new unused area in the map
+echo - Added the Tavern
+echo - Added many coming soon areas
+echo - Added the class type on the inspect
+echo   weapons menu
+echo - Added an emergency repir for the boot
+echo   config
+echo - Added text on the top of the window of
+echo   where you are located
 echo.
 echo %linevar%
 echo [%s1%] Back
@@ -401,9 +408,11 @@ echo [34mStorm[36mTides[0m  ^|  Changes
 echo %linevar2%
 echo.
 echo - Revamped the map
-echo - Changed the first town
+echo - The Kirin Tor Tower has been temp 
+echo   removed
 echo - Changed the text on the weapon inspect
 echo   menu
+echo - Changed the look of the load save menu
 echo.
 echo %linevar%
 echo [%s1%] Back
@@ -415,6 +424,29 @@ if "%select%"=="1" set select=1&goto changelog
 )
 goto changes
 
+:hth
+title StormTides | How?
+cls
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo [34mStorm[36mTides[0m  ^|  Changes
+echo.
+echo You have been sent to this menu because you
+echo somehow deleted the boot config. This mean that
+echo you deleted the path to the main files and paks.
+echo We have no idea ho you did this but congrats, you're
+echo stupid.
+echo.
+echo [%s1%] Back
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto startgame
+)
+goto hth
 
 :DATA_VALUES
 set levell=1
