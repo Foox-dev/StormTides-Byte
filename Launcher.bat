@@ -62,7 +62,7 @@ set /p code4=
 set /p code5=
 )
 set select=1
-set version=[90mv1.0: Early Accses[97m
+set version=[90mv1.0.1: Early Accses[97m
 net use Y: /delete
 set msplash=y
 set nsplash=y

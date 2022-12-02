@@ -2903,12 +2903,13 @@ set destination=map2
 set backdest=map1
 cls
 mode con cols=48 lines=35
-if %select% gtr 4 set select=1
-if %select% lss 1 set select=4
+if %select% gtr 5 set select=1
+if %select% lss 1 set select=5
 set s1=-
 set s2=-
 set s3=-
 set s4=-
+set s5=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
 echo Wanders
@@ -2919,9 +2920,10 @@ set s%select%=[90m#[0m[97m
 echo [%s1%] Sand Beach Lv.1+[0m
 echo [%s2%] Creepy Crypt Lv.10+[0m
 echo [%s3%] Odd Crypt Lv.30+[0m
+echo [%s4%] Arcadia Island Lv.50+[0m
 echo.
 echo %linevar%
-echo [%s4%] Back[0m
+echo [%s5%] Back[0m
 if "%msplash%"=="y" echo.
 choice /c:wsmiad /n /m ""
 set msplash=n
@@ -2934,7 +2936,8 @@ if "%errorlevel%"=="6" (
 if "%select%"=="1" if %levell% GEQ 1 set select=1&goto picknpc
 if "%select%"=="2" if %levell% GEQ 10 set select=1&goto picknpc2
 if "%select%"=="3" if %levell% GEQ 30 set select=1&goto picknpc3
-if "%select%"=="4" set select=1&goto map1
+if "%select%"=="4" if %levell% GEQ 50 set select=1&goto picknpc4
+if "%select%"=="5" set select=1&goto map1
 )
 goto wanders
 
@@ -11716,227 +11719,227 @@ if %stat% EQU 20 set npcstat=Weak
 if %levell% LEQ 5 (
 set /a health=%random% %% 100 + 75
 set /a level=%random% %% 4 + 1
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 10 (
 set /a health=%random% %% 100 + 200
 set /a level=%random% %% 5 + 5
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 15 (
 set /a health=%random% %% 100 + 350
 set /a level=%random% %% 5 + 10
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 20 (
 set /a health=%random% %% 100 + 500
 set /a level=%random% %% 5 + 15
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 25 (
 set /a health=%random% %% 100 + 625
 set /a level=%random% %% 7 + 20
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 30 (
 set /a health=%random% %% 100 + 750
 set /a level=%random% %% 10 + 25
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 35 (
 set /a health=%random% %% 100 + 900
 set /a level=%random% %% 15 + 30
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 40 (
 set /a health=%random% %% 100 + 1025
 set /a level=%random% %% 20 + 35
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 45 (
 set /a health=%random% %% 100 + 1150
 set /a level=%random% %% 25 + 40
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 50 (
 set /a health=%random% %% 100 + 1275
 set /a level=%random% %% 30 + 45
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 55 (
 set /a health=%random% %% 100 + 1400
 set /a level=%random% %% 35 + 50
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 60 (
 set /a health=%random% %% 100 + 1525
 set /a level=%random% %% 40 + 55
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 65 (
 set /a health=%random% %% 100 + 1650
 set /a level=%random% %% 45 + 60
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 70 (
 set /a health=%random% %% 100 + 1775
 set /a level=%random% %% 50 + 65
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 75 (
 set /a health=%random% %% 100 + 1900
 set /a level=%random% %% 55 + 70
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 80 (
 set /a health=%random% %% 100 + 2025
 set /a level=%random% %% 60 + 75
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 85 (
 set /a health=%random% %% 100 + 2150
 set /a level=%random% %% 65 + 80
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 90 (
 set /a health=%random% %% 100 + 2275
 set /a level=%random% %% 70 + 85
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 95 (
 set /a health=%random% %% 100 + 2400
 set /a level=%random% %% 75 + 90
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 100 (
 set /a health=%random% %% 100 + 2525
 set /a level=%random% %% 80 + 95
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 105 (
 set /a health=%random% %% 100 + 2650
 set /a level=%random% %% 85 + 100
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 110 (
 set /a health=%random% %% 100 + 2875
 set /a level=%random% %% 90 + 105
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 115 (
 set /a health=%random% %% 100 + 3100
 set /a level=%random% %% 95 + 110
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 120 (
 set /a health=%random% %% 100 + 3225
 set /a level=%random% %% 100 + 115
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 125 (
 set /a health=%random% %% 100 + 3350
 set /a level=%random% %% 105 + 120
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 130 (
 set /a health=%random% %% 100 + 3475
 set /a level=%random% %% 110 + 125
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 135 (
 set /a health=%random% %% 100 + 3600
 set /a level=%random% %% 115 + 130
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 140 (
 set /a health=%random% %% 100 + 3725
 set /a level=%random% %% 120 + 135
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 145 (
 set /a health=%random% %% 100 + 3850
 set /a level=%random% %% 125 + 140
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 150 (
 set /a health=%random% %% 100 + 3975
 set /a level=%random% %% 130 + 145
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 155 (
 set /a health=%random% %% 100 + 4200
 set /a level=%random% %% 130 + 145
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 160 (
 set /a health=%random% %% 100 + 4325
 set /a level=%random% %% 135 + 150
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 165 (
 set /a health=%random% %% 100 + 4450
 set /a level=%random% %% 140 + 155
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 170 (
 set /a health=%random% %% 100 + 4575
 set /a level=%random% %% 145 + 160
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 175 (
 set /a health=%random% %% 100 + 4700
 set /a level=%random% %% 150 + 165
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 180 (
 set /a health=%random% %% 100 + 4700
 set /a level=%random% %% 155 + 170
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 185 (
 set /a health=%random% %% 100 + 4825
 set /a level=%random% %% 160 + 175
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 190 (
 set /a health=%random% %% 100 + 4950
 set /a level=%random% %% 165 + 180
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 195 (
 set /a health=%random% %% 100 + 5075
 set /a level=%random% %% 170 + 185
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 200 (
 set /a health=%random% %% 100 + 5200
 set /a level=%random% %% 175 + 190
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 205 (
 set /a health=%random% %% 100 + 5325
 set /a level=%random% %% 180 + 195
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 210 (
 set /a health=%random% %% 100 + 5450
 set /a level=%random% %% 185 + 200
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 215 (
 set /a health=%random% %% 100 + 5575
 set /a level=%random% %% 190 + 200
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 220 (
 set /a health=%random% %% 100 + 5700
 set /a level=%random% %% 195 + 205
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 225 (
 set /a health=%random% %% 100 + 5825
 set /a level=%random% %% 200 + 210
-goto F_START2
+goto F_START3
 )
 F_START3
 
@@ -12256,7 +12259,7 @@ set word=1
 set drop=Spider Fang
 set /a fangs=%fangs%+1
 set /a playerxp=%playerxp%+200
-goto winOCC
+goto winOCC3
 
 :Mutant-Wolfdrop3
 set destination=Mutant-Wolfdrop3
@@ -12264,7 +12267,7 @@ set word=1
 set drop=Mutant Pelt
 set /a pelt=%pelt%+1
 set /a playerxp=%playerxp%+211
-goto winOCC
+goto winOCC3
 
 :Wolfdrop3
 set destination=Wolfdrop3
@@ -12272,7 +12275,7 @@ set word=2
 set drop=Pelts
 set /a pelt2=%pelt2%+2
 set /a playerxp=%playerxp%+150
-goto winOCC
+goto winOCC3
 
 :Johndrop3
 set destination=Johndrop3
@@ -12280,7 +12283,7 @@ set word=1
 set drop=Broken Fishing Pole
 set /a bfp=%bfp%+1
 set /a playerxp=%playerxp%+150
-goto winOCC
+goto winOCC3
 
 :Beardrop3
 set destination=Beardrop3
@@ -12288,7 +12291,7 @@ set word=3
 set drop=pelt
 set /a pelt2=%pelt2%+3
 set /a playerxp=%playerxp%+178
-goto winOCC
+goto winOCC3
 
 :humandrop3
 set destination=humandrop3
@@ -12296,7 +12299,7 @@ set word=1
 set drop=Human Skin
 set /a skin=%skin%+1
 set /a playerxp=%playerxp%+200
-goto winV
+goto winOCC3
 
 :Mitesdrop3
 set destination=Mitesdrop3
@@ -12304,7 +12307,7 @@ set word=1
 set drop= Seed
 set /a seeds=%seeds%+1
 set /a playerxp=%playerxp%+11
-goto winOCC
+goto winOCC3
 
 :Zombie-Chikendrop3
 set destination=Zombie-Chikendrop3
@@ -12312,7 +12315,7 @@ set word=1
 set drop=Zombie Feather
 set /a zombief=%zombief%+1
 set /a playerxp=%playerxp%+125
-goto winOCC
+goto winOCC3
 
 :Boulderdrop3
 set destination=Boulderdrop3
@@ -12320,7 +12323,7 @@ set word=4
 set drop=Rocks
 set /a rocks=%rocks%+4
 set /a playerxp=%playerxp%+186
-goto winOCC
+goto winOCC3
 
 :Corrupteddrop3
 set destination=Corrupteddrop3
@@ -12328,7 +12331,7 @@ set word=2
 set drop=Corrupted Shard
 set /a cshard=%cshard%+2
 set /a playerxp=%playerxp%+424
-goto winOCC
+goto winOCC3
 
 :Thiefdrop3
 set destination=Thiefdrop3
@@ -12336,7 +12339,7 @@ set word=3
 set drop=Old Coins
 set /a ocoins=%ocoins%+3
 set /a playerxp=%playerxp%+200
-goto winOCC
+goto winOCC3
 
 :Bobdrop3
 set destination=Bobdrop3
@@ -12344,7 +12347,7 @@ set word=1
 set drop=Bobs Tear
 set /a bobst=%bobst%+1
 set /a playerxp=%playerxp%+350
-goto winOCC
+goto winOCC3
 
 
 :levelup3
@@ -12381,8 +12384,8 @@ if "%select%"=="1" set select=1&goto testllv3
 )
 goto levelup3-2
 
-:winOCC
-set destination=winOCC
+:winOCC3
+set destination=winOCC3
 set /a hp=%orighp%
 cls
 mode con cols=48 lines=35
@@ -12406,7 +12409,7 @@ set msplash=n
 if "%errorlevel%"=="1" (
 if "%select%"=="1" set select=1&goto picknpc3
 )
-goto winOCC
+goto winOCC3
 
 :testllv3
 if %health% LEQ 0 goto test223
@@ -13971,3 +13974,672 @@ if "%errorlevel%"=="1" (
 if "%select%"=="1" set select=1&goto MENU
 )
 goto winMBOSS-2
+
+
+
+
+
+// MARK: Arcadia Island
+:picknpc4
+title StormTides Byte - Arcadia Island
+set destination=picknpc4
+if %hp% EQU 0 goto MENU
+set /a npc=%random% %% 14+1
+if %npc% EQU 1 set npctype=Arcadic-Sheep
+if %npc% EQU 2 set npctype=Arcadic-Sheep
+if %npc% EQU 3 set npctype=Arcadic-Sheep
+if %npc% EQU 4 set npctype=Arcadic-Sheep
+if %npc% EQU 5 set npctype=Glowing-Vinegar
+if %npc% EQU 6 set npctype=Gods-Hand
+if %npc% EQU 7 set npctype=Glowing-Vinegar
+if %npc% EQU 8 set npctype=Glowing-Vinegar
+if %npc% EQU 9 set npctype=Arcadic-Sheep
+if %npc% EQU 10 set npctype=Arcadic-Sheep
+if %npc% EQU 11 set npctype=Arcadic-Dave
+if %npc% EQU 12 set npctype=Arcadic-Dave
+if %npc% EQU 13 set npctype=Arcadic-Dave
+if %npc% EQU 14 set npctype=Dungeon-Duck
+
+:pickstat
+set destination=pickstat
+set /a stat=%random% %% 20+1
+if %stat% EQU 1 set npcstat=Normal
+if %stat% EQU 2 set npcstat=Enraged
+if %stat% EQU 3 set npcstat=Strong
+if %stat% EQU 4 set npcstat=Tough
+if %stat% EQU 5 set npcstat=Weak
+if %stat% EQU 6 set npcstat=[31mINVERTED[0m
+if %stat% EQU 7 set npcstat=Normal
+if %stat% EQU 8 set npcstat=Normal
+if %stat% EQU 9 set npcstat=Normal
+if %stat% EQU 10 set npcstat=Normal
+if %stat% EQU 11 set npcstat=Normal
+if %stat% EQU 12 set npcstat=Enraged
+if %stat% EQU 13 set npcstat=Strong
+if %stat% EQU 14 set npcstat=Tough
+if %stat% EQU 15 set npcstat=Weak
+if %stat% EQU 16 set npcstat=Normal
+if %stat% EQU 17 set npcstat=Enraged
+if %stat% EQU 18 set npcstat=Strong
+if %stat% EQU 19 set npcstat=Tough
+if %stat% EQU 20 set npcstat=Weak
+
+if %levell% LEQ 5 (
+set /a health=%random% %% 100 + 75
+set /a level=%random% %% 4 + 1
+goto F_START4
+)
+if %levell% LEQ 10 (
+set /a health=%random% %% 100 + 200
+set /a level=%random% %% 5 + 5
+goto F_START4
+)
+if %levell% LEQ 15 (
+set /a health=%random% %% 100 + 350
+set /a level=%random% %% 5 + 10
+goto F_START4
+)
+if %levell% LEQ 20 (
+set /a health=%random% %% 100 + 500
+set /a level=%random% %% 5 + 15
+goto F_START4
+)
+if %levell% LEQ 25 (
+set /a health=%random% %% 100 + 625
+set /a level=%random% %% 7 + 20
+goto F_START4
+)
+if %levell% LEQ 30 (
+set /a health=%random% %% 100 + 750
+set /a level=%random% %% 10 + 25
+goto F_START4
+)
+if %levell% LEQ 35 (
+set /a health=%random% %% 100 + 900
+set /a level=%random% %% 15 + 30
+goto F_START4
+)
+if %levell% LEQ 40 (
+set /a health=%random% %% 100 + 1025
+set /a level=%random% %% 20 + 35
+goto F_START4
+)
+if %levell% LEQ 45 (
+set /a health=%random% %% 100 + 1150
+set /a level=%random% %% 25 + 40
+goto F_START4
+)
+if %levell% LEQ 50 (
+set /a health=%random% %% 100 + 1275
+set /a level=%random% %% 30 + 45
+goto F_START4
+)
+if %levell% LEQ 55 (
+set /a health=%random% %% 100 + 1400
+set /a level=%random% %% 35 + 50
+goto F_START4
+)
+if %levell% LEQ 60 (
+set /a health=%random% %% 100 + 1525
+set /a level=%random% %% 40 + 55
+goto F_START4
+)
+if %levell% LEQ 65 (
+set /a health=%random% %% 100 + 1650
+set /a level=%random% %% 45 + 60
+goto F_START4
+)
+if %levell% LEQ 70 (
+set /a health=%random% %% 100 + 1775
+set /a level=%random% %% 50 + 65
+goto F_START4
+)
+if %levell% LEQ 75 (
+set /a health=%random% %% 100 + 1900
+set /a level=%random% %% 55 + 70
+goto F_START4
+)
+if %levell% LEQ 80 (
+set /a health=%random% %% 100 + 2025
+set /a level=%random% %% 60 + 75
+goto F_START4
+)
+if %levell% LEQ 85 (
+set /a health=%random% %% 100 + 2150
+set /a level=%random% %% 65 + 80
+goto F_START4
+)
+if %levell% LEQ 90 (
+set /a health=%random% %% 100 + 2275
+set /a level=%random% %% 70 + 85
+goto F_START4
+)
+if %levell% LEQ 95 (
+set /a health=%random% %% 100 + 2400
+set /a level=%random% %% 75 + 90
+goto F_START4
+)
+if %levell% LEQ 100 (
+set /a health=%random% %% 100 + 2525
+set /a level=%random% %% 80 + 95
+goto F_START4
+)
+if %levell% LEQ 105 (
+set /a health=%random% %% 100 + 2650
+set /a level=%random% %% 85 + 100
+goto F_START4
+)
+if %levell% LEQ 110 (
+set /a health=%random% %% 100 + 2875
+set /a level=%random% %% 90 + 105
+goto F_START4
+)
+if %levell% LEQ 115 (
+set /a health=%random% %% 100 + 3100
+set /a level=%random% %% 95 + 110
+goto F_START4
+)
+if %levell% LEQ 120 (
+set /a health=%random% %% 100 + 3225
+set /a level=%random% %% 100 + 115
+goto F_START4
+)
+if %levell% LEQ 125 (
+set /a health=%random% %% 100 + 3350
+set /a level=%random% %% 105 + 120
+goto F_START4
+)
+if %levell% LEQ 130 (
+set /a health=%random% %% 100 + 3475
+set /a level=%random% %% 110 + 125
+goto F_START4
+)
+if %levell% LEQ 135 (
+set /a health=%random% %% 100 + 3600
+set /a level=%random% %% 115 + 130
+goto F_START4
+)
+if %levell% LEQ 140 (
+set /a health=%random% %% 100 + 3725
+set /a level=%random% %% 120 + 135
+goto F_START4
+)
+if %levell% LEQ 145 (
+set /a health=%random% %% 100 + 3850
+set /a level=%random% %% 125 + 140
+goto F_START4
+)
+if %levell% LEQ 150 (
+set /a health=%random% %% 100 + 3975
+set /a level=%random% %% 130 + 145
+goto F_START4
+)
+if %levell% LEQ 155 (
+set /a health=%random% %% 100 + 4200
+set /a level=%random% %% 130 + 145
+goto F_START4
+)
+if %levell% LEQ 160 (
+set /a health=%random% %% 100 + 4325
+set /a level=%random% %% 135 + 150
+goto F_START4
+)
+if %levell% LEQ 165 (
+set /a health=%random% %% 100 + 4450
+set /a level=%random% %% 140 + 155
+goto F_START4
+)
+if %levell% LEQ 170 (
+set /a health=%random% %% 100 + 4575
+set /a level=%random% %% 145 + 160
+goto F_START4
+)
+if %levell% LEQ 175 (
+set /a health=%random% %% 100 + 4700
+set /a level=%random% %% 150 + 165
+goto F_START4
+)
+if %levell% LEQ 180 (
+set /a health=%random% %% 100 + 4700
+set /a level=%random% %% 155 + 170
+goto F_START4
+)
+if %levell% LEQ 185 (
+set /a health=%random% %% 100 + 4825
+set /a level=%random% %% 160 + 175
+goto F_START4
+)
+if %levell% LEQ 190 (
+set /a health=%random% %% 100 + 4950
+set /a level=%random% %% 165 + 180
+goto F_START4
+)
+if %levell% LEQ 195 (
+set /a health=%random% %% 100 + 5075
+set /a level=%random% %% 170 + 185
+goto F_START4
+)
+if %levell% LEQ 200 (
+set /a health=%random% %% 100 + 5200
+set /a level=%random% %% 175 + 190
+goto F_START4
+)
+if %levell% LEQ 205 (
+set /a health=%random% %% 100 + 5325
+set /a level=%random% %% 180 + 195
+goto F_START4
+)
+if %levell% LEQ 210 (
+set /a health=%random% %% 100 + 5450
+set /a level=%random% %% 185 + 200
+goto F_START4
+)
+if %levell% LEQ 215 (
+set /a health=%random% %% 100 + 5575
+set /a level=%random% %% 190 + 200
+goto F_START4
+)
+if %levell% LEQ 220 (
+set /a health=%random% %% 100 + 5700
+set /a level=%random% %% 195 + 205
+goto F_START4
+)
+if %levell% LEQ 225 (
+set /a health=%random% %% 100 + 5825
+set /a level=%random% %% 200 + 210
+goto F_START4
+)
+F_START4
+
+:F_START4
+if %npcstat% EQU Tough set /a health=%health%+200
+set destination=F_START4
+cls
+mode con cols=48 lines=35
+echo.
+echo %linevar%
+echo.
+echo You are wandering the Odd Crypt and...
+echo encounter a level %level% %npcstat%  %npctype%.
+echo.
+echo %linevar%
+pause >nul
+if %npcstat% equ Quick goto fs3-4
+goto fs1-4
+
+
+:fs1-4
+if %health% LEQ 0 goto checkiflvlup4
+set destination=fs1-4
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo - Lv.%levell% [37m%Username1%[0m: %hp%.[31mHP[0m
+echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
+echo %linevar%
+echo.
+echo.
+echo What would you like to do?
+echo [0m
+echo [%s1%] Attack[0m
+echo [%s2%] Quick Item[0m
+echo [%s3%] Flee[0m
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:wsmid /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" (
+if "%select%"=="1" set select=1&goto atk_choose-4
+if "%select%"=="2" if %npctype% EQU Dungeon-Duck set select=1&goto offer4
+if "%select%"=="2" if not %npctype% EQU Dungeon-Duck goto quickitem-4
+if "%select%"=="3" set select=1&goto flee
+)
+goto fs1-4
+
+:offer4
+if %health% LEQ 0 goto checkiflvlup
+set destination=offer4
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo - Lv.%levell% [37m%Username1%[0m: %hp%.[31mHP[0m
+echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
+echo %linevar%
+echo The Dunegon Duck requires an offering.
+echo What shall you slide it's way?
+echo [0m
+echo [%s1%] Offer 5 Seeds: %seeds%[0m
+echo [%s2%] Offer 1,000 Gold: %gold%[0m
+echo [%s3%] Surrender[0m
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:wsmid /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" (
+if "%select%"=="1" if %seeds% GEQ 5 set select=1&goto chance14
+if "%select%"=="2" if %gold% GEQ 1000 set select=1&goto chance24
+if "%select%"=="3" goto chance34
+)
+goto offer4
+
+:chance14
+set /a chance=%random% %% 7+1
+if %chance% EQU 1 set /a seeds=%seeds%-5&goto fleeD
+if %chance% EQU 2 set /a seeds=%seeds%-5&goto fleeD
+if %chance% EQU 3 set /a seeds=%seeds%-5&goto fleeD
+if %chance% EQU 4 set /a seeds=%seeds%-5&goto fleeD
+if %chance% EQU 5 set /a seeds=%seeds%-5&goto fleeD
+if %chance% EQU 6 set /a seeds=%seeds%-5&goto fleeD
+if %chance% EQU 7 goto fs3-4
+
+:chance24
+set /a chance=%random% %% 5+1
+if %chance% EQU 1 goto fs3-4
+if %chance% EQU 2 goto fs3-4
+if %chance% EQU 3 goto fs3-4
+if %chance% EQU 4 goto fs3-4
+if %chance% EQU 5 goto fleeD
+
+:chance34
+set /a chance=%random% %% 4+1
+if %chance% EQU 1 goto fs3-4
+if %chance% EQU 2 goto fs3-4
+if %chance% EQU 3 goto fs3-4
+if %chance% EQU 4 goto fleeD
+
+:atk_choose-4
+if %health% LEQ 0 goto checkiflvlup
+set destination=atk_choose-4
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo - Lv.%levell% [37m%Username1%[0m: %hp%.[31mHP[0m
+echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
+echo %linevar%
+echo What would you like to do?
+echo [0m
+echo [%s1%] Main Weapon[0m
+echo [%s2%] Spellbook [[31mComing Soon[0m][0m
+echo [%s2%] Back[0m
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:wsmid /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" (
+if "%select%"=="1" goto atk4
+if "%select%"=="2" goto atk_choose-4
+if "%select%"=="3" goto fs1-4
+)
+goto atk_choose-4
+
+:quickitem-4
+if %quickitem% EQU raidpot (
+if %raidpot% LEQ 0 goto fs1-4
+set /a raidpot=%raidpot%-1
+set /a hp=%hp%+500
+goto fs1-4
+)
+
+:quickitem-4
+if %quickitem% EQU hpot1 (
+if %potiont1% LEQ 0 goto fs1-4
+set /a potiont1=%potiont1%-1
+set /a hp=%hp%+25
+goto fs1-4
+)
+
+:quickitem-4
+if %quickitem% EQU hpot2 (
+if %potiont2% LEQ 0 goto fs1-4
+set /a potiont2=%potiont2%-1
+set /a hp=%hp%+50
+goto fs1-4
+)
+
+:quickitem-4
+if %quickitem% EQU hpot3 (
+if %potiont3% LEQ 0 goto fs1-4
+set /a potiont3=%potiont3%-1
+set /a hp=%hp%+100
+goto fs1-4
+)
+
+if %quickitem% EQU none (
+goto fs1-4
+)
+set errornum=WANDER-ITEMQ-SB
+goto error404
+
+:atk4
+if %swordtype% EQU Necrosis set /a hp=%hp%+%random%*250/32767+1
+set destination=atk4
+if %swordtype% EQU Your set /a damage=%random%*50/32767+1
+if %swordtype% EQU Plastic set /a damage=%random%*100/32767+1
+if %swordtype% EQU Old set /a damage=%random%*118/32767+1
+if %swordtype% EQU Refurbished set /a damage=%random%*145/32767+1
+if %swordtype% EQU Battle set /a damage=%random%*180/32767+1
+if %swordtype% EQU Poison set /a damage=%random%*230/32767+1
+if %swordtype% EQU Strong set /a damage=%random%*280/32767+1
+if %swordtype% EQU Sharp set /a damage=%random%*310/32767+1
+if %swordtype% EQU Warriors set /a damage=%random%*325/32767+1
+if %swordtype% EQU Shadow set /a damage=%random%*375/32767+1
+if %swordtype% EQU Necrosis set /a damage=%random%*450/32767+1
+if %artifacttype% EQU Storm set /a damage=%damage%+%random%*100/32767+1
+if %damage% GTR %health% set /a damage=%health%
+
+cls
+mode con cols=48 lines=35
+echo %linevar%
+echo - Lv.%levell% [37m%Username1%[0m: %hp%.[31mHP[0m
+echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
+echo %linevar%
+echo.
+echo You attack the %npcstat% %npctype%!
+echo.
+set /a atkxp=((%damage%/4)*%xpmul%+2)
+set /a playerxp=%playerxp%+%atkxp%
+set /a health=%health% - %damage%
+echo You deal %damage% damage to the %npcstat% %npctype%^^!
+echo It now has %health%.[31mHP[0m left.
+echo.
+echo %linevar%
+echo +%atkxp% EXP.
+pause>nul
+if %hp% LEQ 0 goto die
+if %health% LEQ 0 goto dropitem4
+if %levell% LSS 225 (
+if %playerxp% GTR %origxp% goto levelup4
+goto fs3-4
+)
+
+
+
+:fs3-4
+set destination=fs3-4
+if %npctype% EQU Arcadic-Sheep set /a dmgnpc=%random%*120/32767+1
+if %npctype% EQU Glowing-Vinegar set /a dmgnpc=%random%*435/32767+1
+if %npctype% EQU Gods-Hand set /a dmgnpc=%random%*350/32767+1
+if %npctype% EQU Dungeon-Duck set /a dmgnpc=%random%*10000/32767+1
+if %npctype% EQU Arcadic-Dave set /a dmgnpc=%random%*500/32767+1
+if %npcstat% EQU if %dmgnpc% GTR 50 Weak set /a dmgnpc=%damage%-50
+if %npcstat% EQU if %health% GTR 50 Weak set /a health=%health%-50
+if %npcstat% EQU Enraged set /a dmgnpc=%damage%+85
+if %npcstat% EQU Strong set /a dmgnpc=%damage%+50
+if %npcstat% EQU [31mINVERTED[0m set /a dmgnpc=20000
+if %npctype% EQU Dungeon-Duck set npcstat=[31mINVERTED[0m
+
+if %dmgnpc% LSS 0 set dmgnpc=0
+
+cls
+mode con cols=48 lines=35
+echo %linevar%
+echo - Lv.%levell% [37m%Username1%[0m: %hp%.[31mHP[0m
+echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
+echo %linevar%
+echo.
+echo The %npcstat% %npctype% attacks.
+echo The %npcstat% %npctype% deals %dmgnpc% damage to you.
+set /a hp=%hp% - %dmgnpc%
+if %hp% LEQ 0 goto die
+echo.
+echo %linevar%
+if %hp% LEQ 0 goto die
+echo You now have %hp% health left.
+pause>nul
+if %levell% LSS 225 (
+if %playerxp% GTR %origxp% goto levelup4
+goto fs1-4
+)
+goto fs1-4
+
+
+:checkiflvlup4
+set destination=checkiflvlup4
+if %levell% LSS 225 (
+if %playerxp% GTR %origxp% goto levelup4
+)
+
+
+
+
+:dropitem4
+set destination=dropitem4
+if %npctype% EQU Arcadic-Sheep goto sheep-drop1
+if %npctype% EQU Glowing-Vinegar goto glowing-drop1
+if %npctype% EQU Gods-Hand goto hand-drop1
+if %npctype% EQU Gods-Hand goto dave-drop1
+
+::set /a gmail=%gmail%+1
+:sheep-drop1
+set destination=sheep-drop1
+set word=2
+set drop=Fur
+set /a pelt=%pelt%+2
+set /a playerxp=%playerxp%+200
+goto winOCC4
+
+:glowing-drop1
+set destination=glowing-drop1
+set word=5
+set drop=Mutant Pelt
+set /a cshard=%cshard%+5
+set /a playerxp=%playerxp%+311
+goto winOCC4
+
+:hand-drop1
+set destination=hand-drop1
+set word=3
+set drop=Bobs-Tears
+set /a bobst=%bobst%+2
+set /a playerxp=%playerxp%+150
+goto winOCC4
+
+:dave-drop1
+set destination=dave-drop1
+set word=8
+set drop=Bave-Brain-Fragments
+set /a bobst=%dbrain%+8
+set /a playerxp=%playerxp%+1850
+goto winOCC4
+
+:levelup4
+set destination=levelup4-2
+set /a levell=%levell%+1
+set /a ttlvl=%ttlvl%+1
+set /a origxp=%origxp%+500
+set /a orighp=%orighp%+25
+set /a hp=%orighp%
+set /a gold=%gold%+325
+set /a playerxp=0
+if %levell% GEQ 225 set /a levell=225
+if %as% EQU Online goto SAVE_GAME_FILES
+:levelup4-2
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have leveled up! You are now level %levell%.
+echo %linevar%
+echo And you now have %hp% health.
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto testllv4
+)
+goto levelup4-2
+
+:winOCC4
+set destination=winOCC4
+set /a hp=%orighp%
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Congrats Adventurer!
+echo %linevar%
+echo.
+echo You won the battle against the %npcstat% %npctype%.
+echo And You recieved %word% %drop%.
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto picknpc4
+)
+goto winOCC4
+
+:testllv4
+if %health% LEQ 0 goto test224
+goto fs1-4
+:test224
+if %levell% LEQ 10 goto dropitem4
+if NOT %levell% LEQ 10 goto fs1-4
+goto dropitem4
