@@ -907,7 +907,7 @@ echo %color%
 
 if not exist %pak_path%\redr_window-client.pak (
 (
-echo ----------------------------------------------
+%linevar%-------------------------------------------
 echo ==============================================
 echo ______________________________________________
 ) > %pak_path%\redr_window-client.pak
@@ -1346,7 +1346,7 @@ goto startgame
 :MENU
 title StormTides Byte - Camp
 cls
-set xpmul=5
+set xpmul=25
 if %levell% GEQ 225 set /a levell=225
 if %autosave_default% EQU True set as=Online
 if %autosave_default% EQU False set as=Offline
@@ -1354,7 +1354,7 @@ if %autosave_default% EQU Neg set as=%as%
 set destination=MENU-2
 if %as% equ Online goto SAVE_GAME_FILES
 :MENU-2
-set xpmul=5
+set xpmul=25
 cls
 mode con cols=48 lines=35
 if %select% gtr 6 set select=1
@@ -1749,9 +1749,9 @@ if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
 set destination=fleeD
-set /a dchest=%dchest%+5
-set /a gold=%gold%+5000
-set /a raidpot=%raidpot%+10
+set /a dchest=%dchest%+1
+set /a gold=%gold%+1000
+set /a raidpot=%raidpot%+5
 cls
 mode con cols=48 lines=35
 if %select% gtr 1 set select=1
@@ -5126,7 +5126,7 @@ echo [%s4%] Battle Staff - 800 gold ^| [[90mLv.5+[0m][0m
 echo [%s5%] Poison Shank - 1,200 gold ^| [[90mLv.10+[0m][0m
 echo [%s6%] Strong Katana - 1,815 gold ^| [[90mLv.20+[0m][0m
 echo [%s7%] Sharp Dagger - 2,000 gold ^| [[90mLv.25+[0m][0m
-echo [%s8%] Warriors Staff - 2,300 gold ^| [[90mLv.30+[0m][0m
+echo [%s8%] Warriors Staff - 2,300 gold ^| [[90mLv.35+[0m][0m
 echo.
 echo Weapon Store Pg.1
 echo %linevar%
@@ -5465,7 +5465,7 @@ set s1=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
 echo You are not a high enough level to buy this item.
-echo %linevar%------
+echo %linevar%-----
 echo You need to be at least level %levelneeded%.
 echo Come back when you are level %levelneeded%
 echo.
@@ -5505,10 +5505,13 @@ echo.
 echo %linevar%
 echo [%s4%] Back[0m
 if "%msplash%"=="y" echo.
-choice /c:ad /n /m ""
+choice /c:wsmiad /n /m ""
 set msplash=n
-if "%errorlevel%"=="1" set select=1&goto %backdest%
-if "%errorlevel%"=="2" (
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" (
 if "%select%"=="1" set select=1&goto buyp1
 if "%select%"=="2" set select=1&goto buyp2
 if "%select%"=="3" set select=1&goto buyp3
@@ -5991,7 +5994,7 @@ set s1=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
 echo You are not a high enough level to buy this item.
-echo %linevar%------
+echo %linevar%-----
 echo You need to be at least level %levelneeded%.
 echo Come back when you are level %levelneeded%
 echo.
@@ -6512,9 +6515,9 @@ pause>nul
 if %health% LEQ 0 goto dropitem2
 if %levell% LSS 225 (
 if %playerxp% GTR %origxp% goto levelup2
-goto fs1-2
+goto fs3-2
 )
-goto fs1-2
+goto fs3-2
 
 
 :fs3-2
@@ -6925,7 +6928,7 @@ set s6=-
 set s7=-
 set s8=-
 set s%select%=[90m#[0m[97m
-echo %linevar%-
+echo %linevar%
 echo Welcome To The Salv Trade Market!
 echo %linevar%
 echo Pg.1
@@ -6936,7 +6939,7 @@ echo [%s2%] Crab Legs: %clegs% - 3 gold Each[0m
 echo [%s3%] Buff-Lobster Legs: %bufflegs% - 8 gold Each[0m
 echo [%s4%] Broken Fishing Rod: %bfp% - 6 gold Each[0m
 echo [%s5%] Dave Brain Fragment: %dbrain% - 10 gold Each[0m
-echo [%s6%] Zombie Feather: %zombief% - 20 gold Eachv
+echo [%s6%] Zombie Feather: %zombief% - 20 gold Each
 echo.
 echo %linevar%
 echo [%s7%] Next Page[0m
@@ -8326,14 +8329,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-echo ---
+echo %linevar%
 echo You crafted x3 Health Potion T3.
 echo Your curent number of this is now...
 echo %potiont3%.
 echo.
 echo [%s1%] Okay
 echo.
-echo --
+echo %linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -8387,14 +8390,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-echo ---
+echo %linevar%
 echo You crafted x1 Raid Health Elixers.
 echo Your curent number of this is now...
 echo %raidpot%.
 echo.
 echo [%s1%] Okay
 echo.
-echo --
+echo %linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -8496,14 +8499,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-echo ---
+echo %linevar%
 echo You crafted x1 Max Health Orb - +25.
 echo Your curent number of this is now...
 echo %orb1%.
 echo.
 echo [%s1%] Okay
 echo.
-echo --
+echo %linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -8563,14 +8566,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-echo ---
+echo %linevar%
 echo You crafted x1 Normal Mythic Raid Map.
 echo Your curent number of this is now...
 echo %key1%.
 echo.
 echo [%s1%] Okay
 echo.
-echo --
+echo %linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -8678,14 +8681,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-echo ---
+%linevar%
 echo You crafted x1 Shadow Striker.
 echo Your curent number of this is now...
 echo %weapon1%.
 echo.
 echo [%s1%] Okay
 echo.
-echo --
+%linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -8745,14 +8748,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-echo ---
+%linevar%
 echo You crafted x1 Necrosis.
 echo Your curent number of this is now...
 echo %weapon2%.
 echo.
 echo [%s1%] Okay
 echo.
-echo --
+%linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -10971,7 +10974,7 @@ echo You are wandering the Raid and...
 echo encounter a level %level% %npcstat% %npctype%.
 echo.
 echo %linevar%
-ping localhost -n 2 >nul
+
 if %npcstat% equ Quick goto fs3RAID
 goto fs1RAID
 
@@ -11108,7 +11111,7 @@ echo %linevar%
 echo.
 echo You attack the %npcstat% %npctype%!
 echo.
-ping localhost -n 2 >nul
+
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -11156,7 +11159,7 @@ echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The %npcstat% %npctype% attacks.
-ping localhost -n 2 >nul
+
 echo The %npcstat% %npctype% deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -11377,7 +11380,7 @@ echo You are wandering the Boss Room and...
 echo encounter a level %level% Hive-Mind-Giant.
 echo.
 echo %linevar%
-ping localhost -n 2 >nul
+
 goto fs1RAIDBOSS
 
 
@@ -11514,7 +11517,7 @@ echo %linevar%
 echo.
 echo You attack the Hive-Mind-Giant!
 echo.
-ping localhost -n 2 >nul
+
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -11550,7 +11553,7 @@ echo - Lv.%level% [37mHive-Mind-Giant[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The Hive-Mind-Giant attacks.
-ping localhost -n 2 >nul
+
 echo The Hive-Mind-Giant deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -12687,7 +12690,7 @@ echo You are wandering the Second Raid and...
 echo encounter a level %level% %npcstat% %npctype%.
 echo.
 echo %linevar%
-ping localhost -n 2 >nul
+
 if %npcstat% equ Quick goto fs3RAID-2
 goto fs1RAID-2
 
@@ -12760,7 +12763,7 @@ echo %linevar%
 echo.
 echo You attack the %npcstat% %npctype%!
 echo.
-ping localhost -n 2 >nul
+
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -12807,7 +12810,7 @@ echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The %npcstat% %npctype% attacks.
-ping localhost -n 2 >nul
+
 echo The %npcstat% %npctype% deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -13028,7 +13031,7 @@ echo You are wandering the Second Boss Room and...
 echo encounter a level %level% Shadow Of The Dark.
 echo.
 echo %linevar%
-ping localhost -n 2 >nul
+
 goto fs1RAIDBOSS-2
 
 
@@ -13100,7 +13103,7 @@ echo %linevar%
 echo.
 echo You attack the Shadow Of The Dark!
 echo.
-ping localhost -n 2 >nul
+
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -13135,7 +13138,7 @@ echo - Lv.%level% [37mShadow Of The Dark[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The Shadow Of The Dark attacks.
-ping localhost -n 2 >nul
+
 echo The Shadow Of The Dark deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -13406,7 +13409,7 @@ echo You are wandering the Second Raid and...
 echo encounter a level %level% %npcstat% %npctype%.
 echo.
 echo %linevar%
-ping localhost -n 2 >nul
+
 if %npcstat% equ Quick goto fs3RAIDm
 goto fs1RAIDm
 
@@ -13476,7 +13479,7 @@ echo %linevar%
 echo.
 echo You attack the %npcstat% %npctype%!
 echo.
-ping localhost -n 2 >nul
+
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -13524,7 +13527,7 @@ echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The %npcstat% %npctype% attacks.
-ping localhost -n 2 >nul
+
 echo The %npcstat% %npctype% deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -13747,7 +13750,7 @@ echo You are wandering the Second Boss Room and...
 echo encounter a level %level% Mythic Monstrosity.
 echo.
 echo %linevar%
-ping localhost -n 2 >nul
+
 goto fs1RAIDBOSSm
 
 
@@ -13816,7 +13819,7 @@ echo %linevar%
 echo.
 echo You attack the Mythic Monstrosity!
 echo.
-ping localhost -n 2 >nul
+
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -13847,7 +13850,7 @@ echo - Lv.%level% [37mMythic Monstrosity[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The Mythic Monstrosity attacks.
-ping localhost -n 2 >nul
+
 echo The Mythic Monstrosity deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
