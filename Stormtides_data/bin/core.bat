@@ -1,3 +1,4 @@
+
 @echo off
 mode con cols=48 lines=35
 setlocal enabledelayedexpansion
@@ -11,9 +12,9 @@ set s2=-
 set s3=-
 set s4=-
 // MARK: Starting Menu
-:startgame
 color 0f
-title StormTides Batch
+:startgame
+title StormTides Byte
 cls
 mode con cols=48 lines=35
 if %select% gtr 4 set select=1
@@ -42,8 +43,7 @@ if "%errorlevel%"=="3" (
 if "%select%"=="1" set select=1&goto login2
 if "%select%"=="2" set select=1&goto new
 if "%select%"=="3" set select=1&goto controls
-if "%select%"=="4" set select=1&goto update
-if "%select%"=="5" exit
+if "%select%"=="4" exit
 )
 goto startgame
 
@@ -92,6 +92,148 @@ goto controls
 echo No slots left...
 pause>nul
 goto startgame
+
+
+:edit
+cls
+mode con cols=48 lines=35
+if %select% gtr 6 set select=1
+if %select% lss 1 set select=6
+set s1=-
+set s2=-
+set s3=-
+set s4=-
+set s5=-
+set s6=-
+set s%select%=[90m@[97m
+echo Load Save[0m
+echo %linevar%
+if exist "%dir_path%\save1\save1.sav" < %dir_path%\save1\save1.sav (
+set /p username1=
+set /p password1=
+set /p levell=
+)
+if exist "%dir_path%\save1\save1.sav" echo [%s1%] 1  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save1\save1.sav" echo [%s1%] 1  [90mNew Save[0m[0m
+
+if exist "%dir_path%\save2\save2.sav" < %dir_path%\save2\save2.sav (
+set /p username1=
+set /p password1=
+set /p levell=
+)
+if exist "%dir_path%\save2\save2.sav" echo [%s2%] 2  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save2\save2.sav" echo [%s2%] 2  [90mNew Save[0m[0m
+
+if exist "%dir_path%\save3\save3.sav" < %dir_path%\save3\save3.sav (
+set /p username1=
+set /p password1=
+set /p levell=
+)
+if exist "%dir_path%\save3\save3.sav" echo [%s3%] 3  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save3\save3.sav" echo [%s3%] 3  [90mNew Save[0m[0m
+
+if exist "%dir_path%\save4\save4.sav" < %dir_path%\save4\save4.sav (
+set /p username1=
+set /p password1=
+set /p levell=
+)
+if exist "%dir_path%\save4\save4.sav" echo [%s4%] 4  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save4\save4.sav" echo [%s4%] 4  [90mNew Save[0m[0m
+
+if exist "%dir_path%\save5\save5.sav" < %dir_path%\save5\save5.sav (
+set /p username1=
+set /p password1=
+set /p levell=
+)
+if exist "%dir_path%\save5\save5.sav" echo [%s5%] 5  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save5\save5.sav" echo [%s5%] 5  [90mNew Save[0m[0m
+set sv=%select%
+echo %linevar%
+echo [%s6%] Back[0m
+if "%msplash%"=="y" echo.
+choice /c:wsd /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" (
+if "%select%"=="1" set select=1&goto editsv
+if "%select%"=="2" set select=2&goto editsv
+if "%select%"=="3" set select=3&goto editsv
+if "%select%"=="4" set select=4&goto editsv
+if "%select%"=="5" set select=5&goto editsv
+if "%select%"=="6" set select=1&goto startgame
+)
+goto edit
+
+:editsv
+set sv=%select%
+if exist "%dir_path%\save%sv%\save%sv%.sav" goto editsave
+if not exist "%dir_path%\save%sv%\save%sv%.sav" goto edit
+
+:editsave
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m@[97m
+echo Edit Save[0m
+echo %linevar%
+
+if exist "%dir_path%\save%sv%\save%sv%.sav" < %dir_path%\save%sv%\save%sv%.sav (
+set /p username1=
+set /p password1=
+set /p levell=
+)
+if exist "%dir_path%\save%sv%\save%sv%.sav" echo 1  %username1%: Level [90m%levell%[0m
+
+echo %linevar%
+echo [%s1%] Rename Save[0m
+echo [%s2%] Delete Save[0m
+echo [%s3%] Back[0m
+if "%msplash%"=="y" echo.
+choice /c:wsd /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" (
+if "%select%"=="1" set select=1&goto rename
+if "%select%"=="2" set select=1&goto del-confirm
+if "%select%"=="3" set select=2&goto edit
+)
+goto editsave
+
+:rename
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Rename Save
+echo %linevar%
+echo New Save Name:
+set /p sn=^> 
+if not defined sn (
+goto rename
+)
+
+(
+set /p username1=%sn%
+) > %dir_path%\save%sv%\save%sv%.sav
+
+echo Done! %nc% is now your save name
+echo [%s1%] Okay
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto mainmenu
+)
+goto rename
 
 
 :new
@@ -171,40 +313,40 @@ set /p username1=
 set /p password1=
 set /p levell=
 )
-if exist "%dir_path%\save1\save1.sav" echo [%s1%] Slot 1: %username1%, Level %levell%[0m
-if not exist "%dir_path%\save1\save1.sav" echo [%s1%] Slot 1: [0m
+if exist "%dir_path%\save1\save1.sav" echo [%s1%] 1  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save1\save1.sav" echo [%s1%] 1  [90mNew Save[0m[0m
 
 if exist "%dir_path%\save2\save2.sav" < %dir_path%\save2\save2.sav (
 set /p username1=
 set /p password1=
 set /p levell=
 )
-if exist "%dir_path%\save2\save2.sav" echo [%s2%] Slot 2: %username1%, Level %levell%[0m
-if not exist "%dir_path%\save2\save2.sav" echo [%s2%] Slot 2: [0m
+if exist "%dir_path%\save2\save2.sav" echo [%s2%] 2  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save2\save2.sav" echo [%s2%] 2  [90mNew Save[0m[0m
 
 if exist "%dir_path%\save3\save3.sav" < %dir_path%\save3\save3.sav (
 set /p username1=
 set /p password1=
 set /p levell=
 )
-if exist "%dir_path%\save3\save3.sav" echo [%s3%] Slot 3: %username1%, Level %levell%[0m
-if not exist "%dir_path%\save3\save3.sav" echo [%s3%] Slot 3: [0m
+if exist "%dir_path%\save3\save3.sav" echo [%s3%] 3  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save3\save3.sav" echo [%s3%] 3  [90mNew Save[0m[0m
 
 if exist "%dir_path%\save4\save4.sav" < %dir_path%\save4\save4.sav (
 set /p username1=
 set /p password1=
 set /p levell=
 )
-if exist "%dir_path%\save4\save4.sav" echo [%s4%] Slot 4: %username1%, Level %levell%[0m
-if not exist "%dir_path%\save4\save4.sav" echo [%s4%] Slot 4: [0m
+if exist "%dir_path%\save4\save4.sav" echo [%s4%] 4  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save4\save4.sav" echo [%s4%] 4  [90mNew Save[0m[0m
 
 if exist "%dir_path%\save5\save5.sav" < %dir_path%\save5\save5.sav (
 set /p username1=
 set /p password1=
 set /p levell=
 )
-if exist "%dir_path%\save5\save5.sav" echo [%s5%] Slot 5: %username1%, Level %levell%[0m
-if not exist "%dir_path%\save5\save5.sav" echo [%s5%] Slot 5: [0m
+if exist "%dir_path%\save5\save5.sav" echo [%s5%] 5  %username1%: Level [90m%levell%[0m
+if not exist "%dir_path%\save5\save5.sav" echo [%s5%] 5  [90mNew Save[0m[0m
 set sv=%select%
 echo %linevar%
 echo [%s6%] Back[0m
@@ -336,9 +478,11 @@ set /p key1=0
 set /p key2=0
 set /p key3=0
 set /p key4=0
+set /p weapon3=0
+set /p weapon4=0
 )
 < %dir_path%\save%sv%\settings.ini (
-set /p as=Offline
+set /p as=Online
 set /p color=0f
 )
 < %dir_path%\save%sv%\etx_player-cell.pak (
@@ -446,6 +590,8 @@ set key1=0
 set key2=0
 set key3=0
 set key4=0
+set weapon3=0
+set weapon4=0
 
 set quickitem=none
 set spell1=0
@@ -459,7 +605,7 @@ set spell8=0
 set spell9=0
 set spell10=0
 
-set as=Offline
+set as=Online
 goto SAVE_GAME_FILES2
 
 
@@ -555,8 +701,8 @@ echo %key1%
 echo %key2%
 echo %key3%
 echo %key4%
-echo nul
-echo nul
+echo %weapon3%
+echo %weapon4%
 echo nul
 echo nul
 echo nul
@@ -685,8 +831,8 @@ echo %key2%
 echo %key3%
 echo %key4%
 echo %counter%
-echo nul
-echo nul
+echo %weapon3%
+echo %weapon4%
 echo nul
 echo nul
 echo nul
@@ -761,12 +907,14 @@ echo %color%
 
 if not exist %pak_path%\redr_window-client.pak (
 (
-echo ----------------------------------------------
+echo -------------------------------------------
 echo ==============================================
 echo ______________________________________________
 ) > %pak_path%\redr_window-client.pak
+
 )
 goto SAVE_GAME_FILES2
+
 
 // MARK: VARIABLE REPAIR
 :VARIABLE_REPAIR
@@ -857,9 +1005,11 @@ set /p key1=
 set /p key2=
 set /p key3=
 set /p key4=
+set /p weapon3=
+set /p weapon4=
 )
 < %dir_path%\save%sv%\settings.ini (
-set /p as=Offline
+set /p as=Online
 set /p color=0f
 )
 < %dir_path%\save%sv%\etx_player-cell.pak (
@@ -1104,6 +1254,12 @@ if "%key3%"=="" set key3=0
 if "%key4%"=="ECHO is off." set key4=0
 if "%key4%"=="nul" set key4=0
 if "%key4%"=="" set key4=0
+if "%weapon3%"=="ECHO is off." set weapon3=0
+if "%weapon3%"=="nul" set weapon3=0
+if "%weapon3%"=="" set weapon3=0
+if "%weapon4%"=="ECHO is off." set weapon4=0
+if "%weapon4%"=="nul" set weapon4=0
+if "%weapon4%"=="" set weapon4=0
 
 if "%quickitem%"=="ECHO is off." set quickitem=none
 if "%quickitem%"=="nul" set quickitem=none
@@ -1162,7 +1318,7 @@ echo %linevar%
 echo StormTides Critical Faliure
 echo Imenent crash inbound
 echo %linevar%
-echo Current Version: v1.0.2 Beta
+echo Current Version: %version%
 echo Error code %errornum%
 echo.
 echo Please contact a StormTides Team
@@ -1188,8 +1344,9 @@ goto startgame
 
 // MARK: Camp
 :MENU
+title StormTides Byte - Camp
 cls
-set xpmul=5
+set xpmul=25
 if %levell% GEQ 225 set /a levell=225
 if %autosave_default% EQU True set as=Online
 if %autosave_default% EQU False set as=Offline
@@ -1197,7 +1354,7 @@ if %autosave_default% EQU Neg set as=%as%
 set destination=MENU-2
 if %as% equ Online goto SAVE_GAME_FILES
 :MENU-2
-set xpmul=5
+set xpmul=25
 cls
 mode con cols=48 lines=35
 if %select% gtr 6 set select=1
@@ -1214,7 +1371,7 @@ echo [37m%campname%[0m
 echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
-echo [%s1%] [37mMap[0m
+echo [%s1%] Map[0m
 echo [%s2%] Weapon Stand[0m
 echo [%s3%] Armor Stand[0m
 echo [%s4%] Alchemy Stand[0m
@@ -1371,13 +1528,6 @@ goto redeem
 :redeem1
 set title=Beta_Tester
 set /a code1=1
-< %pak_path%\arvc_window-client.pak (
-set /p code1=
-set /p code2=
-set /p code3=
-set /p code4=
-set /p code5=
-)
 cls
 if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
@@ -1561,6 +1711,7 @@ goto win
 :die
 set destination=die
 set /a hp=%orighp%
+if %gold% GEQ 15 set /a gold=%gold%-15
 cls
 mode con cols=48 lines=35
 if %select% gtr 1 set select=1
@@ -1591,9 +1742,9 @@ if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
 set destination=fleeD
-set /a dchest=%dchest%+5
-set /a gold=%gold%+5000
-set /a raidpot=%raidpot%+10
+set /a dchest=%dchest%+1
+set /a gold=%gold%+1000
+set /a raidpot=%raidpot%+5
 cls
 mode con cols=48 lines=35
 if %select% gtr 1 set select=1
@@ -1603,9 +1754,9 @@ echo %linevar%
 echo You have passed the test of the
 echo duck. You shall be rewarded.
 echo.
-echo +5 Dungeon Chests
-echo +5,000 Gold
-echo +10 Raid Potions
+echo +1 Dungeon Chests
+echo +1,000 Gold
+echo +5 Raid Potions
 echo.
 echo %linevar%
 echo.
@@ -1778,6 +1929,7 @@ goto cmdadmin1
 
 // MARK: Sand Beach
 :picknpc
+title StormTides Byte - Sand Beach
 set destination=picknpc
 if %hp% EQU 0 goto MENU
 set /a npc=%random% %% 14+1
@@ -2307,15 +2459,6 @@ goto fs1
 set errornum=WANDER-ITEMQ-SB
 goto error404
 
-:atk_spell
-set destination=atk_spell
-if %spell_select% EQU magic_missile set /a damage=%random%*120/32767+1
-if %spell_select% EQU fiery_missiles set /a damage=%random%*150/32767+1
-if %spell_select% EQU spirit_wave set /a damage=%random%*200/32767+1
-if %spell_select% EQU holy_spike set /a damage=%random%*300/32767+1
-if %damage% GTR %health% set /a damage=%health%
-goto playeratk
-
 :atk
 set destination=atk
 if %swordtype% EQU Your set /a damage=%random%*50/32767+1
@@ -2619,30 +2762,35 @@ goto dropitem
 
 // MARK: Map
 :map1
+title StormTides Byte - Map
 set destination=map1
 set backdest=MENU
 cls
 mode con cols=48 lines=35
-if %select% gtr 5 set select=1
-if %select% lss 1 set select=5
+if %select% gtr 6 set select=1
+if %select% lss 1 set select=6
 set s1=-
 set s2=-
 set s3=-
 set s4=-
 set s5=-
+set s6=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
-echo The Great Map Of Dellias
+echo The Map Of StormTides
 echo %linevar%
-echo Please choose a destination on the map.
+echo Please choose a destination on the map
 echo [0m
+echo Fighting Locations
 echo [%s1%] Wanders[0m
-echo [%s2%] Towns[0m
-echo [%s3%] Dungeons[0m
-echo [%s4%] Mythical Raids[31m(Temp Remove)[0m
+echo [%s2%] Dungeons[0m
+echo [%s3%] Raids[31m[Coming Soon][0m
 echo.
+echo Travel Locations
+echo [%s4%] Towns[0m
+echo [%s5%] Special Locations[0m
 echo %linevar%
-echo [%s5%] Back[0m
+echo [%s6%] Back[0m
 if "%msplash%"=="y" echo.
 choice /c:wsmiad /n /m ""
 set msplash=n
@@ -2652,15 +2800,16 @@ if "%errorlevel%"=="3" goto mainmenu
 if "%errorlevel%"=="4" goto checkitemsINV
 if "%errorlevel%"=="5" set select=1&goto %backdest%
 if "%errorlevel%"=="6" (
-if "%select%"=="1" set select=1&goto map2
-if "%select%"=="2" set select=1&goto map3
-if "%select%"=="3" set select=1&goto map4
-if "%select%"=="4" set select=1&goto map1
-if "%select%"=="5" set select=1&goto MENU
+if "%select%"=="1" set select=1&goto wanders
+if "%select%"=="2" set select=1&goto dungeons
+if "%select%"=="3" goto map1
+if "%select%"=="4" set select=1&goto towns
+if "%select%"=="6" set select=1&goto MENU
 )
 goto map1
 
-:map4
+:dungeons
+title StormTides Byte - Dungeons
 set destination=map4
 set backdest=map1
 cls
@@ -2672,8 +2821,9 @@ set s2=-
 set s3=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
-echo Map Of Dungeons.
+echo Dungeons
 echo %linevar%
+echo Please choose a destination on the map
 echo [0m
 set s%select%=[90m#[0m[97m
 echo [%s1%] Domain Of The Corrupted Lv.20+[0m
@@ -2694,9 +2844,10 @@ if "%select%"=="1" if %levell% GEQ 20 set select=1&goto raidnpc1
 if "%select%"=="2" if %levell% GEQ 45 set select=1&goto raidnpc1-2
 if "%select%"=="3" set select=1&goto map1
 )
-goto map4
+goto dungeons
 
-:map5
+:raids
+title StormTides Byte - Raids
 set destination=map5
 set backdest=map1
 cls
@@ -2736,10 +2887,11 @@ if "%select%"=="3" set select=1&goto map5
 if "%select%"=="4" set select=1&goto map5
 if "%select%"=="5" set select=1&goto map1
 )
-goto map5
+goto raids
 
 
-:map2
+:wanders
+title StormTides Byte - Wanders
 set destination=map2
 set backdest=map1
 cls
@@ -2752,13 +2904,15 @@ set s3=-
 set s4=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
-echo Map Of Wanders.
+echo Wanders
 echo %linevar%
+echo Please choose a destination on the map
 echo [0m
 set s%select%=[90m#[0m[97m
 echo [%s1%] Sand Beach Lv.1+[0m
 echo [%s2%] Creepy Crypt Lv.10+[0m
-echo [%s3%] Odd Creepy Crypt Lv.30+[0m
+echo [%s3%] Odd Crypt Lv.30+[0m
+:: echo [%s4%] Arcadia Island Lv.50+[0m
 echo.
 echo %linevar%
 echo [%s4%] Back[0m
@@ -2776,27 +2930,35 @@ if "%select%"=="2" if %levell% GEQ 10 set select=1&goto picknpc2
 if "%select%"=="3" if %levell% GEQ 30 set select=1&goto picknpc3
 if "%select%"=="4" set select=1&goto map1
 )
-goto map2
+goto wanders
 
-:map3
+:towns
+title StormTides Byte - Towns
 set destination=map3
 set backdest=map1
 cls
 mode con cols=48 lines=35
-if %select% gtr 2 set select=1
-if %select% lss 1 set select=2
+if %select% gtr 5 set select=1
+if %select% lss 1 set select=5
 set s1=-
 set s2=-
+set s3=-
+set s4=-
+set s5=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
-echo Map Of Towns
+echo Towns
 echo %linevar%
+echo Please choose a destination on the map
 echo [0m
 set s%select%=[90m#[0m[97m
 echo [%s1%] Krelbay Lv.5[0m
+echo [%s2%] Solace Lv.25[0m
+echo [%s3%] Mystic Grove Lv.75[0m
+echo [%s4%] Winterfell Lv.150[0m
 echo.
 echo %linevar%
-echo [%s2%] Back[0m
+echo [%s5%] Back[0m
 if "%msplash%"=="y" echo.
 choice /c:wsmiad /n /m ""
 set msplash=n
@@ -2807,12 +2969,16 @@ if "%errorlevel%"=="4" goto checkitemsINV
 if "%errorlevel%"=="5" set select=1&goto %backdest%
 if "%errorlevel%"=="6" (
 if "%select%"=="1" if %levell% GEQ 5 set select=1&goto town1
-if "%select%"=="2" set select=1&goto map1
+if "%select%"=="2" if %levell% GEQ 25 set select=1&goto town2
+if "%select%"=="3" if %levell% GEQ 75 set select=1&goto town3
+if "%select%"=="4" if %levell% GEQ 150 set select=1&goto town4
+if "%select%"=="5" set select=1&goto map1
 )
-goto map3
+goto towns
 
 // MARK: Inventory
 :selectbag
+title StormTides Byte - Inventory
 set destination=selectbag
 set backdest=MENU
 cls
@@ -2953,6 +3119,8 @@ if %weapon1% GTR 0 echo [[90mX[0m] Shadow Striker
 if %weapon1% EQU 0 echo [[90m-[0m] ???
 if %weapon2% GTR 0 echo [[90mX[0m] Necrosis
 if %weapon2% EQU 0 echo [[90m-[0m] ???
+if %weapon3% GTR 0 echo [[90mX[0m] Souls Edge
+if %weapon3% EQU 0 echo [[90m-[0m] ???
 echo.
 echo %linevar%
 echo [%s1%] Back
@@ -3381,14 +3549,13 @@ goto openitems
 :openitems1
 if %dchest% EQU 0 goto noitem
 set /a dchest=%dchest%-1
-set /a loot1=%random% %% 7+1
+set /a loot1=%random% %% 6+1
 if %loot1% EQU 1 goto loot1
 if %loot1% EQU 2 goto loot2
 if %loot1% EQU 3 goto loot3
 if %loot1% EQU 4 goto loot4
 if %loot1% EQU 5 goto loot5
 if %loot1% EQU 6 goto loot6
-if %loot1% EQU 7 goto loot7
 
 :loot1
 set destination=loot1
@@ -3546,30 +3713,6 @@ if "%select%"=="1" set select=1&goto openitems
 )
 goto loot6
 
-:loot7
-set destination=loot7
-set /a stormstone=%stormstone%+1
-cls
-mode con cols=48 lines=35
-if %select% gtr 1 set select=1
-if %select% lss 1 set select=1
-set s1=-
-set s%select%=[90m#[0m[97m
-echo %linevar%
-echo.
-echo You have gotten...
-echo +1 Storm Stone
-echo.
-echo [%s1%] Okay
-echo.
-if "%msplash%"=="y" echo.
-choice /c:d /n /m ""
-set msplash=n
-if "%errorlevel%"=="1" (
-if "%select%"=="1" set select=1&goto openitems
-)
-goto loot7
-
 :noitem
 echo You do not have that item...
 pause>nul
@@ -3580,8 +3723,8 @@ set destination=weaponselect
 set backdest=checkitems
 cls
 mode con cols=48 lines=35
-if %select% gtr 11 set select=1
-if %select% lss 1 set select=11
+if %select% gtr 13 set select=1
+if %select% lss 1 set select=13
 set s1=-
 set s2=-
 set s3=-
@@ -3593,6 +3736,8 @@ set s8=-
 set s9=-
 set s10=-
 set s11=-
+set s12=-
+set s13=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
 echo [0m
@@ -3616,9 +3761,13 @@ if %weapon1% GTR 0 echo [%s9%] Shadow Striker: %weapon1%[0m
 if %weapon1% EQU 0 echo [%s9%] ???: %weapon1%[0m
 if %weapon2% GTR 0 echo [%s10%] Necrosis: %weapon2%[0m
 if %weapon2% EQU 0 echo [%s10%] ???: %weapon2%[0m
+if %weapon3% GTR 0 echo [%s11%] Souls Edge: %weapon3%[0m
+if %weapon3% EQU 0 echo [%s11%] ???: %weapon3%[0m
+if %weapon3% GTR 0 echo [%s12%] Omnipresent: %weapon4%[0m
+if %weapon3% EQU 0 echo [%s12%] ???: %weapon4%[0m
 echo.
 echo %linevar%
-echo [%s11%] Back
+echo [%s13%] Back
 if "%msplash%"=="y" echo.
 choice /c:wsmiad /n /m ""
 set msplash=n
@@ -3638,7 +3787,9 @@ if "%select%"=="7" if %sword7% GTR 0 set select=1&goto inspect7
 if "%select%"=="8" if %sword8% GTR 0 set select=1&goto inspect8
 if "%select%"=="9" if %weapon1% GTR 0 set select=1&goto inspect9
 if "%select%"=="10" if %weapon2% GTR 0 set select=1&goto inspect10
-if "%select%"=="11" set select=1&goto checkitems
+if "%select%"=="11" if %weapon3% GTR 0 set select=1&goto inspect11
+if "%select%"=="12" if %weapon4% GTR 0 set select=1&goto inspect12
+if "%select%"=="13" set select=1&goto checkitems
 )
 goto weaponselect
 :inspect1
@@ -3655,6 +3806,7 @@ echo.
 echo Plastic Sword ^| Bought Item
 echo Max Damage: 100
 echo Level Required: 1+
+echo Class: Mele
 echo.
 echo Special Features: None
 echo Bonus Stats: None
@@ -3689,6 +3841,7 @@ echo Old Dagger ^| Bought Item
 echo.
 echo Max Damage: 118
 echo Level Required: 1+
+echo Class: Mele
 echo.
 echo Special Features: None
 echo Bonus Stats: None
@@ -3723,6 +3876,7 @@ echo Refurbished Glave ^| Bought Item
 echo.
 echo Max Damage: 145
 echo Level Required: 2+
+echo Class: Mele
 echo.
 echo Special Features: None
 echo Bonus Stats: None
@@ -3757,6 +3911,7 @@ echo Battle Staff ^| Bought Item
 echo.
 echo Max Damage: 180
 echo Level Required: 5+
+echo Class: Mage
 echo.
 echo Special Features: None
 echo Bonus Stats: None
@@ -3791,6 +3946,7 @@ echo Poison Shank ^| Bought Item
 echo.
 echo Max Damage: 230
 echo Level Required: 10+
+echo Class: Mele
 echo.
 echo Special Features: None
 echo Bonus Stats: None
@@ -3825,6 +3981,7 @@ echo Strong Katana ^| Bought Item
 echo.
 echo Max Damage: 280
 echo Level Required: 20+
+echo Class: Stealth
 echo.
 echo Special Features: None
 echo Bonus Stats: None
@@ -3859,6 +4016,7 @@ echo Sharp Dagger ^| Bought Item
 echo.
 echo Max Damage: 310
 echo Level Required: 25+
+echo Class: Mele
 echo.
 echo Special Features: None
 echo Bonus Stats: None
@@ -3889,7 +4047,8 @@ echo %linevar2%
 echo [34mStorm[36mTides[0m  ^|  Wepaons
 echo %linevar2%
 echo.
-echo Sharp Dagger ^| Bought Item
+echo Warriors Staff ^| Bought Item
+echo Class: Mele
 echo.
 echo Max Damage: 325
 echo Level Required: 30+
@@ -3926,8 +4085,8 @@ echo.
 echo Shadow Striker ^| Crafted Item
 echo.
 echo Max Damage: 375
-
 echo Level Required: 100+
+echo Class: Stealth
 echo.
 echo Special Features: None
 echo Bonus Stats: None
@@ -3961,7 +4120,8 @@ echo.
 echo Necrosis ^| Crafted Item
 echo.
 echo Max Damage: 450
-echo Level Required: 100+
+echo Level Required: 125+
+echo Class: Tank
 echo.
 echo Special Features: 
 echo - Heals you every swing.
@@ -3982,6 +4142,80 @@ if "%select%"=="1" set select=1&goto equips10
 if "%select%"=="2" set select=1&goto weaponselect
 )
 goto inspect10
+
+:inspect11
+cls
+if %select% gtr 2 set select=1
+if %select% lss 1 set select=2
+set s1=-
+set s2=-
+set s%select%=[90m#[0m[97m
+echo %linevar2%
+echo [34mStorm[36mTides[0m  ^|  Wepaons
+echo %linevar2%
+echo.
+echo Souls Edge ^| Crafted Item
+echo.
+echo Max Damage: 800
+echo Level Required: 150+
+echo Class: Mele
+echo.
+echo Special Features: 
+echo - Consumes your health to use
+echo - Drains health from opponents
+echo Bonus Stats:
+echo - + 100 Max Hp
+echo Duribility: Infinite
+echo.
+echo %linevar%
+echo [%s1%] Equip
+echo [%s2%] Back
+if "%msplash%"=="y" echo.
+choice /c:wsd /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" (
+if "%select%"=="1" set select=1&goto equips10
+if "%select%"=="2" set select=1&goto weaponselect
+)
+goto inspect11
+
+:inspect12
+cls
+if %select% gtr 2 set select=1
+if %select% lss 1 set select=2
+set s1=-
+set s2=-
+set s%select%=[90m#[0m[97m
+echo %linevar2%
+echo [34mStorm[36mTides[0m  ^|  Wepaons
+echo %linevar2%
+echo.
+echo Omnipresent ^| ???
+echo.
+echo Max Damage: 500
+echo Level Required: 175+
+echo Class: Mele
+echo.
+echo Special Features: 
+echo - Can hit twice
+echo Bonus Stats: None
+echo Duribility: Infinite
+echo.
+echo %linevar%
+echo [%s1%] Equip
+echo [%s2%] Back
+if "%msplash%"=="y" echo.
+choice /c:wsd /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" (
+if "%select%"=="1" set select=1&goto equips10
+if "%select%"=="2" set select=1&goto weaponselect
+)
+goto inspect12
 
 :equips1
 set destination=equips1
@@ -4005,6 +4239,7 @@ goto confirmequip
 set destination=equips3
 if %sword3% EQU 0 goto nosword
 if %swordtype% EQU Refurbished goto alreadyequip
+if %levell% LSS 2 goto nolevel
 set swordtype=Refurbished
 set skind=Glave
 set aan=a
@@ -4014,6 +4249,7 @@ goto confirmequip
 set destination=equips4
 if %sword4% EQU 0 goto nosword
 if %swordtype% EQU Battle goto alreadyequip
+if %levell% LSS 5 goto nolevel
 set swordtype=Battle
 set skind=Staff
 set aan=a
@@ -4023,6 +4259,7 @@ goto confirmequip
 set destination=equips5
 if %sword5% EQU 0 goto nosword
 if %swordtype% EQU Gold goto alreadyequip
+if %levell% LSS 10 goto nolevel
 set swordtype=Poison
 set skind=Shank
 set aan=a
@@ -4032,6 +4269,7 @@ goto confirmequip
 set destination=equips6
 if %sword6% EQU 0 goto nosword
 if %swordtype% EQU Strong goto alreadyequip
+if %levell% LSS 20 goto nolevel
 set swordtype=Strong
 set skind=Katana
 set aan=a
@@ -4041,6 +4279,7 @@ goto confirmequip
 set destination=equips7
 if %sword7% EQU 0 goto nosword
 if %swordtype% EQU Sharp goto alreadyequip
+if %levell% LSS 25 goto nolevel
 set swordtype=Sharp
 set skind=Dagger
 set aan=a
@@ -4050,6 +4289,7 @@ goto confirmequip
 set destination=equips8
 if %sword8% EQU 0 goto nosword
 if %swordtype% EQU Warriors goto alreadyequip
+if %levell% LSS 30 goto nolevel
 set swordtype=Warriors
 set skind=Staff
 set aan=a
@@ -4059,17 +4299,29 @@ goto confirmequip
 set destination=equips9
 if %weapon1% EQU 0 goto nosword
 if %swordtype% EQU Shadow goto alreadyequip
+if %levell% LSS 100 goto nolevel
 set swordtype=Shadow
 set skind=Striker
 set aan=a
 goto confirmequip
 
 :equips10
-set destination=equips9
+set destination=equips10
 if %weapon2% EQU 0 goto nosword
 if %swordtype% EQU Necrosis goto alreadyequip
+if %levell% LSS 125 goto nolevel
 set swordtype=Necrosis
 set skind=
+set aan=a
+goto confirmequip
+
+:equips11
+set destination=equips11
+if %weapon3% EQU 0 goto nosword
+if %swordtype% EQU Souls goto alreadyequip
+if %levell% LSS 150 goto nolevel
+set swordtype=Souls
+set skind=Edge
 set aan=a
 goto confirmequip
 
@@ -4150,6 +4402,33 @@ if "%errorlevel%"=="1" (
 if "%select%"=="1" set select=1&goto checkitems
 )
 goto alreadyequip
+
+:nolevel
+set destination=nolevel
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You don't meet the  level.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:wsmid /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" (
+if "%select%"=="1" set select=1&goto checkitems
+)
+goto nolevel
 
 :armorselect
 set destination=armorselect
@@ -4299,7 +4578,7 @@ echo Class: Warrior
 echo Level Required: 2+
 echo.
 echo Special Features: 
-echo - Tough: -8 Npc Damage Reduction
+echo - Tough: -8 Npc Damage
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -4335,7 +4614,7 @@ echo Level Required: 5+
 echo.
 echo Special Features: None
 echo Bonus Stats:
-echo - Enchanted: +5 Point Damage Addition
+echo - Enchanted: +5 Point Damage
 echo Duribility: Infinite
 echo.
 echo %linevar%
@@ -4403,8 +4682,8 @@ echo Class: Warrior
 echo Level Required: 20+
 echo.
 echo Special Features:
-echo - Tough: -25 Npc Damage Reduction
-echo - Slowness: -5 Point Damage Reduction
+echo - Tough: -25 Npc Damage
+echo - Slowness: -5 Point Damage
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -4439,8 +4718,8 @@ echo Class: Warrior
 echo Level Required: 25+
 echo.
 echo Special Features:
-echo - Tough: -50 Npc Damage Reduction
-echo - Slowness: -10 Point Damage Reduction
+echo - Tough: -50 Npc Damage
+echo - Slowness: -10 Point Damage
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -4476,8 +4755,8 @@ echo Class: Warrior
 echo Level Required: 35+
 echo.
 echo Special Features:
-echo - Tough: -100 Npc Damage Reduction
-echo - Slowness: -50 Point Damage Reduction
+echo - Tough: -100 Npc Damage
+echo - Slowness: -50 Point Damage
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -4812,6 +5091,7 @@ goto howugh
 
 // MARK: Weapon Store
 :weaponstore1
+title StormTides Byte - Weapon Stand
 set destination=weaponstore1
 set backdest=MENU
 cls
@@ -4840,7 +5120,7 @@ echo [%s4%] Battle Staff - 800 gold ^| [[90mLv.5+[0m][0m
 echo [%s5%] Poison Shank - 1,200 gold ^| [[90mLv.10+[0m][0m
 echo [%s6%] Strong Katana - 1,815 gold ^| [[90mLv.20+[0m][0m
 echo [%s7%] Sharp Dagger - 2,000 gold ^| [[90mLv.25+[0m][0m
-echo [%s8%] Warriors Staff - 2,300 gold ^| [[90mLv.30+[0m][0m
+echo [%s8%] Warriors Staff - 2,300 gold ^| [[90mLv.35+[0m][0m
 echo.
 echo Weapon Store Pg.1
 echo %linevar%
@@ -5179,7 +5459,7 @@ set s1=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
 echo You are not a high enough level to buy this item.
-echo %linevar%------
+echo %linevar%-----
 echo You need to be at least level %levelneeded%.
 echo Come back when you are level %levelneeded%
 echo.
@@ -5195,6 +5475,7 @@ if "%select%"=="1" set select=1&goto weaponstore1
 goto NOTHIGHENOUGHLEVELTOBUY
 
 :potionshop
+title StormTides Byte - Alchemy Stand
 set destination=potionshop
 set backdest=MENU
 cls
@@ -5218,10 +5499,13 @@ echo.
 echo %linevar%
 echo [%s4%] Back[0m
 if "%msplash%"=="y" echo.
-choice /c:ad /n /m ""
+choice /c:wsmiad /n /m ""
 set msplash=n
-if "%errorlevel%"=="1" set select=1&goto %backdest%
-if "%errorlevel%"=="2" (
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="6" (
 if "%select%"=="1" set select=1&goto buyp1
 if "%select%"=="2" set select=1&goto buyp2
 if "%select%"=="3" set select=1&goto buyp3
@@ -5337,6 +5621,7 @@ goto nogoldp
 
 // MARK: Armor Store
 :armorstore1
+title StormTides Byte - Armor Stand
 set destination=armorstore1
 set backdest=MENU
 cls
@@ -5703,7 +5988,7 @@ set s1=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
 echo You are not a high enough level to buy this item.
-echo %linevar%------
+echo %linevar%-----
 echo You need to be at least level %levelneeded%.
 echo Come back when you are level %levelneeded%
 echo.
@@ -5721,6 +6006,7 @@ goto NOTHIGHENOUGHLEVELTOBUYA
 
 // MARK: Creepy Crypt
 :picknpc2
+title StormTides Byte - Creepy Crypt
 set destination=picknpc2
 if %hp% EQU 0 goto MENU
 set /a npc=%random% %% 14+1
@@ -6031,7 +6317,7 @@ echo [%s1%] Attack[0m
 echo [%s2%] Quick Item[0m
 echo [%s3%] Flee[0m
 echo.
-echo --
+echo %linevar%
 if "%msplash%"=="y" echo.
 choice /c:wsmid /n /m ""
 set msplash=n
@@ -6198,13 +6484,8 @@ if %swordtype% EQU Sharp set /a damage=%random%*310/32767+1
 if %swordtype% EQU Warriors set /a damage=%random%*325/32767+1
 if %swordtype% EQU Shadow set /a damage=%random%*375/32767+1
 if %swordtype% EQU Necrosis set /a damage=%random%*450/32767+1
-if %artifacttype% EQU Storm set /a damage=%damage%+100
+if %artifacttype% EQU Storm set /a damage=%damage%+%random%*100/32767+1
 if %damage% GTR %health% set /a damage=%health%
-
-if %armortype% EQU Scale set /a  damage=%damage%+5
-if %armortype% EQU Titanium set /a  damage=%damage%-5
-if %armortype% EQU Tungsten set /a  damage=%damage%-10
-if %armortype% EQU Platinum set /a  damage=%damage%-50
 
 if %damage% LSS 0 set /a damage=0
 cls
@@ -6228,9 +6509,9 @@ pause>nul
 if %health% LEQ 0 goto dropitem2
 if %levell% LSS 225 (
 if %playerxp% GTR %origxp% goto levelup2
-goto fs1-2
+goto fs3-2
 )
-goto fs1-2
+goto fs3-2
 
 
 :fs3-2
@@ -6477,7 +6758,8 @@ goto dropitem2
 // MARK: Krelbay
 :town1
 set destination=town1
-set backdest=map3
+set backdest=town
+title StormTides Byte - Krelbay
 cls
 mode con cols=48 lines=35
 if %select% gtr 3 set select=1
@@ -6491,7 +6773,7 @@ echo Welcome to Krelbay
 echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
-echo [%s1%] Trade Market Stand[0m
+echo [%s1%] Trade Market[0m
 echo [%s2%] Sorcerers Tower
 echo.
 echo %linevar%
@@ -6527,8 +6809,8 @@ echo You Curently Have %gold% Gold.
 echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
-echo [%s1%] Kirin Tor Tower[0m
-echo [%s2%] Runeic Crafter[0m
+echo [%s1%] Kirin Tor Tower [31m[Temp Remove][0m
+echo [%s2%] Runeic Crafter [31m[Coming Soon][0m
 echo.
 echo Weapon Store Pg.1
 echo %linevar%
@@ -6542,8 +6824,8 @@ if "%errorlevel%"=="3" goto mainmenu
 if "%errorlevel%"=="4" goto checkitemsINV
 if "%errorlevel%"=="5" set select=1&goto %backdest%
 if "%errorlevel%"=="6" (
-if "%select%"=="1" set select=1&goto st1
-if "%select%"=="2" set select=1&goto st2
+if "%select%"=="1" set select=1&goto st
+if "%select%"=="2" set select=1&goto st
 if "%select%"=="3" set select=1&goto MENU
 )
 goto st
@@ -6568,10 +6850,6 @@ echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
 echo [%s1%] Spirt Heal Spell Recipe -  [0m
-echo [%s2%] Carnage Curse[0m
-echo [%s3%] Pyromania[0m
-echo [%s4%] Solar Ruptureh[0m
-echo [%s5%] Purity of Energy[0m
 echo.
 echo Weapon Store Pg.1
 echo %linevar%
@@ -6628,6 +6906,7 @@ goto buyw1
 
 // MARK: Trade Market
 :tm
+title StormTides Byte - Trade Market
 set destination=tm
 set backdest=town1
 cls
@@ -6643,7 +6922,7 @@ set s6=-
 set s7=-
 set s8=-
 set s%select%=[90m#[0m[97m
-echo %linevar%-
+echo %linevar%
 echo Welcome To The Salv Trade Market!
 echo %linevar%
 echo Pg.1
@@ -6654,7 +6933,7 @@ echo [%s2%] Crab Legs: %clegs% - 3 gold Each[0m
 echo [%s3%] Buff-Lobster Legs: %bufflegs% - 8 gold Each[0m
 echo [%s4%] Broken Fishing Rod: %bfp% - 6 gold Each[0m
 echo [%s5%] Dave Brain Fragment: %dbrain% - 10 gold Each[0m
-echo [%s6%] Zombie Feather: %zombief% - 20 gold Eachv
+echo [%s6%] Zombie Feather: %zombief% - 20 gold Each
 echo.
 echo %linevar%
 echo [%s7%] Next Page[0m
@@ -6938,61 +7217,86 @@ goto tm3
 
 
 
-// MARK: Quest Board
-:questb
-if %qc1% GTR 99 goto qf1
-set destination=questb
+// MARK: Solace
+:town2
+set destination=town2
+set backdest=towns
+title StormTides Byte - Solace
 cls
 mode con cols=48 lines=35
-if %select% gtr 8 set select=1
-if %select% lss 1 set select=8
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
 set s1=-
 set s2=-
 set s3=-
-set s4=-
-set s5=-
-set s6=-
-set s7=-
-set s8=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
-echo Solev Quest Board
+echo Welcome to Solace
 echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
-echo [%s1%] Welcome to hell [%s5%] (Coming Soon)[0m
-echo [%s2%] (Coming Soon)   [%s6%] (Coming Soon)[0m
-echo [%s3%] (Coming Soon)   [%s7%] (Coming Soon)[0m
-echo [%s4%] (Coming Soon)   [%s8%] (Coming Soon)[0m
+echo [%s1%] Blacksmith[0m
+echo [%s2%] Tavern[0m
 echo.
 echo %linevar%
+echo [%s3%] leave[0m
 if "%msplash%"=="y" echo.
-choice /c:wsmid /n /m ""
+choice /c:wsmiad /n /m ""
 set msplash=n
 if "%errorlevel%"=="1" set /a select-=1
 if "%errorlevel%"=="2" set /a select+=1
 if "%errorlevel%"=="3" goto mainmenu
 if "%errorlevel%"=="4" goto checkitemsINV
-if "%errorlevel%"=="5" (
-if "%select%"=="1" set select=1&goto quest1
-if "%select%"=="2" set select=1&goto quest2
-if "%select%"=="3" set select=1&goto quest3
-if "%select%"=="4" set select=1&goto quest4
-if "%select%"=="5" set select=1&goto quest5
-if "%select%"=="6" set select=1&goto quest6
-if "%select%"=="7" set select=1&goto quest7
-if "%select%"=="8" set select=1&goto quest8
+if "%errorlevel%"=="5" set select=1&goto %backdest%
+if "%errorlevel%"=="6" (
+if "%select%"=="1" set select=1&goto blacksmith
+if "%select%"=="2" set select=1&goto tavern
+if "%select%"=="3" set select=1&goto MENU
 )
-goto questb
+goto town2
 
-:quest1
+:blacksmith
+set destination=blacksmith
+set backdest=town2
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Solace Blacksmith
+echo %linevar%
+echo You Curently Have %gold% Gold.
+echo [0m
+set s%select%=[90m#[0m[97m
+echo Materials
+echo [%s1%] Dave Brain Fragments - 450 Gold x5[0m
+echo [%s2%] Corrupted Shards - 500 Gold x25[0m
+echo.
+echo %linevar%
+echo [%s3%] Back[0m
+if "%msplash%"=="y" echo.
+choice /c:wsmiad /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" set select=1&goto %backdest%
+if "%errorlevel%"=="6" (
+if "%select%"=="1" if %gold% geq 450 set select=1&goto buy-mat1
+if "%select%"=="2" if %gold% geq 500 set select=1&goto buy-mat2
+if "%select%"=="3" set select=1&goto town2
+)
+goto blacksmith
 
-
-
-:qf1
-set /a gold=%gold%+10000
-set /a qc1=0
-set destination=MENU
+:buy-mat1
+set destination=buy-mat1
+set /a gold=%gold%-450
+set /a dbrain=%dbrain%+5
 cls
 mode con cols=48 lines=35
 if %select% gtr 1 set select=1
@@ -7000,31 +7304,901 @@ if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
-echo %campname%
+echo You have bought x5 Dave Brain Fragments for
+echo 450 Gold. You now have %dbrain% Dave Brain Fragments.
 echo %linevar%
 echo.
-echo The quest Welcome To Hell is now complete
-echo +10,000 gold
+echo [%s1%] Okay
 echo.
-echo %linevar%
-echo Curently On Save: %username1%
 echo %linevar%
 if "%msplash%"=="y" echo.
-choice /c:wsmid /n /m ""
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto blacksmith
+)
+goto buy-mat1
+
+:buy-mat2
+set destination=buy-mat2
+set /a gold=%gold%-500
+set /a cshard=%cshard%+25
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have bought x25 Corrupted Shards for
+echo 500 Gold. You now have %cshard% Corrupted Shards.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto blacksmith
+)
+goto buy-mat2
+
+
+
+
+:tavern
+set destination=tavern
+set backdest=town2
+set lver1=Offline
+set lver2=Offline
+set lver3=Offline
+set lver4=Offline
+set lver5=Offline
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Tavern Of Solace
+echo %linevar%
+echo [0m
+set s%select%=[90m#[0m[97m
+echo Select where you want to go
+echo [%s1%] The Bar[31m[Coming Soon][0m
+echo [%s2%] Suspicious Door[0m
+echo.
+echo %linevar%
+echo [%s3%] Back[0m
+if "%msplash%"=="y" echo.
+choice /c:wsmiad /n /m ""
 set msplash=n
 if "%errorlevel%"=="1" set /a select-=1
 if "%errorlevel%"=="2" set /a select+=1
 if "%errorlevel%"=="3" goto mainmenu
 if "%errorlevel%"=="4" goto checkitemsINV
-if "%errorlevel%"=="5" (
-if "%select%"=="1" set select=1&goto questb
+if "%errorlevel%"=="5" set select=1&goto %backdest%
+if "%errorlevel%"=="6" (
+if "%select%"=="1" goto tavern
+if "%select%"=="2" set select=1&goto strange-door
+if "%select%"=="3" set select=1&goto town2
 )
-goto qf1
+goto tavern
+
+:strange-door
+set destination=strange-door
+set backdest=tavern
+cls
+mode con cols=48 lines=35
+if %select% gtr 7 set select=1
+if %select% lss 1 set select=7
+set s1=-
+set s2=-
+set s3=-
+set s4=-
+set s5=-
+set s6=-
+set s7=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Suspicious Door
+echo %linevar%
+echo The door won't open but there 
+echo are 5 leavers beside the door and
+echo [0m
+set s%select%=[90m#[0m[97m
+echo [%s1%] Leaver 1 (%lver1%)[0m
+echo [%s2%] Leaver 2 (%lver2%)[0m
+echo [%s3%] Leaver 3 (%lver3%)[0m
+echo [%s4%] Leaver 4 (%lver4%)[0m
+echo [%s5%] Leaver 5 (%lver5%)[0m
+echo.
+echo [%s6%] Enter Sequence[0m
+echo %linevar%
+echo [%s7%] Back[0m
+if "%msplash%"=="y" echo.
+choice /c:wsmiad /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" set select=1&goto %backdest%
+if "%errorlevel%"=="6" (
+if "%select%"=="1" if %lver1% Equ Online set lver1=Offline
+if "%select%"=="1" if %lver1% Equ Offline set lver1=Online
+if "%select%"=="2" if %lver2% Equ Online set lver2=Offline
+if "%select%"=="2" if %lver2% Equ Offline set lver2=Online
+if "%select%"=="3" if %lver3% Equ Online set lver3=Offline
+if "%select%"=="3" if %lver3% Equ Offline set lver3=Online
+if "%select%"=="4" if %lver4% Equ Online set lver4=Offline
+if "%select%"=="4" if %lver4% Equ Offline set lver4=Online
+if "%select%"=="5" if %lver5% Equ Online set lver5=Offline
+if "%select%"=="5" if %lver5% Equ Offline set lver5=Online
+if "%select%"=="6" if %lver1% Equ Offline if %lver2% Equ Online if %lver3% Equ Online if %lver4% Equ Offline if %lver5% Equ Online if %levell% Geq 100 set select=1&goto s-town1
+if "%select%"=="7" set select=1&goto tavern
+)
+goto strange-door
 
 
 
+// MARK: Mystic Grove
+:town3
+set destination=town3
+set backdest=towns
+title StormTides Byte - Mystic Grove
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Welcome to Mystic Grove
+echo %linevar%
+echo [0m
+set s%select%=[90m#[0m[97m
+echo [%s1%] Temple[0m
+echo [%s2%] Licencer[31m[Coming Soon][0m
+echo.
+echo %linevar%
+echo [%s3%] leave[0m
+if "%msplash%"=="y" echo.
+choice /c:wsmiad /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" set select=1&goto %backdest%
+if "%errorlevel%"=="6" (
+if "%select%"=="1" set select=1&goto temple
+if "%select%"=="2" set select=1&goto town3
+if "%select%"=="3" set select=1&goto MENU
+)
+goto town3
+
+:temple
+set destination=temple
+set backdest=town3
+cls
+mode con cols=48 lines=35
+if %select% gtr 5 set select=1
+if %select% lss 1 set select=5
+set s1=-
+set s2=-
+set s3=-
+set s4=-
+set s5=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Temple
+echo %linevar%
+echo Select an item you want to offer
+echo [0m
+set s%select%=[90m#[0m[97m
+echo [%s1%] Seeds x5 - %seeds%[0m
+echo [%s2%] Human Skin x10 - %skin%[0m
+echo [%s3%] 5,000 Gold - %gold%[0m
+echo [%s4%] Enchanted Skull x1 - %eskull%[0m
+echo.
+echo %linevar%
+echo [%s5%] Back[0m
+if "%msplash%"=="y" echo.
+choice /c:wsmiad /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" set select=1&goto %backdest%
+if "%errorlevel%"=="6" (
+if "%select%"=="1" if %seeds% geq 5 set select=1&goto offer1
+if "%select%"=="2" if %skin% geq 10 set select=1&goto offer2
+if "%select%"=="3" if %gold% geq 5000 set select=1&goto offer3
+if "%select%"=="4" if %eskull% geq 1 set select=1&goto offer4
+if "%select%"=="5" set select=1&goto town1
+)
+goto temple
+
+:offer1
+set /a seeds=%seeds%-5
+set /a chance=%random% %% 5+1
+if %chance% EQU 1 set /a seeds=%seeds%-5&goto reward1-1
+if %chance% EQU 2 set /a seeds=%seeds%-5&goto reward1-2
+if %chance% EQU 3 set /a seeds=%seeds%-5&goto reward1-3
+if %chance% EQU 4 set /a seeds=%seeds%-5&goto reward1-4
+if %chance% EQU 5 set /a seeds=%seeds%-5&goto reward1-5
+
+:offer2
+set /a skin=%skin%-10
+set /a chance=%random% %% 5+1
+if %chance% EQU 1 set /a skin=%skin%-10&goto reward2-1
+if %chance% EQU 2 set /a skin=%skin%-10&goto reward2-2
+if %chance% EQU 3 set /a skin=%skin%-10&goto reward2-3
+if %chance% EQU 4 set /a skin=%skin%-10&goto reward2-4
+if %chance% EQU 5 set /a skin=%skin%-10&goto reward2-5
+
+:offer3
+set /a gold=%gold%-5000
+set /a chance=%random% %% 5+1
+if %chance% EQU 1 set /a gold=%gold%-1000&goto reward3-1
+if %chance% EQU 2 set /a gold=%gold%-1000&goto reward3-2
+if %chance% EQU 3 set /a gold=%gold%-1000&goto reward3-3
+if %chance% EQU 4 set /a gold=%gold%-1000&goto reward3-4
+if %chance% EQU 5 set /a gold=%gold%-1000&goto reward3-5
+
+:offer4
+set /a eskull=%eskull%-1
+set /a chance=%random% %% 5+1
+if %chance% EQU 1 set /a eskull=%eskull%-1&goto reward4-1
+if %chance% EQU 2 set /a eskull=%eskull%-1&goto reward4-2
+if %chance% EQU 3 set /a eskull=%eskull%-1&goto reward4-3
+if %chance% EQU 4 set /a eskull=%eskull%-1&goto reward4-4
+if %chance% EQU 5 set /a eskull=%eskull%-1&goto reward4-5
 
 
+:reward1-1
+set destination=reward1-1
+set /a gold=%gold%+800
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +800 Gold! You now have %gold% Gold.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward1-1
+
+:reward1-2
+set destination=reward1-2
+set /a dbrain=%dbrain%+25
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +25 Dave Brain Fragments! 
+echo You now have %dbrain% Dave Brain Fragments.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward1-2
+
+:reward1-3
+set destination=reward1-3
+set /a sword1=%sword1%+1
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +1 Plastic Sword! 
+echo You now have %sword1% Plastic Swords.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward1-3
+
+:reward1-4
+set destination=reward1-4
+set /a cshard=%cshard%+50
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +50 Corrupted Shards! 
+echo You now have %cshard% Corrupted Shards.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward1-4
+
+:reward1-5
+set destination=reward1-5
+set /a cshard=%cshard%+100
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +100 Corrupted Shards! 
+echo You now have %cshard% Corrupted Shards.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward1-5
+
+
+
+:reward2-1
+set destination=reward2-1
+set /a gold=%gold%+2500
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +2500 Gold! You now have %gold% Gold.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward2-1
+
+:reward2-2
+set destination=reward2-2
+set /a dbrain=%dbrain%+50
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +50 Dave Brain Fragments! 
+echo You now have %dbrain% Dave Brain Fragments.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward2-2
+
+:reward2-3
+set destination=reward2-3
+set /a gold=%gold%+3500
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +3500 Gold! You now have %gold% Gold.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward2-3
+
+:reward2-4
+set destination=reward2-4
+set /a dchest=%dchest%+1
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +1 Dungeon Chest! 
+echo You now have %dchest% Dungeon Chest.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward2-4
+
+:reward2-5
+set destination=reward2-5
+set /a seeds=%seeds%+3
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +3 Seeds! You now have %seeds% Seeds.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward2-5
+
+
+
+:reward3-1
+set destination=reward3-1
+set /a dchest=%dchest%+3
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +3 Dungeon Chests! 
+echo You now have %dchest% Dungeon Chests.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward3-1
+
+:reward3-2
+set destination=reward3-2
+set /a dchest=%dchest%+3
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +3 Dungeon Chests! 
+echo You now have %dchest% Dungeon Chests.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward3-2
+
+:reward3-3
+set destination=reward3-3
+set /a bobst=%bobst%+10
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +10 Bobs Tears!
+echo You now have %bobst% Bobs Tears.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward3-3
+
+:reward3-4
+set destination=reward3-4
+set /a raidpot=%raidpot%+10
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +10 Raid Health Elixer!
+echo You now have %raidpot% Raid Health Elixer.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward3-4
+
+:reward3-5
+set destination=reward3-5
+set /a sword5=%sword5%+1
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +1 Poison Shank!
+echo You now have %sword5% Poison Shanks.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward3-5
+
+
+:reward4-1
+set destination=reward4-1
+set /a gold=%gold%+15000
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +15,000 Gold! You now have %gold% Gold.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward4-1
+
+:reward4-2
+set destination=reward4-2
+set /a dbrain=%dbrain%+150
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +150 Dave Brain Fragments! 
+echo You now have %dbrain% Dave Brain Fragments.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward4-2
+
+:reward4-3
+set destination=reward4-3
+set /a dchest=%dchest%+3
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +3 Dungeon Chests! 
+echo You now have %dchest% Dungeon Chests.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward4-3
+
+:reward4-4
+set destination=reward4-4
+set /a cshard=%chshard%+150
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +150 Corrupted Shards! 
+echo You now have %cshard% Corrupted Shard.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward4-4
+
+:reward4-5
+set destination=reward4-5
+set /a gold=%gold%+100000
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have gotten...
+echo +100,000 Gold! You now have %gold% Gold.
+echo %linevar%
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto temple
+)
+goto reward4-5
+
+
+// MARK: Winterfell
+:town4
+set destination=town4
+set backdest=towns
+title StormTides Byte - Winterfell
+cls
+mode con cols=48 lines=35
+if %select% gtr 4 set select=1
+if %select% lss 1 set select=4
+set s1=-
+set s2=-
+set s3=-
+set s4=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Welcome to Mystic Grove
+echo %linevar%
+echo [0m
+set s%select%=[90m#[0m[97m
+echo [%s1%] Map Merchant[31m[Coming Soon][0m
+echo [%s2%] Alchemy Merchant[31m[Coming Soon][0m
+echo [%s3%] Dragon's Hoard[31m[Coming Soon][0m
+echo.
+echo %linevar%
+echo [%s4%] leave[0m
+if "%msplash%"=="y" echo.
+choice /c:wsmiad /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" set select=1&goto %backdest%
+if "%errorlevel%"=="6" (
+if "%select%"=="1" set select=1&goto town4
+if "%select%"=="2" set select=1&goto town4
+if "%select%"=="3" set select=1&goto town4
+if "%select%"=="4" set select=1&goto MENU
+)
+goto town4
+
+:map-merchant
+set destination=map-merchant
+set backdest=town4
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Map Merchant
+echo %linevar%
+echo You Curently Have %gold% Gold.
+echo [0m
+set s%select%=[90m#[0m[97m
+echo Materials
+echo Items coming soon!
+echo.
+echo %linevar%
+echo [%s3%] Back[0m
+if "%msplash%"=="y" echo.
+choice /c:wsmiad /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" set select=1&goto %backdest%
+if "%errorlevel%"=="6" (
+if "%select%"=="1" if %gold% geq 450 set select=1&goto buy-mat1
+if "%select%"=="2" if %gold% geq 500 set select=1&goto buy-mat2
+if "%select%"=="3" set select=1&goto town2
+)
+goto map-merchant
+
+
+// MARK: New Arcadia
+:s-town1
+set destination=s-town1
+set backdest=towns
+title StormTides Byte - New Arcadia
+cls
+mode con cols=48 lines=35
+if %select% gtr 4 set select=1
+if %select% lss 1 set select=4
+set s1=-
+set s2=-
+set s3=-
+set s4=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Welcome to [36mNew [34mArca[35mdia[0m
+echo %linevar%
+echo [0m
+set s%select%=[90m#[0m[97m
+echo Nothing to see here...
+echo.
+echo %linevar%
+echo [%s4%] leave[0m
+if "%msplash%"=="y" echo.
+choice /c:wsmiad /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" set select=1&goto %backdest%
+if "%errorlevel%"=="6" (-
+if "%select%"=="4" set select=1&goto MENU
+)
+goto s-town1
 
 
 // MARK: Workshop
@@ -7153,14 +8327,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-echo ---
+echo %linevar%
 echo You crafted x3 Health Potion T3.
 echo Your curent number of this is now...
 echo %potiont3%.
 echo.
 echo [%s1%] Okay
 echo.
-echo --
+echo %linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -7214,14 +8388,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-echo ---
+echo %linevar%
 echo You crafted x1 Raid Health Elixers.
 echo Your curent number of this is now...
 echo %raidpot%.
 echo.
 echo [%s1%] Okay
 echo.
-echo --
+echo %linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -7323,14 +8497,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-echo ---
+echo %linevar%
 echo You crafted x1 Max Health Orb - +25.
 echo Your curent number of this is now...
 echo %orb1%.
 echo.
 echo [%s1%] Okay
 echo.
-echo --
+echo %linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -7390,14 +8564,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-echo ---
+echo %linevar%
 echo You crafted x1 Normal Mythic Raid Map.
 echo Your curent number of this is now...
 echo %key1%.
 echo.
 echo [%s1%] Okay
 echo.
-echo --
+echo %linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -7505,14 +8679,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-echo ---
+%linevar%
 echo You crafted x1 Shadow Striker.
 echo Your curent number of this is now...
 echo %weapon1%.
 echo.
 echo [%s1%] Okay
 echo.
-echo --
+%linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -7551,16 +8725,16 @@ if "%errorlevel%"=="3" goto mainmenu
 if "%errorlevel%"=="4" goto checkitemsINV
 if "%errorlevel%"=="5" set select=1&goto %backdest%
 if "%errorlevel%"=="6" (
-if "%select%"=="1" set select=1&goto makeweapon1
+if "%select%"=="1" set select=1&goto makeweapon2
 if "%select%"=="2" set select=1&goto wforge
 )
 goto weapon2
 
 :makeweapon2
 set destination=makeweapon2-2
-if not %cshard% GEQ 100 goto nomats1-3
-if not %eskull% GEQ 3 goto nomats1-3
-if not %bobst% GEQ 50 goto nomats1-3
+if %cshard% LSS 100 goto nomats2-3
+if %eskull% LSS 3 goto nomats2-3
+if %bobst% LSS 50 goto nomats2-3
 set /a cshard=%cshard%-100
 set /a eskull=%eskull%-5
 set /a bobst=%bobst%-50
@@ -7572,14 +8746,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-echo ---
+echo %linevar%
 echo You crafted x1 Necrosis.
 echo Your curent number of this is now...
 echo %weapon2%.
 echo.
 echo [%s1%] Okay
 echo.
-echo --
+echo %linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -7592,7 +8766,12 @@ goto makeitem2-2
 :nomats1-3
 echo You don't have the items for that...
 pause>nul
-goto item1
+goto weapon1
+
+:nomats2-3
+echo You don't have the items for that...
+pause>nul
+goto weapon2
 
 :farm
 set choping_per=[     ]
@@ -7689,6 +8868,7 @@ goto forest_choping
 
 // MARK: mainmenu
 :mainmenu
+title StormTides Byte - Main Menu
 set backdest=%destination%
 cls
 mode con cols=48 lines=35
@@ -7707,7 +8887,7 @@ echo What Would You Like To Do?
 echo [0m
 echo [%s1%] Settings[0m
 echo [%s2%] Save[0m
-echo [%s3%] Handbook[0m
+echo [%s3%] Handbook[31m[Coming Soon][0m
 echo [%s4%] Quit[0m
 echo [%s5%] Back[0m
 echo.
@@ -7790,6 +8970,7 @@ goto weapons-armor
 
 // MARK: Inventory Quick
 :checkitemsINV
+title StormTides Byte - Inventory
 set backdest=%destination%
 cls
 mode con cols=48 lines=35
@@ -7951,8 +9132,8 @@ echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
 echo [%s1%] Heal[0m
-echo [%s2%] Change Weapon[0m
-echo [%s3%] Change Armor[0m
+echo [%s2%] Inspect Weapon[0m
+echo [%s3%] Inspect Armor[0m
 echo.
 echo %linevar%
 echo [%s4%] Back
@@ -9495,7 +10676,7 @@ if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
 if "%errorlevel%"=="1" (
-if "%select%"=="1" set select=1&goto healmenuINV
+if "%select%"=="1" set select=4&goto healmenuINV
 )
 goto healraidIN
 
@@ -9796,7 +10977,7 @@ echo You are wandering the Raid and...
 echo encounter a level %level% %npcstat% %npctype%.
 echo.
 echo %linevar%
-ping localhost -n 2 >nul
+
 if %npcstat% equ Quick goto fs3RAID
 goto fs1RAID
 
@@ -9933,7 +11114,7 @@ echo %linevar%
 echo.
 echo You attack the %npcstat% %npctype%!
 echo.
-ping localhost -n 2 >nul
+
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -9971,10 +11152,6 @@ if %npcstat% EQU if %health% GTR 50 Weak set /a health=%health%-50
 if %npcstat% EQU Enraged set /a dmgnpc=%damage%+85
 if %npcstat% EQU Strong set /a dmgnpc=%damage%+50
 
-if %armortype% EQU Steel set /a dmgnpc=%dmgnpc%-8
-if %armortype% EQU Titanium set /a  dmgnpc=%dmgnpc%-25
-if %armortype% EQU Platinum set /a  dmgnpc=%dmgnpc%-100
-
 if %dmgnpc% LSS 0 set dmgnpc=0
 
 cls
@@ -9985,7 +11162,7 @@ echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The %npcstat% %npctype% attacks.
-ping localhost -n 2 >nul
+
 echo The %npcstat% %npctype% deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -10164,7 +11341,7 @@ if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
 if "%errorlevel%"=="1" (
-if "%select%"=="1" set select=1&goto n
+if "%select%"=="1" set select=1&goto testllvRAID
 )
 goto levelupRAID-2
 
@@ -10206,7 +11383,7 @@ echo You are wandering the Boss Room and...
 echo encounter a level %level% Hive-Mind-Giant.
 echo.
 echo %linevar%
-ping localhost -n 2 >nul
+
 goto fs1RAIDBOSS
 
 
@@ -10343,7 +11520,7 @@ echo %linevar%
 echo.
 echo You attack the Hive-Mind-Giant!
 echo.
-ping localhost -n 2 >nul
+
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -10379,7 +11556,7 @@ echo - Lv.%level% [37mHive-Mind-Giant[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The Hive-Mind-Giant attacks.
-ping localhost -n 2 >nul
+
 echo The Hive-Mind-Giant deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -10494,8 +11671,9 @@ goto winBOSS-2
 
 
 
-// MARK: Odd Creepy Crypt
+// MARK: Odd Crypt
 :picknpc3
+title StormTides Byte - Odd Crypt
 set destination=picknpc3
 if %hp% EQU 0 goto MENU
 set /a npc=%random% %% 14+1
@@ -10541,227 +11719,227 @@ if %stat% EQU 20 set npcstat=Weak
 if %levell% LEQ 5 (
 set /a health=%random% %% 100 + 75
 set /a level=%random% %% 4 + 1
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 10 (
 set /a health=%random% %% 100 + 200
 set /a level=%random% %% 5 + 5
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 15 (
 set /a health=%random% %% 100 + 350
 set /a level=%random% %% 5 + 10
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 20 (
 set /a health=%random% %% 100 + 500
 set /a level=%random% %% 5 + 15
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 25 (
 set /a health=%random% %% 100 + 625
 set /a level=%random% %% 7 + 20
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 30 (
 set /a health=%random% %% 100 + 750
 set /a level=%random% %% 10 + 25
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 35 (
 set /a health=%random% %% 100 + 900
 set /a level=%random% %% 15 + 30
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 40 (
 set /a health=%random% %% 100 + 1025
 set /a level=%random% %% 20 + 35
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 45 (
 set /a health=%random% %% 100 + 1150
 set /a level=%random% %% 25 + 40
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 50 (
 set /a health=%random% %% 100 + 1275
 set /a level=%random% %% 30 + 45
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 55 (
 set /a health=%random% %% 100 + 1400
 set /a level=%random% %% 35 + 50
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 60 (
 set /a health=%random% %% 100 + 1525
 set /a level=%random% %% 40 + 55
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 65 (
 set /a health=%random% %% 100 + 1650
 set /a level=%random% %% 45 + 60
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 70 (
 set /a health=%random% %% 100 + 1775
 set /a level=%random% %% 50 + 65
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 75 (
 set /a health=%random% %% 100 + 1900
 set /a level=%random% %% 55 + 70
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 80 (
 set /a health=%random% %% 100 + 2025
 set /a level=%random% %% 60 + 75
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 85 (
 set /a health=%random% %% 100 + 2150
 set /a level=%random% %% 65 + 80
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 90 (
 set /a health=%random% %% 100 + 2275
 set /a level=%random% %% 70 + 85
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 95 (
 set /a health=%random% %% 100 + 2400
 set /a level=%random% %% 75 + 90
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 100 (
 set /a health=%random% %% 100 + 2525
 set /a level=%random% %% 80 + 95
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 105 (
 set /a health=%random% %% 100 + 2650
 set /a level=%random% %% 85 + 100
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 110 (
 set /a health=%random% %% 100 + 2875
 set /a level=%random% %% 90 + 105
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 115 (
 set /a health=%random% %% 100 + 3100
 set /a level=%random% %% 95 + 110
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 120 (
 set /a health=%random% %% 100 + 3225
 set /a level=%random% %% 100 + 115
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 125 (
 set /a health=%random% %% 100 + 3350
 set /a level=%random% %% 105 + 120
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 130 (
 set /a health=%random% %% 100 + 3475
 set /a level=%random% %% 110 + 125
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 135 (
 set /a health=%random% %% 100 + 3600
 set /a level=%random% %% 115 + 130
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 140 (
 set /a health=%random% %% 100 + 3725
 set /a level=%random% %% 120 + 135
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 145 (
 set /a health=%random% %% 100 + 3850
 set /a level=%random% %% 125 + 140
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 150 (
 set /a health=%random% %% 100 + 3975
 set /a level=%random% %% 130 + 145
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 155 (
 set /a health=%random% %% 100 + 4200
 set /a level=%random% %% 130 + 145
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 160 (
 set /a health=%random% %% 100 + 4325
 set /a level=%random% %% 135 + 150
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 165 (
 set /a health=%random% %% 100 + 4450
 set /a level=%random% %% 140 + 155
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 170 (
 set /a health=%random% %% 100 + 4575
 set /a level=%random% %% 145 + 160
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 175 (
 set /a health=%random% %% 100 + 4700
 set /a level=%random% %% 150 + 165
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 180 (
 set /a health=%random% %% 100 + 4700
 set /a level=%random% %% 155 + 170
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 185 (
 set /a health=%random% %% 100 + 4825
 set /a level=%random% %% 160 + 175
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 190 (
 set /a health=%random% %% 100 + 4950
 set /a level=%random% %% 165 + 180
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 195 (
 set /a health=%random% %% 100 + 5075
 set /a level=%random% %% 170 + 185
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 200 (
 set /a health=%random% %% 100 + 5200
 set /a level=%random% %% 175 + 190
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 205 (
 set /a health=%random% %% 100 + 5325
 set /a level=%random% %% 180 + 195
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 210 (
 set /a health=%random% %% 100 + 5450
 set /a level=%random% %% 185 + 200
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 215 (
 set /a health=%random% %% 100 + 5575
 set /a level=%random% %% 190 + 200
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 220 (
 set /a health=%random% %% 100 + 5700
 set /a level=%random% %% 195 + 205
-goto F_START2
+goto F_START3
 )
 if %levell% LEQ 225 (
 set /a health=%random% %% 100 + 5825
 set /a level=%random% %% 200 + 210
-goto F_START2
+goto F_START3
 )
 F_START3
 
@@ -10805,7 +11983,7 @@ echo [%s1%] Attack[0m
 echo [%s2%] Quick Item[0m
 echo [%s3%] Flee[0m
 echo.
-echo --
+echo %linevar%
 if "%msplash%"=="y" echo.
 choice /c:wsmid /n /m ""
 set msplash=n
@@ -11024,10 +12202,6 @@ if %npcstat% EQU Strong set /a dmgnpc=%damage%+50
 if %npcstat% EQU [31mINVERTED[0m set /a dmgnpc=20000
 if %npctype% EQU Dungeon-Duck set npcstat=[31mINVERTED[0m
 
-if %armortype% EQU Steel set /a dmgnpc=%dmgnpc%-8
-if %armortype% EQU Titanium set /a  dmgnpc=%dmgnpc%-25
-if %armortype% EQU Platinum set /a  dmgnpc=%dmgnpc%-100
-
 if %dmgnpc% LSS 0 set dmgnpc=0
 
 cls
@@ -11085,7 +12259,7 @@ set word=1
 set drop=Spider Fang
 set /a fangs=%fangs%+1
 set /a playerxp=%playerxp%+200
-goto winOCC
+goto winOCC3
 
 :Mutant-Wolfdrop3
 set destination=Mutant-Wolfdrop3
@@ -11093,7 +12267,7 @@ set word=1
 set drop=Mutant Pelt
 set /a pelt=%pelt%+1
 set /a playerxp=%playerxp%+211
-goto winOCC
+goto winOCC3
 
 :Wolfdrop3
 set destination=Wolfdrop3
@@ -11101,7 +12275,7 @@ set word=2
 set drop=Pelts
 set /a pelt2=%pelt2%+2
 set /a playerxp=%playerxp%+150
-goto winOCC
+goto winOCC3
 
 :Johndrop3
 set destination=Johndrop3
@@ -11109,7 +12283,7 @@ set word=1
 set drop=Broken Fishing Pole
 set /a bfp=%bfp%+1
 set /a playerxp=%playerxp%+150
-goto winOCC
+goto winOCC3
 
 :Beardrop3
 set destination=Beardrop3
@@ -11117,7 +12291,7 @@ set word=3
 set drop=pelt
 set /a pelt2=%pelt2%+3
 set /a playerxp=%playerxp%+178
-goto winOCC
+goto winOCC3
 
 :humandrop3
 set destination=humandrop3
@@ -11125,7 +12299,7 @@ set word=1
 set drop=Human Skin
 set /a skin=%skin%+1
 set /a playerxp=%playerxp%+200
-goto winV
+goto winOCC3
 
 :Mitesdrop3
 set destination=Mitesdrop3
@@ -11133,7 +12307,7 @@ set word=1
 set drop= Seed
 set /a seeds=%seeds%+1
 set /a playerxp=%playerxp%+11
-goto winOCC
+goto winOCC3
 
 :Zombie-Chikendrop3
 set destination=Zombie-Chikendrop3
@@ -11141,7 +12315,7 @@ set word=1
 set drop=Zombie Feather
 set /a zombief=%zombief%+1
 set /a playerxp=%playerxp%+125
-goto winOCC
+goto winOCC3
 
 :Boulderdrop3
 set destination=Boulderdrop3
@@ -11149,7 +12323,7 @@ set word=4
 set drop=Rocks
 set /a rocks=%rocks%+4
 set /a playerxp=%playerxp%+186
-goto winOCC
+goto winOCC3
 
 :Corrupteddrop3
 set destination=Corrupteddrop3
@@ -11157,7 +12331,7 @@ set word=2
 set drop=Corrupted Shard
 set /a cshard=%cshard%+2
 set /a playerxp=%playerxp%+424
-goto winOCC
+goto winOCC3
 
 :Thiefdrop3
 set destination=Thiefdrop3
@@ -11165,7 +12339,7 @@ set word=3
 set drop=Old Coins
 set /a ocoins=%ocoins%+3
 set /a playerxp=%playerxp%+200
-goto winOCC
+goto winOCC3
 
 :Bobdrop3
 set destination=Bobdrop3
@@ -11173,7 +12347,7 @@ set word=1
 set drop=Bobs Tear
 set /a bobst=%bobst%+1
 set /a playerxp=%playerxp%+350
-goto winOCC
+goto winOCC3
 
 
 :levelup3
@@ -11210,8 +12384,8 @@ if "%select%"=="1" set select=1&goto testllv3
 )
 goto levelup3-2
 
-:winOCC
-set destination=winOCC
+:winOCC3
+set destination=winOCC3
 set /a hp=%orighp%
 cls
 mode con cols=48 lines=35
@@ -11235,7 +12409,7 @@ set msplash=n
 if "%errorlevel%"=="1" (
 if "%select%"=="1" set select=1&goto picknpc3
 )
-goto winOCC
+goto winOCC3
 
 :testllv3
 if %health% LEQ 0 goto test223
@@ -11519,7 +12693,7 @@ echo You are wandering the Second Raid and...
 echo encounter a level %level% %npcstat% %npctype%.
 echo.
 echo %linevar%
-ping localhost -n 2 >nul
+
 if %npcstat% equ Quick goto fs3RAID-2
 goto fs1RAID-2
 
@@ -11581,11 +12755,6 @@ if %swordtype% EQU Alydril set /a damage=%random%*600/32767+1
 if %artifacttype% EQU Storm set /a damage=%damage%+%random%*100/32767+1
 if %damage% GTR %health% set /a damage=%health%
 
-if %armortype% EQU Scale set /a  damage=%damage%+5
-if %armortype% EQU Titanium set /a  damage=%damage%-5
-if %armortype% EQU Tungsten set /a  damage=%damage%-10
-if %armortype% EQU Platinum set /a  damage=%damage%-50
-
 if %damage% LSS 0 set /a damage=0
 cls
 cls
@@ -11597,7 +12766,7 @@ echo %linevar%
 echo.
 echo You attack the %npcstat% %npctype%!
 echo.
-ping localhost -n 2 >nul
+
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -11644,7 +12813,7 @@ echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The %npcstat% %npctype% attacks.
-ping localhost -n 2 >nul
+
 echo The %npcstat% %npctype% deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -11865,7 +13034,7 @@ echo You are wandering the Second Boss Room and...
 echo encounter a level %level% Shadow Of The Dark.
 echo.
 echo %linevar%
-ping localhost -n 2 >nul
+
 goto fs1RAIDBOSS-2
 
 
@@ -11937,7 +13106,7 @@ echo %linevar%
 echo.
 echo You attack the Shadow Of The Dark!
 echo.
-ping localhost -n 2 >nul
+
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -11972,7 +13141,7 @@ echo - Lv.%level% [37mShadow Of The Dark[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The Shadow Of The Dark attacks.
-ping localhost -n 2 >nul
+
 echo The Shadow Of The Dark deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -12243,7 +13412,7 @@ echo You are wandering the Second Raid and...
 echo encounter a level %level% %npcstat% %npctype%.
 echo.
 echo %linevar%
-ping localhost -n 2 >nul
+
 if %npcstat% equ Quick goto fs3RAIDm
 goto fs1RAIDm
 
@@ -12313,7 +13482,7 @@ echo %linevar%
 echo.
 echo You attack the %npcstat% %npctype%!
 echo.
-ping localhost -n 2 >nul
+
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -12361,7 +13530,7 @@ echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The %npcstat% %npctype% attacks.
-ping localhost -n 2 >nul
+
 echo The %npcstat% %npctype% deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -12584,7 +13753,7 @@ echo You are wandering the Second Boss Room and...
 echo encounter a level %level% Mythic Monstrosity.
 echo.
 echo %linevar%
-ping localhost -n 2 >nul
+
 goto fs1RAIDBOSSm
 
 
@@ -12653,7 +13822,7 @@ echo %linevar%
 echo.
 echo You attack the Mythic Monstrosity!
 echo.
-ping localhost -n 2 >nul
+
 set /a atkxp=((%damage%/4)*%xpmul%+1)
 set /a playerxp=%playerxp%+%atkxp%
 set /a health=%health% - %damage%
@@ -12684,7 +13853,7 @@ echo - Lv.%level% [37mMythic Monstrosity[0m: %health%.[31mHP[0m
 echo %linevar%
 echo.
 echo The Mythic Monstrosity attacks.
-ping localhost -n 2 >nul
+
 echo The Mythic Monstrosity deals %dmgnpc% damage to you.
 set /a hp=%hp% - %dmgnpc%
 if %hp% LEQ 0 goto die
@@ -12805,3 +13974,672 @@ if "%errorlevel%"=="1" (
 if "%select%"=="1" set select=1&goto MENU
 )
 goto winMBOSS-2
+
+
+
+
+
+// MARK: Arcadia Island
+:picknpc4
+title StormTides Byte - Arcadia Island
+set destination=picknpc4
+if %hp% EQU 0 goto MENU
+set /a npc=%random% %% 14+1
+if %npc% EQU 1 set npctype=Arcadic-Sheep
+if %npc% EQU 2 set npctype=Arcadic-Sheep
+if %npc% EQU 3 set npctype=Arcadic-Sheep
+if %npc% EQU 4 set npctype=Arcadic-Sheep
+if %npc% EQU 5 set npctype=Glowing-Vinegar
+if %npc% EQU 6 set npctype=Gods-Hand
+if %npc% EQU 7 set npctype=Glowing-Vinegar
+if %npc% EQU 8 set npctype=Glowing-Vinegar
+if %npc% EQU 9 set npctype=Arcadic-Sheep
+if %npc% EQU 10 set npctype=Arcadic-Sheep
+if %npc% EQU 11 set npctype=Arcadic-Dave
+if %npc% EQU 12 set npctype=Arcadic-Dave
+if %npc% EQU 13 set npctype=Arcadic-Dave
+if %npc% EQU 14 set npctype=Dungeon-Duck
+
+:pickstat
+set destination=pickstat
+set /a stat=%random% %% 20+1
+if %stat% EQU 1 set npcstat=Normal
+if %stat% EQU 2 set npcstat=Enraged
+if %stat% EQU 3 set npcstat=Strong
+if %stat% EQU 4 set npcstat=Tough
+if %stat% EQU 5 set npcstat=Weak
+if %stat% EQU 6 set npcstat=[31mINVERTED[0m
+if %stat% EQU 7 set npcstat=Normal
+if %stat% EQU 8 set npcstat=Normal
+if %stat% EQU 9 set npcstat=Normal
+if %stat% EQU 10 set npcstat=Normal
+if %stat% EQU 11 set npcstat=Normal
+if %stat% EQU 12 set npcstat=Enraged
+if %stat% EQU 13 set npcstat=Strong
+if %stat% EQU 14 set npcstat=Tough
+if %stat% EQU 15 set npcstat=Weak
+if %stat% EQU 16 set npcstat=Normal
+if %stat% EQU 17 set npcstat=Enraged
+if %stat% EQU 18 set npcstat=Strong
+if %stat% EQU 19 set npcstat=Tough
+if %stat% EQU 20 set npcstat=Weak
+
+if %levell% LEQ 5 (
+set /a health=%random% %% 100 + 75
+set /a level=%random% %% 4 + 1
+goto F_START4
+)
+if %levell% LEQ 10 (
+set /a health=%random% %% 100 + 200
+set /a level=%random% %% 5 + 5
+goto F_START4
+)
+if %levell% LEQ 15 (
+set /a health=%random% %% 100 + 350
+set /a level=%random% %% 5 + 10
+goto F_START4
+)
+if %levell% LEQ 20 (
+set /a health=%random% %% 100 + 500
+set /a level=%random% %% 5 + 15
+goto F_START4
+)
+if %levell% LEQ 25 (
+set /a health=%random% %% 100 + 625
+set /a level=%random% %% 7 + 20
+goto F_START4
+)
+if %levell% LEQ 30 (
+set /a health=%random% %% 100 + 750
+set /a level=%random% %% 10 + 25
+goto F_START4
+)
+if %levell% LEQ 35 (
+set /a health=%random% %% 100 + 900
+set /a level=%random% %% 15 + 30
+goto F_START4
+)
+if %levell% LEQ 40 (
+set /a health=%random% %% 100 + 1025
+set /a level=%random% %% 20 + 35
+goto F_START4
+)
+if %levell% LEQ 45 (
+set /a health=%random% %% 100 + 1150
+set /a level=%random% %% 25 + 40
+goto F_START4
+)
+if %levell% LEQ 50 (
+set /a health=%random% %% 100 + 1275
+set /a level=%random% %% 30 + 45
+goto F_START4
+)
+if %levell% LEQ 55 (
+set /a health=%random% %% 100 + 1400
+set /a level=%random% %% 35 + 50
+goto F_START4
+)
+if %levell% LEQ 60 (
+set /a health=%random% %% 100 + 1525
+set /a level=%random% %% 40 + 55
+goto F_START4
+)
+if %levell% LEQ 65 (
+set /a health=%random% %% 100 + 1650
+set /a level=%random% %% 45 + 60
+goto F_START4
+)
+if %levell% LEQ 70 (
+set /a health=%random% %% 100 + 1775
+set /a level=%random% %% 50 + 65
+goto F_START4
+)
+if %levell% LEQ 75 (
+set /a health=%random% %% 100 + 1900
+set /a level=%random% %% 55 + 70
+goto F_START4
+)
+if %levell% LEQ 80 (
+set /a health=%random% %% 100 + 2025
+set /a level=%random% %% 60 + 75
+goto F_START4
+)
+if %levell% LEQ 85 (
+set /a health=%random% %% 100 + 2150
+set /a level=%random% %% 65 + 80
+goto F_START4
+)
+if %levell% LEQ 90 (
+set /a health=%random% %% 100 + 2275
+set /a level=%random% %% 70 + 85
+goto F_START4
+)
+if %levell% LEQ 95 (
+set /a health=%random% %% 100 + 2400
+set /a level=%random% %% 75 + 90
+goto F_START4
+)
+if %levell% LEQ 100 (
+set /a health=%random% %% 100 + 2525
+set /a level=%random% %% 80 + 95
+goto F_START4
+)
+if %levell% LEQ 105 (
+set /a health=%random% %% 100 + 2650
+set /a level=%random% %% 85 + 100
+goto F_START4
+)
+if %levell% LEQ 110 (
+set /a health=%random% %% 100 + 2875
+set /a level=%random% %% 90 + 105
+goto F_START4
+)
+if %levell% LEQ 115 (
+set /a health=%random% %% 100 + 3100
+set /a level=%random% %% 95 + 110
+goto F_START4
+)
+if %levell% LEQ 120 (
+set /a health=%random% %% 100 + 3225
+set /a level=%random% %% 100 + 115
+goto F_START4
+)
+if %levell% LEQ 125 (
+set /a health=%random% %% 100 + 3350
+set /a level=%random% %% 105 + 120
+goto F_START4
+)
+if %levell% LEQ 130 (
+set /a health=%random% %% 100 + 3475
+set /a level=%random% %% 110 + 125
+goto F_START4
+)
+if %levell% LEQ 135 (
+set /a health=%random% %% 100 + 3600
+set /a level=%random% %% 115 + 130
+goto F_START4
+)
+if %levell% LEQ 140 (
+set /a health=%random% %% 100 + 3725
+set /a level=%random% %% 120 + 135
+goto F_START4
+)
+if %levell% LEQ 145 (
+set /a health=%random% %% 100 + 3850
+set /a level=%random% %% 125 + 140
+goto F_START4
+)
+if %levell% LEQ 150 (
+set /a health=%random% %% 100 + 3975
+set /a level=%random% %% 130 + 145
+goto F_START4
+)
+if %levell% LEQ 155 (
+set /a health=%random% %% 100 + 4200
+set /a level=%random% %% 130 + 145
+goto F_START4
+)
+if %levell% LEQ 160 (
+set /a health=%random% %% 100 + 4325
+set /a level=%random% %% 135 + 150
+goto F_START4
+)
+if %levell% LEQ 165 (
+set /a health=%random% %% 100 + 4450
+set /a level=%random% %% 140 + 155
+goto F_START4
+)
+if %levell% LEQ 170 (
+set /a health=%random% %% 100 + 4575
+set /a level=%random% %% 145 + 160
+goto F_START4
+)
+if %levell% LEQ 175 (
+set /a health=%random% %% 100 + 4700
+set /a level=%random% %% 150 + 165
+goto F_START4
+)
+if %levell% LEQ 180 (
+set /a health=%random% %% 100 + 4700
+set /a level=%random% %% 155 + 170
+goto F_START4
+)
+if %levell% LEQ 185 (
+set /a health=%random% %% 100 + 4825
+set /a level=%random% %% 160 + 175
+goto F_START4
+)
+if %levell% LEQ 190 (
+set /a health=%random% %% 100 + 4950
+set /a level=%random% %% 165 + 180
+goto F_START4
+)
+if %levell% LEQ 195 (
+set /a health=%random% %% 100 + 5075
+set /a level=%random% %% 170 + 185
+goto F_START4
+)
+if %levell% LEQ 200 (
+set /a health=%random% %% 100 + 5200
+set /a level=%random% %% 175 + 190
+goto F_START4
+)
+if %levell% LEQ 205 (
+set /a health=%random% %% 100 + 5325
+set /a level=%random% %% 180 + 195
+goto F_START4
+)
+if %levell% LEQ 210 (
+set /a health=%random% %% 100 + 5450
+set /a level=%random% %% 185 + 200
+goto F_START4
+)
+if %levell% LEQ 215 (
+set /a health=%random% %% 100 + 5575
+set /a level=%random% %% 190 + 200
+goto F_START4
+)
+if %levell% LEQ 220 (
+set /a health=%random% %% 100 + 5700
+set /a level=%random% %% 195 + 205
+goto F_START4
+)
+if %levell% LEQ 225 (
+set /a health=%random% %% 100 + 5825
+set /a level=%random% %% 200 + 210
+goto F_START4
+)
+F_START4
+
+:F_START4
+if %npcstat% EQU Tough set /a health=%health%+200
+set destination=F_START4
+cls
+mode con cols=48 lines=35
+echo.
+echo %linevar%
+echo.
+echo You are wandering the Odd Crypt and...
+echo encounter a level %level% %npcstat%  %npctype%.
+echo.
+echo %linevar%
+pause >nul
+if %npcstat% equ Quick goto fs3-4
+goto fs1-4
+
+
+:fs1-4
+if %health% LEQ 0 goto checkiflvlup4
+set destination=fs1-4
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo - Lv.%levell% [37m%Username1%[0m: %hp%.[31mHP[0m
+echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
+echo %linevar%
+echo.
+echo.
+echo What would you like to do?
+echo [0m
+echo [%s1%] Attack[0m
+echo [%s2%] Quick Item[0m
+echo [%s3%] Flee[0m
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:wsmid /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" (
+if "%select%"=="1" set select=1&goto atk_choose-4
+if "%select%"=="2" if %npctype% EQU Dungeon-Duck set select=1&goto offer4
+if "%select%"=="2" if not %npctype% EQU Dungeon-Duck goto quickitem-4
+if "%select%"=="3" set select=1&goto flee
+)
+goto fs1-4
+
+:offer4
+if %health% LEQ 0 goto checkiflvlup
+set destination=offer4
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo - Lv.%levell% [37m%Username1%[0m: %hp%.[31mHP[0m
+echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
+echo %linevar%
+echo The Dunegon Duck requires an offering.
+echo What shall you slide it's way?
+echo [0m
+echo [%s1%] Offer 5 Seeds: %seeds%[0m
+echo [%s2%] Offer 1,000 Gold: %gold%[0m
+echo [%s3%] Surrender[0m
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:wsmid /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" (
+if "%select%"=="1" if %seeds% GEQ 5 set select=1&goto chance14
+if "%select%"=="2" if %gold% GEQ 1000 set select=1&goto chance24
+if "%select%"=="3" goto chance34
+)
+goto offer4
+
+:chance14
+set /a chance=%random% %% 7+1
+if %chance% EQU 1 set /a seeds=%seeds%-5&goto fleeD
+if %chance% EQU 2 set /a seeds=%seeds%-5&goto fleeD
+if %chance% EQU 3 set /a seeds=%seeds%-5&goto fleeD
+if %chance% EQU 4 set /a seeds=%seeds%-5&goto fleeD
+if %chance% EQU 5 set /a seeds=%seeds%-5&goto fleeD
+if %chance% EQU 6 set /a seeds=%seeds%-5&goto fleeD
+if %chance% EQU 7 goto fs3-4
+
+:chance24
+set /a chance=%random% %% 5+1
+if %chance% EQU 1 goto fs3-4
+if %chance% EQU 2 goto fs3-4
+if %chance% EQU 3 goto fs3-4
+if %chance% EQU 4 goto fs3-4
+if %chance% EQU 5 goto fleeD
+
+:chance34
+set /a chance=%random% %% 4+1
+if %chance% EQU 1 goto fs3-4
+if %chance% EQU 2 goto fs3-4
+if %chance% EQU 3 goto fs3-4
+if %chance% EQU 4 goto fleeD
+
+:atk_choose-4
+if %health% LEQ 0 goto checkiflvlup
+set destination=atk_choose-4
+cls
+mode con cols=48 lines=35
+if %select% gtr 3 set select=1
+if %select% lss 1 set select=3
+set s1=-
+set s2=-
+set s3=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo - Lv.%levell% [37m%Username1%[0m: %hp%.[31mHP[0m
+echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
+echo %linevar%
+echo What would you like to do?
+echo [0m
+echo [%s1%] Main Weapon[0m
+echo [%s2%] Spellbook [[31mComing Soon[0m][0m
+echo [%s2%] Back[0m
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:wsmid /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" set /a select-=1
+if "%errorlevel%"=="2" set /a select+=1
+if "%errorlevel%"=="3" goto mainmenu
+if "%errorlevel%"=="4" goto checkitemsINV
+if "%errorlevel%"=="5" (
+if "%select%"=="1" goto atk4
+if "%select%"=="2" goto atk_choose-4
+if "%select%"=="3" goto fs1-4
+)
+goto atk_choose-4
+
+:quickitem-4
+if %quickitem% EQU raidpot (
+if %raidpot% LEQ 0 goto fs1-4
+set /a raidpot=%raidpot%-1
+set /a hp=%hp%+500
+goto fs1-4
+)
+
+:quickitem-4
+if %quickitem% EQU hpot1 (
+if %potiont1% LEQ 0 goto fs1-4
+set /a potiont1=%potiont1%-1
+set /a hp=%hp%+25
+goto fs1-4
+)
+
+:quickitem-4
+if %quickitem% EQU hpot2 (
+if %potiont2% LEQ 0 goto fs1-4
+set /a potiont2=%potiont2%-1
+set /a hp=%hp%+50
+goto fs1-4
+)
+
+:quickitem-4
+if %quickitem% EQU hpot3 (
+if %potiont3% LEQ 0 goto fs1-4
+set /a potiont3=%potiont3%-1
+set /a hp=%hp%+100
+goto fs1-4
+)
+
+if %quickitem% EQU none (
+goto fs1-4
+)
+set errornum=WANDER-ITEMQ-SB
+goto error404
+
+:atk4
+if %swordtype% EQU Necrosis set /a hp=%hp%+%random%*250/32767+1
+set destination=atk4
+if %swordtype% EQU Your set /a damage=%random%*50/32767+1
+if %swordtype% EQU Plastic set /a damage=%random%*100/32767+1
+if %swordtype% EQU Old set /a damage=%random%*118/32767+1
+if %swordtype% EQU Refurbished set /a damage=%random%*145/32767+1
+if %swordtype% EQU Battle set /a damage=%random%*180/32767+1
+if %swordtype% EQU Poison set /a damage=%random%*230/32767+1
+if %swordtype% EQU Strong set /a damage=%random%*280/32767+1
+if %swordtype% EQU Sharp set /a damage=%random%*310/32767+1
+if %swordtype% EQU Warriors set /a damage=%random%*325/32767+1
+if %swordtype% EQU Shadow set /a damage=%random%*375/32767+1
+if %swordtype% EQU Necrosis set /a damage=%random%*450/32767+1
+if %artifacttype% EQU Storm set /a damage=%damage%+%random%*100/32767+1
+if %damage% GTR %health% set /a damage=%health%
+
+cls
+mode con cols=48 lines=35
+echo %linevar%
+echo - Lv.%levell% [37m%Username1%[0m: %hp%.[31mHP[0m
+echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
+echo %linevar%
+echo.
+echo You attack the %npcstat% %npctype%!
+echo.
+set /a atkxp=((%damage%/4)*%xpmul%+2)
+set /a playerxp=%playerxp%+%atkxp%
+set /a health=%health% - %damage%
+echo You deal %damage% damage to the %npcstat% %npctype%^^!
+echo It now has %health%.[31mHP[0m left.
+echo.
+echo %linevar%
+echo +%atkxp% EXP.
+pause>nul
+if %hp% LEQ 0 goto die
+if %health% LEQ 0 goto dropitem4
+if %levell% LSS 225 (
+if %playerxp% GTR %origxp% goto levelup4
+goto fs3-4
+)
+
+
+
+:fs3-4
+set destination=fs3-4
+if %npctype% EQU Arcadic-Sheep set /a dmgnpc=%random%*120/32767+1
+if %npctype% EQU Glowing-Vinegar set /a dmgnpc=%random%*435/32767+1
+if %npctype% EQU Gods-Hand set /a dmgnpc=%random%*350/32767+1
+if %npctype% EQU Dungeon-Duck set /a dmgnpc=%random%*10000/32767+1
+if %npctype% EQU Arcadic-Dave set /a dmgnpc=%random%*500/32767+1
+if %npcstat% EQU if %dmgnpc% GTR 50 Weak set /a dmgnpc=%damage%-50
+if %npcstat% EQU if %health% GTR 50 Weak set /a health=%health%-50
+if %npcstat% EQU Enraged set /a dmgnpc=%damage%+85
+if %npcstat% EQU Strong set /a dmgnpc=%damage%+50
+if %npcstat% EQU [31mINVERTED[0m set /a dmgnpc=20000
+if %npctype% EQU Dungeon-Duck set npcstat=[31mINVERTED[0m
+
+if %dmgnpc% LSS 0 set dmgnpc=0
+
+cls
+mode con cols=48 lines=35
+echo %linevar%
+echo - Lv.%levell% [37m%Username1%[0m: %hp%.[31mHP[0m
+echo - Lv.%level% [37m%npcstat% %npctype%[0m: %health%.[31mHP[0m
+echo %linevar%
+echo.
+echo The %npcstat% %npctype% attacks.
+echo The %npcstat% %npctype% deals %dmgnpc% damage to you.
+set /a hp=%hp% - %dmgnpc%
+if %hp% LEQ 0 goto die
+echo.
+echo %linevar%
+if %hp% LEQ 0 goto die
+echo You now have %hp% health left.
+pause>nul
+if %levell% LSS 225 (
+if %playerxp% GTR %origxp% goto levelup4
+goto fs1-4
+)
+goto fs1-4
+
+
+:checkiflvlup4
+set destination=checkiflvlup4
+if %levell% LSS 225 (
+if %playerxp% GTR %origxp% goto levelup4
+)
+
+
+
+
+:dropitem4
+set destination=dropitem4
+if %npctype% EQU Arcadic-Sheep goto sheep-drop1
+if %npctype% EQU Glowing-Vinegar goto glowing-drop1
+if %npctype% EQU Gods-Hand goto hand-drop1
+if %npctype% EQU Gods-Hand goto dave-drop1
+
+::set /a gmail=%gmail%+1
+:sheep-drop1
+set destination=sheep-drop1
+set word=2
+set drop=Fur
+set /a pelt=%pelt%+2
+set /a playerxp=%playerxp%+200
+goto winOCC4
+
+:glowing-drop1
+set destination=glowing-drop1
+set word=5
+set drop=Mutant Pelt
+set /a cshard=%cshard%+5
+set /a playerxp=%playerxp%+311
+goto winOCC4
+
+:hand-drop1
+set destination=hand-drop1
+set word=3
+set drop=Bobs-Tears
+set /a bobst=%bobst%+2
+set /a playerxp=%playerxp%+150
+goto winOCC4
+
+:dave-drop1
+set destination=dave-drop1
+set word=8
+set drop=Bave-Brain-Fragments
+set /a bobst=%dbrain%+8
+set /a playerxp=%playerxp%+1850
+goto winOCC4
+
+:levelup4
+set destination=levelup4-2
+set /a levell=%levell%+1
+set /a ttlvl=%ttlvl%+1
+set /a origxp=%origxp%+500
+set /a orighp=%orighp%+25
+set /a hp=%orighp%
+set /a gold=%gold%+325
+set /a playerxp=0
+if %levell% GEQ 225 set /a levell=225
+if %as% EQU Online goto SAVE_GAME_FILES
+:levelup4-2
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo You have leveled up! You are now level %levell%.
+echo %linevar%
+echo And you now have %hp% health.
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto testllv4
+)
+goto levelup4-2
+
+:winOCC4
+set destination=winOCC4
+set /a hp=%orighp%
+cls
+mode con cols=48 lines=35
+if %select% gtr 1 set select=1
+if %select% lss 1 set select=1
+set s1=-
+set s%select%=[90m#[0m[97m
+echo %linevar%
+echo Congrats Adventurer!
+echo %linevar%
+echo.
+echo You won the battle against the %npcstat% %npctype%.
+echo And You recieved %word% %drop%.
+echo.
+echo [%s1%] Okay
+echo.
+echo %linevar%
+if "%msplash%"=="y" echo.
+choice /c:d /n /m ""
+set msplash=n
+if "%errorlevel%"=="1" (
+if "%select%"=="1" set select=1&goto picknpc4
+)
+goto winOCC4
+
+:testllv4
+if %health% LEQ 0 goto test224
+goto fs1-4
+:test224
+if %levell% LEQ 10 goto dropitem4
+if NOT %levell% LEQ 10 goto fs1-4
+goto dropitem4
