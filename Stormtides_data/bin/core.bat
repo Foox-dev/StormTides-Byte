@@ -907,7 +907,7 @@ echo %color%
 
 if not exist %pak_path%\redr_window-client.pak (
 (
-%linevar%-------------------------------------------
+echo -------------------------------------------
 echo ==============================================
 echo ______________________________________________
 ) > %pak_path%\redr_window-client.pak
@@ -1528,13 +1528,6 @@ goto redeem
 :redeem1
 set title=Beta_Tester
 set /a code1=1
-< %pak_path%\arvc_window-client.pak (
-set /p code1=
-set /p code2=
-set /p code3=
-set /p code4=
-set /p code5=
-)
 cls
 if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
@@ -1761,9 +1754,9 @@ echo %linevar%
 echo You have passed the test of the
 echo duck. You shall be rewarded.
 echo.
-echo +5 Dungeon Chests
-echo +5,000 Gold
-echo +10 Raid Potions
+echo +1 Dungeon Chests
+echo +1,000 Gold
+echo +5 Raid Potions
 echo.
 echo %linevar%
 echo.
@@ -2903,13 +2896,12 @@ set destination=map2
 set backdest=map1
 cls
 mode con cols=48 lines=35
-if %select% gtr 5 set select=1
-if %select% lss 1 set select=5
+if %select% gtr 4 set select=1
+if %select% lss 1 set select=4
 set s1=-
 set s2=-
 set s3=-
 set s4=-
-set s5=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
 echo Wanders
@@ -2920,10 +2912,10 @@ set s%select%=[90m#[0m[97m
 echo [%s1%] Sand Beach Lv.1+[0m
 echo [%s2%] Creepy Crypt Lv.10+[0m
 echo [%s3%] Odd Crypt Lv.30+[0m
-echo [%s4%] Arcadia Island Lv.50+[0m
+:: echo [%s4%] Arcadia Island Lv.50+[0m
 echo.
 echo %linevar%
-echo [%s5%] Back[0m
+echo [%s4%] Back[0m
 if "%msplash%"=="y" echo.
 choice /c:wsmiad /n /m ""
 set msplash=n
@@ -2936,8 +2928,7 @@ if "%errorlevel%"=="6" (
 if "%select%"=="1" if %levell% GEQ 1 set select=1&goto picknpc
 if "%select%"=="2" if %levell% GEQ 10 set select=1&goto picknpc2
 if "%select%"=="3" if %levell% GEQ 30 set select=1&goto picknpc3
-if "%select%"=="4" if %levell% GEQ 50 set select=1&goto picknpc4
-if "%select%"=="5" set select=1&goto map1
+if "%select%"=="4" set select=1&goto map1
 )
 goto wanders
 
@@ -4587,7 +4578,7 @@ echo Class: Warrior
 echo Level Required: 2+
 echo.
 echo Special Features: 
-echo - Tough: -8 Npc Damage Reduction
+echo - Tough: -8 Npc Damage
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -4623,7 +4614,7 @@ echo Level Required: 5+
 echo.
 echo Special Features: None
 echo Bonus Stats:
-echo - Enchanted: +5 Point Damage Addition
+echo - Enchanted: +5 Point Damage
 echo Duribility: Infinite
 echo.
 echo %linevar%
@@ -4691,8 +4682,8 @@ echo Class: Warrior
 echo Level Required: 20+
 echo.
 echo Special Features:
-echo - Tough: -25 Npc Damage Reduction
-echo - Slowness: -5 Point Damage Reduction
+echo - Tough: -25 Npc Damage
+echo - Slowness: -5 Point Damage
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -4727,8 +4718,8 @@ echo Class: Warrior
 echo Level Required: 25+
 echo.
 echo Special Features:
-echo - Tough: -50 Npc Damage Reduction
-echo - Slowness: -10 Point Damage Reduction
+echo - Tough: -50 Npc Damage
+echo - Slowness: -10 Point Damage
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -4764,8 +4755,8 @@ echo Class: Warrior
 echo Level Required: 35+
 echo.
 echo Special Features:
-echo - Tough: -100 Npc Damage Reduction
-echo - Slowness: -50 Point Damage Reduction
+echo - Tough: -100 Npc Damage
+echo - Slowness: -50 Point Damage
 echo Bonus Stats: None
 echo Duribility: Infinite
 echo.
@@ -5514,7 +5505,7 @@ if "%errorlevel%"=="1" set /a select-=1
 if "%errorlevel%"=="2" set /a select+=1
 if "%errorlevel%"=="3" goto mainmenu
 if "%errorlevel%"=="4" goto checkitemsINV
-if "%errorlevel%"=="5" (
+if "%errorlevel%"=="6" (
 if "%select%"=="1" set select=1&goto buyp1
 if "%select%"=="2" set select=1&goto buyp2
 if "%select%"=="3" set select=1&goto buyp3
@@ -7515,7 +7506,7 @@ echo [0m
 set s%select%=[90m#[0m[97m
 echo [%s1%] Seeds x5 - %seeds%[0m
 echo [%s2%] Human Skin x10 - %skin%[0m
-echo [%s3%] 1,000 Gold - %gold%[0m
+echo [%s3%] 5,000 Gold - %gold%[0m
 echo [%s4%] Enchanted Skull x1 - %eskull%[0m
 echo.
 echo %linevar%
@@ -7531,13 +7522,14 @@ if "%errorlevel%"=="5" set select=1&goto %backdest%
 if "%errorlevel%"=="6" (
 if "%select%"=="1" if %seeds% geq 5 set select=1&goto offer1
 if "%select%"=="2" if %skin% geq 10 set select=1&goto offer2
-if "%select%"=="3" if %gold% geq 1000 set select=1&goto offer3
+if "%select%"=="3" if %gold% geq 5000 set select=1&goto offer3
 if "%select%"=="4" if %eskull% geq 1 set select=1&goto offer4
 if "%select%"=="5" set select=1&goto town1
 )
 goto temple
 
 :offer1
+set /a seeds=%seeds%-5
 set /a chance=%random% %% 5+1
 if %chance% EQU 1 set /a seeds=%seeds%-5&goto reward1-1
 if %chance% EQU 2 set /a seeds=%seeds%-5&goto reward1-2
@@ -7546,6 +7538,7 @@ if %chance% EQU 4 set /a seeds=%seeds%-5&goto reward1-4
 if %chance% EQU 5 set /a seeds=%seeds%-5&goto reward1-5
 
 :offer2
+set /a skin=%skin%-10
 set /a chance=%random% %% 5+1
 if %chance% EQU 1 set /a skin=%skin%-10&goto reward2-1
 if %chance% EQU 2 set /a skin=%skin%-10&goto reward2-2
@@ -7554,6 +7547,7 @@ if %chance% EQU 4 set /a skin=%skin%-10&goto reward2-4
 if %chance% EQU 5 set /a skin=%skin%-10&goto reward2-5
 
 :offer3
+set /a gold=%gold%-5000
 set /a chance=%random% %% 5+1
 if %chance% EQU 1 set /a gold=%gold%-1000&goto reward3-1
 if %chance% EQU 2 set /a gold=%gold%-1000&goto reward3-2
@@ -7562,6 +7556,7 @@ if %chance% EQU 4 set /a gold=%gold%-1000&goto reward3-4
 if %chance% EQU 5 set /a gold=%gold%-1000&goto reward3-5
 
 :offer4
+set /a eskull=%eskull%-1
 set /a chance=%random% %% 5+1
 if %chance% EQU 1 set /a eskull=%eskull%-1&goto reward4-1
 if %chance% EQU 2 set /a eskull=%eskull%-1&goto reward4-2
@@ -8066,7 +8061,7 @@ goto reward4-4
 
 :reward4-5
 set destination=reward4-5
-set /a =%gold%+100000
+set /a gold=%gold%+100000
 cls
 mode con cols=48 lines=35
 if %select% gtr 1 set select=1
@@ -8730,16 +8725,16 @@ if "%errorlevel%"=="3" goto mainmenu
 if "%errorlevel%"=="4" goto checkitemsINV
 if "%errorlevel%"=="5" set select=1&goto %backdest%
 if "%errorlevel%"=="6" (
-if "%select%"=="1" set select=1&goto makeweapon1
+if "%select%"=="1" set select=1&goto makeweapon2
 if "%select%"=="2" set select=1&goto wforge
 )
 goto weapon2
 
 :makeweapon2
 set destination=makeweapon2-2
-if not %cshard% GEQ 100 goto nomats1-3
-if not %eskull% GEQ 3 goto nomats1-3
-if not %bobst% GEQ 50 goto nomats1-3
+if %cshard% LSS 100 goto nomats2-3
+if %eskull% LSS 3 goto nomats2-3
+if %bobst% LSS 50 goto nomats2-3
 set /a cshard=%cshard%-100
 set /a eskull=%eskull%-5
 set /a bobst=%bobst%-50
@@ -8751,14 +8746,14 @@ if %select% gtr 1 set select=1
 if %select% lss 1 set select=1
 set s1=-
 set s%select%=[90m#[0m[97m
-%linevar%
+echo %linevar%
 echo You crafted x1 Necrosis.
 echo Your curent number of this is now...
 echo %weapon2%.
 echo.
 echo [%s1%] Okay
 echo.
-%linevar%
+echo %linevar%
 if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
@@ -8771,7 +8766,12 @@ goto makeitem2-2
 :nomats1-3
 echo You don't have the items for that...
 pause>nul
-goto item1
+goto weapon1
+
+:nomats2-3
+echo You don't have the items for that...
+pause>nul
+goto weapon2
 
 :farm
 set choping_per=[     ]
@@ -10676,7 +10676,7 @@ if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
 if "%errorlevel%"=="1" (
-if "%select%"=="1" set select=1&goto healmenuINV
+if "%select%"=="1" set select=4&goto healmenuINV
 )
 goto healraidIN
 
@@ -11341,7 +11341,7 @@ if "%msplash%"=="y" echo.
 choice /c:d /n /m ""
 set msplash=n
 if "%errorlevel%"=="1" (
-if "%select%"=="1" set select=1&goto n
+if "%select%"=="1" set select=1&goto testllvRAID
 )
 goto levelupRAID-2
 
