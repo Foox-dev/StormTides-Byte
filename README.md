@@ -4,4 +4,4 @@ StormTides is a series of games that have the style of an old Rom Rpg. StormTide
 
 # Comments
 
-There is not much comments or guidence yet but that will be added soon...
+There is not much comments or guidence yet but that will be added soon.
