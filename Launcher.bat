@@ -112,6 +112,7 @@ if "%select%"=="3" set select=1&goto credits
 )
 goto startgame
 
+
 :start
 CALL %crf_path%
 goto startgame
