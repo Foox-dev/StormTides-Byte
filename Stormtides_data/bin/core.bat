@@ -5096,35 +5096,58 @@ set destination=weaponstore1
 set backdest=MENU
 cls
 mode con cols=48 lines=35
-if %select% gtr 9 set select=1
-if %select% lss 1 set select=9
+if %select% gtr 4 set select=1
+if %select% lss 1 set select=4
 set s1=-
 set s2=-
 set s3=-
 set s4=-
-set s5=-
-set s6=-
-set s7=-
-set s8=-
-set s9=-
 set s%select%=[90m#[0m[97m
 echo %linevar%
 echo You Curently Have %gold% Gold.
 echo %linevar%
 echo [0m
 set s%select%=[90m#[0m[97m
-echo [%s1%] Plastic Sword - 50 gold ^| [[90mLv.1+[0m][0m
-echo [%s2%] Old Dagger - 115 gold ^| [[90mLv.1+[0m][0m
-echo [%s3%] Refurbished Glave - 380 gold ^| [[90mLv.2+[0m][0m
-echo [%s4%] Battle Staff - 800 gold ^| [[90mLv.5+[0m][0m
-echo [%s5%] Poison Shank - 1,200 gold ^| [[90mLv.10+[0m][0m
-echo [%s6%] Strong Katana - 1,815 gold ^| [[90mLv.20+[0m][0m
-echo [%s7%] Sharp Dagger - 2,000 gold ^| [[90mLv.25+[0m][0m
-echo [%s8%] Warriors Staff - 2,300 gold ^| [[90mLv.35+[0m][0m
+if "%selcitem%"=="0" (
+    echo %sitem1%
+    echo %scost1%
+)
+if "%selcitem%"=="1" (
+    echo %sitem2%
+    echo %scost2%
+)
+if "%selcitem%"=="2" (
+    echo %sitem3%
+    echo %scost3%
+)
+if "%selcitem%"=="3" (
+    echo %sitem4%
+    echo %scost4%
+)
+if "%selcitem%"=="4" (
+    echo %sitem5%
+    echo %scost5%
+)
+if "%selcitem%"=="5" (
+    echo %sitem6%
+    echo %scost6%
+)
+if "%selcitem%"=="6" (
+    echo %sitem7%
+    echo %scost7%
+)
+if "%selcitem%"=="7" (
+    echo %sitem8%
+    echo %scost8%
+)
 echo.
 echo Weapon Store Pg.1
 echo %linevar%
-echo [%s9%] Back[0m
+echo [%s1%] Nest Item[0m
+echo [%s2%] Previous Item[0m
+echo [%s3%] Buy Item[0m
+echo [%s4%] Back[0m
+echo %selcitem%
 if "%msplash%"=="y" echo.
 choice /c:wsmiad /n /m ""
 set msplash=n
@@ -5134,65 +5157,12 @@ if "%errorlevel%"=="3" goto mainmenu
 if "%errorlevel%"=="4" goto checkitemsINV
 if "%errorlevel%"=="5" set select=1&goto %backdest%
 if "%errorlevel%"=="6" (
-if "%select%"=="9" set select=1&goto MENU
-if "%select%"=="1" set select=1& (
-set /a sprice=50
-set swordchoice=Plastic
-set swordchoice2=Sword
-set /a att=100
-set levelneeded=1
-goto buyw1 )
-if "%select%"=="2" set select=1& (
-set /a sprice=115
-set swordchoice=Old
-set swordchoice2=Dagger
-set /a att=118
-set levelneeded=1
-goto buyw2 )
-if "%select%"=="3" set select=1& (
-set /a sprice=380
-set swordchoice=Refurbished
-set swordchoice2=Glave
-set /a att=145
-set levelneeded=2
-goto buyw3 )
-if "%select%"=="4" set select=1& (
-set /a sprice=800
-set swordchoice=Battle
-set swordchoice2=Staff
-set /a att=180
-set levelneeded=5
-goto buyw4 )
-if "%select%"=="5" set select=1& (
-set /a sprice=1200
-set swordchoice=Poison
-set swordchoice2=Shank
-set /a att=230
-set levelneeded=10
-goto buyw5 )
-if "%select%"=="6" set select=1& (
-set /a sprice=1815
-set swordchoice=Storng
-set swordchoice2=Katana
-set /a att=280
-set levelneeded=20
-goto buyw6 )
-if "%select%"=="7" set select=1& (
-set /a sprice=2000
-set swordchoice=Sharp
-set swordchoice2=Dagger
-set /a att=310
-set levelneeded=25
-goto buyw7 )
-if "%select%"=="8" set select=1& (
-set /a sprice=2300
-set swordchoice=Warriors
-set swordchoice2=Staff
-set /a att=325
-set levelneeded=35
-goto buyw8 )
-goto buynow
+if "%select%"=="1" set /a selcitem=%selcitem%+1&if %selcitem% GTR 7 set /a selcitem=0
+if "%select%"=="2" set /a selcitem=%selcitem%-1&if %selcitem% LSS 0 set /a selcitem=7
+if "%select%"=="3" 
 )
+if %selcitem% GTR 7 set /a selcitem=0
+if %selcitem% LSS 0 set /a selcitem=7
 goto weaponstore1
 
 :buyw1

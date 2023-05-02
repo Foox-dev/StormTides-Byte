@@ -45,7 +45,7 @@ set /p linevar=
 set /p linevar2=
 set /p linevar3=
 )
-< %dir_path%\packages\achv_window-save.pak (
+< %pak_path%\achv_window-save.pak (
 set /p unitcount=
 set /p unit1=
 set /p unit2=
@@ -54,18 +54,37 @@ set /p unit4=
 set /p unit5=
 set /p unit6=
 )
-< %dir_path%\packages\arvc_window-client.pak (
+< %pak_path%\arvc_window-client.pak (
 set /p code1=
 set /p code2=
 set /p code3=
 set /p code4=
 set /p code5=
 )
+< %pak_path%\itx_render.pak (
+set /p sitem1=
+set /p scost1=
+set /p sitem2=
+set /p scost2=
+set /p sitem3=
+set /p scost3=
+set /p sitem4=
+set /p scost4=
+set /p sitem5=
+set /p scost5=
+set /p sitem6=
+set /p scost6=
+set /p sitem7=
+set /p scost7=
+set /p sitem8=
+set /p scost8=
+)
 set select=1
 set version=[90mv1.0.1: Early Accses[97m
 net use Y: /delete
 set msplash=y
 set nsplash=y
+set /a selcitem = 0
 
 FOR /F "usebackq tokens=3*" %%A IN (`REG QUERY "HKCU\Console" /v QuickEdit`) DO (
   set quickEditSetting=%%A %%B
