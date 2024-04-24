@@ -2532,7 +2532,7 @@ if %armortype% EQU Steel set /a dmgnpc=%dmgnpc%-10
 if %armortype% EQU Titanium set /a  dmgnpc=%dmgnpc%-25
 if %armortype% EQU Platinum set /a  dmgnpc=%dmgnpc%-100
 if %armortype% EQU Furr set /a dmgnpc=%dmgnpc%-
-
+ 
 if %dmgnpc% LSS 0 set dmgnpc=0
 
 cls
