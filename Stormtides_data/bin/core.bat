@@ -2526,9 +2526,12 @@ if %npcstat% EQU Strong set /a dmgnpc=%damage%+50
 if %npcstat% EQU [31mINVERTED[0m set /a dmgnpc=20000
 if %npctype% EQU Dungeon-Duck set npcstat=[31mINVERTED[0m
 
-if %armortype% EQU Steel set /a dmgnpc=%dmgnpc%-8
+if %armortype% EQU Leather set /a dmgnpc=%dmgnpc%-2
+if %armortype% EQU Hide set /a dmgnpc=%dmgnpc%-6
+if %armortype% EQU Steel set /a dmgnpc=%dmgnpc%-10
 if %armortype% EQU Titanium set /a  dmgnpc=%dmgnpc%-25
 if %armortype% EQU Platinum set /a  dmgnpc=%dmgnpc%-100
+if %armortype% EQU Furr set /a dmgnpc=%dmgnpc%-
 
 if %dmgnpc% LSS 0 set dmgnpc=0
 
